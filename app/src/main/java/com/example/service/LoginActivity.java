@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
 
-    EditText etUsername;
+    EditText etEmail;
     EditText etPassword;
     Button btnLogin;
     Button btnRegister;
@@ -42,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
             goMainActivity();
         }
 
-        etUsername = findViewById(R.id.login_username);
+        etEmail = findViewById(R.id.login_email);
         etPassword = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.login_button);
         btnRegister = findViewById(R.id.login_register);
@@ -50,24 +49,33 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = etUsername.getText().toString();
+                String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
-                loginUser(username, password);
+                loginUser(email, password);
             }
         });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = etUsername.getText().toString();
+                String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
-                registerUser(username, password);
+                if (validUser(email, password)) {
+                    registerUser(email, password);
+                }
             }
         });
 
+    }
 
+    private boolean validUser(String email, String password) {
+        if (password.length() < 6) {
+            Toast.makeText(LoginActivity.this, "Your password must be at least 6 characters long.", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
     private void loginUser(String email, String password) {
@@ -77,15 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.i(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, " succcess.",
-                                    Toast.LENGTH_SHORT).show();
+                            goMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.e(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Invalid email/password. Please try again.", Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
@@ -100,13 +105,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.i(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            goMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.e(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
                         }
 
                         // ...
