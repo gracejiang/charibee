@@ -17,31 +17,24 @@
         android:textStyle="bold"
         android:text="@string/app_name"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:id="@+id/login_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:hint="Email" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
         android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text=""
+        android:hint="Password" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/login_button"
@@ -51,6 +44,18 @@
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
         android:text="Login"
+        android:textColor="#FFFFFF"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp" />
+
+    <Button
+        android:id="@+id/login_register"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:text="Register"
         android:textColor="#FFFFFF"
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp" />

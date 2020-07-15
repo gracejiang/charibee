@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ProfileFragment">
+    tools:context=".fragments.ProfileFragment">
 
     <TextView
+        android:id="@+id/profile_username"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="profile fragment" />
+        android:text="Welcome back!" />
 
 </FrameLayout>

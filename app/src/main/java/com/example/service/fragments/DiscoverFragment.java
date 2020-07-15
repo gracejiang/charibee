@@ -1,4 +1,4 @@
-package com.example.service.Fragments;
+package com.example.service.fragments;
 
 import android.os.Bundle;
 
