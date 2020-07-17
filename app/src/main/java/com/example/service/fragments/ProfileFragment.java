@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.service.R;
 import com.example.service.WelcomeActivity;
-import com.parse.Parse;
 import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
@@ -38,12 +37,14 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
+        String name = (String) currentUser.get("firstName");
 
         // find views
         tvName = view.findViewById(R.id.profile_name);
         btnLogout = view.findViewById(R.id.profile_logout_btn);
 
-        final String name;
+        // set text
+        tvName.setText("Welcome back, " + name + "!");
 
         // logout button clicked
         btnLogout.setOnClickListener(new View.OnClickListener() {

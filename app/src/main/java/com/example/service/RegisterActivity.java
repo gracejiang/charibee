@@ -24,9 +24,11 @@ public class RegisterActivity extends AppCompatActivity {
     // ui views
     private EditText etFirstName;
     private EditText etLastName;
+    private EditText etUsername;
     private EditText etEmail;
     private EditText etPassword;
     private EditText etPasswordConfirm;
+
     // add spinner later
     private Button btnRegister;
 
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         // binds ui elements
         etFirstName = findViewById(R.id.register_first_name);
         etLastName = findViewById(R.id.register_last_name);
+        etUsername = findViewById(R.id.register_username);
         etEmail = findViewById(R.id.register_email);
         etPassword = findViewById(R.id.register_password);
         etPasswordConfirm = findViewById(R.id.register_password_confirm);
@@ -49,20 +52,21 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String firstName = etFirstName.getText().toString();
                 String lastName = etLastName.getText().toString();
+                String username = etUsername.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String passwordConfirm = etPasswordConfirm.getText().toString();
 
-                if (validRegisterUser(firstName, lastName, email, password, passwordConfirm)) {
-                    registerUser(firstName, lastName, email, password);
+                if (validRegisterUser(firstName, lastName, username, email, password, passwordConfirm)) {
+                    registerUser(firstName, lastName, username, email, password);
                 }
             }
         });
     }
 
     // checks if fields are valid to register
-    private boolean validRegisterUser(String firstName, String lastName, String email, String password, String passwordConfirm) {
-        if (firstName.length() == 0 || lastName.length() == 0 || email.length() == 0 || password.length() == 0 || passwordConfirm.length() == 0) {
+    private boolean validRegisterUser(String firstName, String lastName, String username, String email, String password, String passwordConfirm) {
+        if (firstName.length() == 0 || lastName.length() == 0 || username.length() == 0 || email.length() == 0 || password.length() == 0 || passwordConfirm.length() == 0) {
             makeMessage("Please make sure all fields are filled out.");
             return false;
         } else if (!isEmail(email)) {
@@ -70,22 +74,20 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (!password.equals(passwordConfirm)) {
             makeMessage("Please make sure your passwords match.");
             return false;
-        } else if (password.length() < 6) {
-            makeMessage("Your password must be at least 6 characters long.");
-            return false;
         }
         return true;
     }
 
     // registers a new user
-    private void registerUser(final String firstName, final String lastName, String email, String password) {
+    private void registerUser(final String firstName, final String lastName, String username, String email, String password) {
         ParseUser user = new ParseUser();
-        user.setUsername("");
+        user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
 
         user.put("firstName", firstName);
         user.put("lastName", lastName);
+        user.put("numPoints", 0);
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
