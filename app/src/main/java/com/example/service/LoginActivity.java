@@ -15,11 +15,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
-    private FirebaseAuth mAuth;
 
     // ui views
     private EditText etEmail;
@@ -30,9 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // initialize firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
 
         // binds ui elements
         etEmail = findViewById(R.id.login_email);
@@ -68,17 +67,14 @@ public class LoginActivity extends AppCompatActivity {
 
     // logs the user in
     private void loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-            if (task.isSuccessful()) {
-                // signs in user
-                goMainActivity();
-            } else {
-                // sign in failure
-                Log.e(TAG, "signInWithEmail:failure", task.getException());
-                Toast.makeText(LoginActivity.this, "Invalid email/password. Please try again.", Toast.LENGTH_SHORT).show();
-            }
+
+        ParseUser.logInInBackground(email, password, new LogInCallback() {
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    goMainActivity();
+                } else {
+                    makeMessage("Invalid username or password. Please try again.");
+                }
             }
         });
     }

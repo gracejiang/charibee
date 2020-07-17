@@ -11,24 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
     public static final String TAG = "RegisterActivity";
-    private FirebaseAuth mAuth;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference rootRef = database.getReference();
-    private DatabaseReference usersRef = rootRef.child("users");
 
     // ui views
     private EditText etFirstName;
@@ -43,9 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        // initialize firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
 
         // binds ui elements
         etFirstName = findViewById(R.id.register_first_name);
@@ -91,29 +79,21 @@ public class RegisterActivity extends AppCompatActivity {
 
     // registers a new user
     private void registerUser(final String firstName, final String lastName, String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    // registration success
-                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                    String userId = currentUser.getUid();
+        ParseUser user = new ParseUser();
+        user.setUsername("");
+        user.setPassword(password);
+        user.setEmail(email);
 
-                    // add user to database
-                    DatabaseReference userRef = usersRef.child(userId);
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
 
-                    // add in custom fields
-                    userRef.child("firstName").setValue(firstName);
-                    userRef.child("lastName").setValue(lastName);
-                    userRef.child("numPoints").setValue(0);
-                    userRef.child("profilePicUrl").setValue("");
-
-                    // go to main activity
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
                     goMainActivity();
                 } else {
-                    // registration failed
-                    Log.e(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(RegisterActivity.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, String.valueOf(e));
+                    makeMessage("There was a problem with your registration. Please try again.");
                 }
             }
         });

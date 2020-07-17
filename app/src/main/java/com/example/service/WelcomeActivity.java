@@ -2,14 +2,12 @@ package com.example.service;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.parse.ParseUser;
 
 /*
  *  First screen that users see
@@ -19,8 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-
     private Button btnLogin;
     private Button btnRegister;
 
@@ -29,11 +25,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        // initialize firebase auth instance
-        mAuth = FirebaseAuth.getInstance();
-
         // check if user is already logged in
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
             goMainActivity();
         }

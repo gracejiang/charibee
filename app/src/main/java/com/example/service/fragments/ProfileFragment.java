@@ -16,22 +16,10 @@ import android.widget.TextView;
 
 import com.example.service.R;
 import com.example.service.WelcomeActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.parse.Parse;
+import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference rootRef = database.getReference();
-    private DatabaseReference userRef;
 
     private TextView tvName;
     private Button btnLogout;
@@ -49,10 +37,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // get current user
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        userRef = rootRef.child("users").child(currentUser.getUid());
+        ParseUser currentUser = ParseUser.getCurrentUser();
 
         // find views
         tvName = view.findViewById(R.id.profile_name);
@@ -60,23 +45,11 @@ public class ProfileFragment extends Fragment {
 
         final String name;
 
-        // set user specific info
-        userRef.child("firstName").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snap) {
-                name = (String) snap.getValue();
-                tvName.setText("Welcome back, " + snap.getValue() + "!");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
-        });
-
         // logout button clicked
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signOut();
+                ParseUser.logOut();
                 goWelcomeActivity();
             }
         });
