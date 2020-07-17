@@ -2,6 +2,7 @@ package com.example.service;
 
 import android.app.Application;
 
+import com.example.service.models.Organization;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -16,12 +17,10 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        // configuration
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        builder.networkInterceptors().add(httpLoggingInterceptor);
+        // register models
+        ParseObject.registerSubclass(Organization.class);
 
+        // configuration
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("grac-service") // should correspond to APP_ID env variable
                 .clientKey("masterKeyMasterMeme101")  // set explicitly unless clientKey is explicitly configured on Parse server

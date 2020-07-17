@@ -1,7 +1,8 @@
-package com.example.service.models;
+package com.example.service;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.service.R;
+import com.example.service.models.Organization;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -60,14 +61,21 @@ public class NewOrganizationActivity extends AppCompatActivity {
         return true;
     }
 
-    private void registerOrganization(String name, String description, String category) {
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        Organization org = new Organization(name, description, category, currentUser);
+    private void registerOrganization(final String name, String description, String category) {
+        Organization org = new Organization();
+
+        // set object values
+        org.setName(name);
+        org.setDescription(description);
+        org.setOrganizer(ParseUser.getCurrentUser());
+        org.setCategory(category);
+
         org.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-
+                    Log.i(TAG, name + " was registered");
+                    goMainActivity();
                 } else {
                     Log.e(TAG, "Error will saving", e);
                     makeMessage("There was an error registering your organization. Please try again later.");
@@ -76,6 +84,14 @@ public class NewOrganizationActivity extends AppCompatActivity {
         });
     }
 
+    // goes to main activity
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    // displays message to user
     private void makeMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

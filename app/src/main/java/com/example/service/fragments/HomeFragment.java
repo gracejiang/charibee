@@ -12,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.service.MainActivity;
 import com.example.service.R;
-import com.example.service.models.NewOrganizationActivity;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.service.NewOrganizationActivity;
 
 public class HomeFragment extends Fragment {
 
