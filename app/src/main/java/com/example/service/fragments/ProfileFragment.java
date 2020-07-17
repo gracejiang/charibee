@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.service.EditProfileActivity;
 import com.example.service.R;
 import com.example.service.WelcomeActivity;
 import com.parse.ParseFile;
@@ -30,6 +31,7 @@ public class ProfileFragment extends Fragment {
     private ImageView ivAvatar;
     private TextView tvFullName;
     private TextView tvUsername;
+    private Button btnEditProfile;
     private Button btnLogout;
 
     public ProfileFragment() {
@@ -43,6 +45,7 @@ public class ProfileFragment extends Fragment {
         ivAvatar = view.findViewById(R.id.profile_avatar_iv);
         tvFullName = view.findViewById(R.id.profile_fullname);
         tvUsername = view.findViewById(R.id.profile_username);
+        btnEditProfile = view.findViewById(R.id.profile_edit_btn);
         btnLogout = view.findViewById(R.id.profile_logout_btn);
 
         return view;
@@ -73,6 +76,14 @@ public class ProfileFragment extends Fragment {
         tvFullName.setText(firstName + " " + lastName);
         tvUsername.setText("@" + username);
 
+        // edit profile button clicked
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goEditProfileActivity();
+            }
+        });
+
         // logout button clicked
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +94,13 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    // go to welcome activity when log out button clicked
+    // go to edit profile activity
+    private void goEditProfileActivity() {
+        Intent i = new Intent(getContext(), EditProfileActivity.class);
+        startActivity(i);
+    }
+
+    // go to welcome activity
     private void goWelcomeActivity() {
         Intent i = new Intent(getContext(), WelcomeActivity.class);
         startActivity(i);
