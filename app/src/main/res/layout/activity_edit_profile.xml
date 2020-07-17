@@ -7,15 +7,26 @@
     android:orientation="vertical"
     tools:context=".EditProfileActivity">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/edit_profile_avatar_preview"
+
+        <androidx.cardview.widget.CardView
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:elevation="12dp"
+            app:cardCornerRadius="150dp"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:id="@+id/edit_profile_avatar_preview"
+                android:layout_height="150dp"
+                android:layout_width="150dp"
+                android:scaleType="centerCrop"
+                android:layout_centerHorizontal="true"
+                tools:srcCompat="@tools:sample/avatars"/>
+        </androidx.cardview.widget.CardView>
+        
     </RelativeLayout>
 
     <Button

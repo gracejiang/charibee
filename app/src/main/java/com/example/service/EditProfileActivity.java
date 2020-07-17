@@ -25,7 +25,10 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -41,7 +44,7 @@ public class EditProfileActivity extends AppCompatActivity {
     // camera variables
     private boolean updatedPfp = false;
     private File photoFile;
-    private String photoFileName = "pic.jpg";
+    private String photoFileName;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 
 
@@ -51,6 +54,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         currentUser = ParseUser.getCurrentUser();
+        photoFileName = currentUser.getUsername() + "_avatar.jpg";
 
         // bind ui views
         ivAvatarPreview = findViewById(R.id.edit_profile_avatar_preview);
@@ -134,6 +138,21 @@ public class EditProfileActivity extends AppCompatActivity {
         Bitmap rawTakenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
         // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
         Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, 300);
+        // Configure byte output stream
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        // Compress the image further
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+        // Create a new file for the resized bitmap (`getPhotoFileUri` defined above)
+        File resizedFile = getPhotoFileUri(photoFileName + "_resized");
+        try {
+            resizedFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(resizedFile);
+            fos.write(bytes.toByteArray());
+            fos.close();
+            return resizedFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -157,7 +176,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // updated pfp?
         if (updatedPfp) {
-            currentUser.put("profilePic", new ParseFile(photoFile));
+            File resizedPicture = resizePicture();
+            currentUser.put("profilePic", new ParseFile(resizedPicture));
         }
 
         currentUser.saveInBackground(new SaveCallback() {
