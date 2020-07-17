@@ -26,7 +26,7 @@
                 android:layout_centerHorizontal="true"
                 tools:srcCompat="@tools:sample/avatars"/>
         </androidx.cardview.widget.CardView>
-        
+
     </RelativeLayout>
 
     <Button
@@ -36,13 +36,21 @@
         android:text="Update Profile Picture" />
 
     <EditText
-        android:id="@+id/edit_profile_name"
+        android:id="@+id/edit_profile_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Username"/>
 
+    <EditText
+        android:id="@+id/edit_profile_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Bio"/>
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

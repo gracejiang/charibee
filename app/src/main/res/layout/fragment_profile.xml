@@ -39,10 +39,20 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="4dp"
-            android:text="@username"
+            android:text="\@username"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/profile_avatar_iv"
             app:layout_constraintTop_toBottomOf="@+id/profile_fullname" />
+
+        <TextView
+            android:id="@+id/profile_bio"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:text="Bio"
+            app:layout_constraintStart_toEndOf="@+id/profile_avatar_iv"
+            app:layout_constraintTop_toBottomOf="@+id/profile_username" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -51,6 +61,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Edit Profile" />
+
+    <Button
+        android:id="@+id/profile_settings_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Account Settings" />
+
 
     <Button
         android:id="@+id/profile_logout_btn"

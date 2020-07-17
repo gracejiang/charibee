@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.service.SettingsActivity;
 import com.example.service.EditProfileActivity;
 import com.example.service.R;
 import com.example.service.WelcomeActivity;
@@ -31,7 +32,9 @@ public class ProfileFragment extends Fragment {
     private ImageView ivAvatar;
     private TextView tvFullName;
     private TextView tvUsername;
+    private TextView tvBio;
     private Button btnEditProfile;
+    private Button btnUpdateSettings;
     private Button btnLogout;
 
     public ProfileFragment() {
@@ -45,7 +48,9 @@ public class ProfileFragment extends Fragment {
         ivAvatar = view.findViewById(R.id.profile_avatar_iv);
         tvFullName = view.findViewById(R.id.profile_fullname);
         tvUsername = view.findViewById(R.id.profile_username);
+        tvBio = view.findViewById(R.id.profile_bio);
         btnEditProfile = view.findViewById(R.id.profile_edit_btn);
+        btnUpdateSettings = view.findViewById(R.id.profile_settings_btn);
         btnLogout = view.findViewById(R.id.profile_logout_btn);
 
         return view;
@@ -60,6 +65,7 @@ public class ProfileFragment extends Fragment {
         String firstName = (String) currentUser.get("firstName");
         String lastName = (String) currentUser.get("lastName");
         String username = currentUser.getUsername();
+        String bio = currentUser.get("bio").toString();
 
         // set profile pic
         ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
@@ -75,12 +81,21 @@ public class ProfileFragment extends Fragment {
         // set text
         tvFullName.setText(firstName + " " + lastName);
         tvUsername.setText("@" + username);
+        tvBio.setText(bio);
 
         // edit profile button clicked
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goEditProfileActivity();
+            }
+        });
+
+        // settings button clicked
+        btnUpdateSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goSettingsActivity();
             }
         });
 
@@ -97,6 +112,12 @@ public class ProfileFragment extends Fragment {
     // go to edit profile activity
     private void goEditProfileActivity() {
         Intent i = new Intent(getContext(), EditProfileActivity.class);
+        startActivity(i);
+    }
+
+    // go to settings activity
+    private void goSettingsActivity() {
+        Intent i = new Intent(getContext(), SettingsActivity.class);
         startActivity(i);
     }
 

@@ -16,7 +16,9 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.service.fragments.ProfileFragment;
@@ -29,6 +31,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -38,6 +41,8 @@ public class EditProfileActivity extends AppCompatActivity {
     // ui views
     private ImageView ivAvatarPreview;
     private Button btnEditAvatar;
+    private EditText etUsername;
+    private EditText etBio;
     private Button btnCancel;
     private Button btnSave;
 
@@ -59,6 +64,8 @@ public class EditProfileActivity extends AppCompatActivity {
         // bind ui views
         ivAvatarPreview = findViewById(R.id.edit_profile_avatar_preview);
         btnEditAvatar = findViewById(R.id.edit_profile_update_avatar_btn);
+        etUsername = findViewById(R.id.edit_profile_username);
+        etBio = findViewById(R.id.edit_profile_bio);
         btnCancel = findViewById(R.id.edit_profile_cancel_btn);
         btnSave = findViewById(R.id.edit_profile_save_btn);
 
@@ -74,7 +81,15 @@ public class EditProfileActivity extends AppCompatActivity {
             Log.e(TAG, "couldn't load profile pic");
         }
 
-        // upload new profile pic
+        // load in text views
+        etUsername.setText(currentUser.getUsername());
+        String bio = currentUser.get("bio").toString();
+
+        if (!bio.equals(" ")) {
+            etBio.setText(bio);
+        }
+
+        // upload new profile pic clicked
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,13 +109,27 @@ public class EditProfileActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveProfile();
-                goProfileFragment();
+                if (validFields()) {
+                    saveProfile();
+                    goProfileFragment();
+                }
             }
         });
     }
 
+    private boolean validFields() {
+        if (etUsername.getText().length() == 0) {
+            makeMessage("Please enter in a valid username.");
+            return false;
+        } else if (etBio.getText().length() > 120) {
+            makeMessage("Your bio cannot exceed 120 characters.");
+            return false;
+        }
+        return true;
+    }
+
     // CAMERA ACTIVITY
+    // https://guides.codepath.org/android/Accessing-the-Camera-and-stored-media
 
     // launch camera application to take pic
     private void launchCamera() {
@@ -130,14 +159,13 @@ public class EditProfileActivity extends AppCompatActivity {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
-    // look more into this later for smaller file size
-    // https://guides.codepath.org/android/Accessing-the-Camera-and-stored-media
-    private File resizePicture() {
+    // resizes picture
+    private File resizePicture(int width) {
         Uri takenPhotoUri = Uri.fromFile(getPhotoFileUri(photoFileName));
         // by this point we have the camera photo on disk
         Bitmap rawTakenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
         // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
-        Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, 300);
+        Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, width);
         // Configure byte output stream
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         // Compress the image further
@@ -176,8 +204,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // updated pfp?
         if (updatedPfp) {
-            File resizedPicture = resizePicture();
+            File resizedPicture = resizePicture(300);
             currentUser.put("profilePic", new ParseFile(resizedPicture));
+        }
+
+        currentUser.setUsername(etUsername.getText().toString());
+        String bio = etBio.getText().toString();
+        if (!bio.equals("")) {
+            currentUser.put("bio", bio);
+        } else {
+            currentUser.put("bio", " ");
         }
 
         currentUser.saveInBackground(new SaveCallback() {
@@ -218,5 +254,23 @@ public class EditProfileActivity extends AppCompatActivity {
 
         String httpsUrl = "https" + url.substring(4);
         return httpsUrl;
+    }
+
+    // checks if an email is valid
+    private static boolean isEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
+    }
+
+    // shows user a message
+    private void makeMessage(String message) {
+        Toast.makeText(EditProfileActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -88,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("firstName", firstName);
         user.put("lastName", lastName);
         user.put("numPoints", 0);
+        user.put("bio", " ");
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

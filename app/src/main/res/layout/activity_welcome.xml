@@ -20,7 +20,9 @@
         android:id="@+id/welcome_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#4CAF50"
         android:text="Login"
+        android:textColor="#FFFFFF"
         tools:layout_editor_absoluteX="44dp"
         tools:layout_editor_absoluteY="650dp" />
 
@@ -28,7 +30,9 @@
         android:id="@+id/welcome_register_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#2196F3"
         android:text="Register"
+        android:textColor="#FFFFFF"
         tools:layout_editor_absoluteX="286dp"
         tools:layout_editor_absoluteY="650dp" />
 </LinearLayout>
