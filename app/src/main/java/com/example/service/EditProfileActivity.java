@@ -39,6 +39,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private Button btnSave;
 
     // camera variables
+    private boolean updatedPfp = false;
     private File photoFile;
     private String photoFileName = "pic.jpg";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
@@ -146,23 +147,28 @@ public class EditProfileActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 ivAvatarPreview.setImageBitmap(takenImage);
+                updatedPfp = true;
             }
         }
     }
 
     // save profile info
     private void saveProfile() {
-        Log.i(TAG, "this is being reached");
-        currentUser.put("profilePic", new ParseFile(photoFile));
+
+        // updated pfp?
+        if (updatedPfp) {
+            currentUser.put("profilePic", new ParseFile(photoFile));
+        }
+
         currentUser.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
                     // error while posting pic
-                    Log.e(TAG, "Error while posting your picture", e);
+                    Log.e(TAG, "error updating your profile", e);
                     return;
                 } else {
-                    Log.i(TAG, "profile pic updated!");
+                    Log.i(TAG, "profile successfully updated!");
                 }
             }
         });
