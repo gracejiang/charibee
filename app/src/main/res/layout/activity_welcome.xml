@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".WelcomeActivity">
 
     <TextView
-        android:id="@+id/profile_name"
+        android:id="@+id/login_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome back!"
         android:textAlignment="center"
-        android:textSize="24sp" />
-
-
-    <Button
-        android:id="@+id/profile_edit_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile" />
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:text="@string/app_name"/>
 
     <Button
-        android:id="@+id/profile_logout_btn"
+        android:id="@+id/welcome_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log Out" />
+        android:text="Login"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="650dp" />
 
+    <Button
+        android:id="@+id/welcome_register_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        tools:layout_editor_absoluteX="286dp"
+        tools:layout_editor_absoluteY="650dp" />
 </LinearLayout>

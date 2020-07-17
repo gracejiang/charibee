@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:text="@string/app_name"/>
-
     <EditText
         android:id="@+id/login_email"
         android:layout_width="match_parent"
@@ -36,25 +27,13 @@
 
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/login_submit_btn"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="12dp"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
         android:text="Login"
-        android:textColor="#FFFFFF"
-        android:topLeftRadius="10dp"
-        android:topRightRadius="10dp" />
-
-    <Button
-        android:id="@+id/login_register"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="12dp"
-        android:bottomLeftRadius="10dp"
-        android:bottomRightRadius="10dp"
-        android:text="Register"
         android:textColor="#FFFFFF"
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp" />
