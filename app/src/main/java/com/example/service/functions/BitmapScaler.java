@@ -1,6 +1,19 @@
-package com.example.service;
+package com.example.service.functions;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.service.R;
+import com.example.service.models.Organization;
+
+import java.util.List;
 
 public class BitmapScaler {
     // scale and keep aspect ratio
@@ -38,4 +51,5 @@ public class BitmapScaler {
         return Bitmap.createScaledBitmap(b, (int) (b.getWidth() * factorW),
                 (int) (b.getHeight() * factorH), true);
     }
+
 }

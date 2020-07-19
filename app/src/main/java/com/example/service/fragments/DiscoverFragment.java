@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.service.OrgsAdapter;
 import com.example.service.R;
+import com.example.service.functions.OrgsAdapter;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -82,7 +82,7 @@ public class DiscoverFragment extends Fragment {
                 }
 
                 for (Organization org : orgs) {
-                    Log.i(TAG, org.getName());
+                    // Log.i(TAG, org.getName());
                 }
 
                 allOrgs.addAll(orgs);
@@ -91,8 +91,6 @@ public class DiscoverFragment extends Fragment {
             }
         });
     }
-
-
 
 
 }

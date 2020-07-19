@@ -3,8 +3,6 @@ package com.example.service;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.service.fragments.ProfileFragment;
+import com.example.service.functions.BitmapScaler;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
