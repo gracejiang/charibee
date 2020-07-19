@@ -2,6 +2,7 @@ package com.example.service;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
     // ui views
     private EditText etNewPassword;
     private EditText etConfirmNewPassword;
+    private Button btnCancel;
     private Button btnSave;
 
     @Override
@@ -31,7 +33,16 @@ public class SettingsActivity extends AppCompatActivity {
         // bind ui views
         etNewPassword = findViewById(R.id.settings_new_password);
         etConfirmNewPassword = findViewById(R.id.settings_confirm_new_password);
+        btnCancel = findViewById(R.id.settings_cancel_btn);
         btnSave = findViewById(R.id.settings_save_btn);
+
+        // when cancel buton clicked
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goProfileFragment();
+            }
+        });
 
         // when save button clicked
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +54,8 @@ public class SettingsActivity extends AppCompatActivity {
 
                 if (validPasswords(newPassword, confirmPassworld)) {
                     updatePassword(newPassword);
+                    goProfileFragment();
+                    makeMessage("Your password was updated.");
                 }
             }
         });
@@ -66,5 +79,12 @@ public class SettingsActivity extends AppCompatActivity {
     // shows user a message
     private void makeMessage(String message) {
         Toast.makeText(SettingsActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // return to profile fragment
+    private void goProfileFragment() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
