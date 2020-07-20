@@ -71,4 +71,8 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
 
+    // maps
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
 }

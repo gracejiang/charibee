@@ -33,6 +33,7 @@ public class DiscoverFragment extends Fragment {
 
     // data source
     private List<Organization> allOrgs = new ArrayList<>();
+    private List<Organization> currOrgs = new ArrayList<>();
 
     // ui views
     private EditText etSearch;
@@ -59,11 +60,36 @@ public class DiscoverFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // recycler view adapter
-        adapter = new OrgsAdapter(getContext(), allOrgs); // (1) create adapter
-        rvOrgs.setAdapter(adapter); // (2) set adapter on rv
-        rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
+        updateMovieAdapter(allOrgs);
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchPhrase = etSearch.getText().toString();
+                updateMovieAdapter(search(searchPhrase));
+            }
+        });
 
         queryOrgs();
+    }
+
+    // search for specific organization
+    private List<Organization> search(String phrase) {
+        List<Organization> searchResults = new ArrayList<>();
+        for (Organization org : allOrgs) {
+            if (org.getName().toLowerCase().contains(phrase)) {
+                searchResults.add(org);
+            }
+        }
+        return searchResults;
+    }
+
+    // update org adapter given list of organizations
+    private void updateMovieAdapter(List<Organization> orgsList) {
+        adapter = new OrgsAdapter(getContext(), orgsList); // (1) create adapter
+        rvOrgs.setAdapter(adapter); // (2) set adapter on rv
+        rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
+        adapter.notifyDataSetChanged();
     }
 
     // retrieve orgs from parse database
@@ -91,6 +117,8 @@ public class DiscoverFragment extends Fragment {
             }
         });
     }
+
+
 
 
 }
