@@ -79,9 +79,9 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
     private void joinOrganization() {
         ParseUser currentUser = ParseUser.getCurrentUser();
-        List<Organization> orgs = new ArrayList<>();
-        orgs.add(org);
-        currentUser.put("orgs", orgs);
+        List<Organization> orgsList = new ArrayList<>();
+        orgsList.add(org);
+        currentUser.put("orgsJoined", orgsList);
         Log.i(TAG, "successfully joined");
     }
 

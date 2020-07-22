@@ -21,12 +21,15 @@ import com.example.service.SettingsActivity;
 import com.example.service.EditProfileActivity;
 import com.example.service.R;
 import com.example.service.WelcomeActivity;
+import com.example.service.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileFragment";
+
+    User user;
 
     // ui views
     private ImageView ivAvatar;
@@ -62,10 +65,12 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ParseUser currentUser = ParseUser.getCurrentUser();
+        user = new User(currentUser);
+
         String firstName = (String) currentUser.get("firstName");
         String lastName = (String) currentUser.get("lastName");
         String username = currentUser.getUsername();
-        String bio = currentUser.get("bio").toString();
+        String bio = user.getBio();
 
         // set profile pic
         ParseFile profilePic = (ParseFile) currentUser.get("profilePic");

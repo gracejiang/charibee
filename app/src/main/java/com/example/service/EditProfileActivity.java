@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.service.functions.BitmapScaler;
+import com.example.service.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -35,6 +36,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public static final String TAG = "EditProfileActivity";
     private ParseUser currentUser;
+    private User user;
 
     // ui views
     private ImageView ivAvatarPreview;
@@ -57,6 +59,7 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         currentUser = ParseUser.getCurrentUser();
+        user = new User(currentUser);
         photoFileName = currentUser.getUsername() + "_avatar.jpg";
 
         // bind ui views
@@ -81,11 +84,9 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // load in text views
         etUsername.setText(currentUser.getUsername());
-        String bio = currentUser.get("bio").toString();
+        String bio = user.getBio();
 
-        if (!bio.equals(" ")) {
-            etBio.setText(bio);
-        }
+        etBio.setText(bio);
 
         // upload new profile pic clicked
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {
@@ -207,12 +208,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         currentUser.setUsername(etUsername.getText().toString());
-        String bio = etBio.getText().toString();
-        if (!bio.equals("")) {
-            currentUser.put("bio", bio);
-        } else {
-            currentUser.put("bio", " ");
-        }
+        user.setBio(etBio.getText().toString());
 
         currentUser.saveInBackground(new SaveCallback() {
             @Override

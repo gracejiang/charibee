@@ -1,5 +1,6 @@
 package com.example.service.models;
 
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
@@ -32,19 +33,28 @@ public class User {
     }
 
     public String getBio() {
-        return user.getString(KEY_BIO);
+        String bio = user.getString(KEY_BIO);
+        if (bio == null) {
+            return "";
+        }
+        return bio;
     }
 
     public void setBio(String bio) {
-        user.put(KEY_BIO, bio);
+        if (bio != null && bio.length() > 0) {
+            user.put(KEY_BIO, bio);
+        }
     }
 
     public List<Organization> getOrgs() {
-        List<Organization> orgs = new ArrayList<>();
+        List<ParseObject> orgs = new ArrayList<>();
         JSONArray orgsJsonArray = user.getJSONArray("orgs");
 
+        // TODO
+        // do json array conversion to organizations here
+        // http://docs.parseplatform.org/android/guide/#one-to-many
 
-        return orgs;
+        return new ArrayList<>();
     }
 
 }
