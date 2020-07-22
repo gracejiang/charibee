@@ -35,4 +35,10 @@
         android:layout_height="wrap_content"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/org_details_join_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Join Organization" />
+
 </LinearLayout>

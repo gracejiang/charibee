@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.service.models.Organization;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -89,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("lastName", lastName);
         user.put("numPoints", 0);
         user.put("bio", " ");
+        user.put("orgsJoined", new ArrayList<Organization>());
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

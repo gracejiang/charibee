@@ -3,13 +3,19 @@ package com.example.service;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.service.models.Organization;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrganizationDetailsActivity extends AppCompatActivity {
 
@@ -22,6 +28,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvCategory;
     private TextView tvDescription;
     private TextView tvOrganizer;
+    private TextView btnJoinOrg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +42,17 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvCategory = findViewById(R.id.org_details_category);
         tvDescription = findViewById(R.id.org_details_description);
         tvOrganizer = findViewById(R.id.org_details_organizer);
+        btnJoinOrg = findViewById(R.id.org_details_join_btn);
 
         setOrgValues();
+
+        // when join org button pressed
+        btnJoinOrg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                joinOrganization();
+            }
+        });
     }
 
     // set orgs values to ui views
@@ -61,8 +77,12 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvOrganizer.setText(organizerText);
     }
 
-    private void testType() {
-
+    private void joinOrganization() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        List<Organization> orgs = new ArrayList<>();
+        orgs.add(org);
+        currentUser.put("orgs", orgs);
+        Log.i(TAG, "successfully joined");
     }
 
 }

@@ -60,13 +60,13 @@ public class DiscoverFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // recycler view adapter
-        updateMovieAdapter(allOrgs);
+        upadateAdapter(allOrgs);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String searchPhrase = etSearch.getText().toString();
-                updateMovieAdapter(search(searchPhrase));
+                upadateAdapter(search(searchPhrase));
             }
         });
 
@@ -85,7 +85,7 @@ public class DiscoverFragment extends Fragment {
     }
 
     // update org adapter given list of organizations
-    private void updateMovieAdapter(List<Organization> orgsList) {
+    private void upadateAdapter(List<Organization> orgsList) {
         adapter = new OrgsAdapter(getContext(), orgsList); // (1) create adapter
         rvOrgs.setAdapter(adapter); // (2) set adapter on rv
         rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
