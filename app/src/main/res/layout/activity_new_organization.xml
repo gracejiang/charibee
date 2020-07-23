@@ -30,13 +30,10 @@
         android:hint="Enter a description for your organization."
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/new_org_category"
+    <Spinner
+        android:id="@+id/new_org_spinner_categories"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Category"
-        android:inputType="textPersonName" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/new_org_submit_btn"

@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.service.functions.RoleSpinnerClass;
 import com.example.service.models.Organization;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -30,8 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private EditText etPasswordConfirm;
-
-    // add spinner later
+    private Spinner spinnerRole;
     private Button btnRegister;
 
     @Override
@@ -46,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.register_email);
         etPassword = findViewById(R.id.register_password);
         etPasswordConfirm = findViewById(R.id.register_password_confirm);
+        spinnerRole = findViewById(R.id.register_role_spinner);
         btnRegister = findViewById(R.id.register_submit_btn);
 
         // register new user
@@ -64,6 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        createRoleAdapter();
     }
 
     // checks if fields are valid to register
@@ -128,6 +133,14 @@ public class RegisterActivity extends AppCompatActivity {
     // shows user a message
     private void makeMessage(String message) {
         Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // create spinner for role options
+    private void createRoleAdapter() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.role_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRole.setAdapter(adapter);
+        spinnerRole.setOnItemSelectedListener(new RoleSpinnerClass());
     }
 
 }

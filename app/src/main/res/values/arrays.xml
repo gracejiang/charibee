@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="role_options">
+        <item>Volunteer</item>
+        <item>Organizer</item>
+    </string-array>
+
+    <string-array name="categories">
+        <item>Animals</item>
+        <item>Education</item>
+        <item>Elderly</item>
+        <item>Environmental</item>
+        <item>Fundraising</item>
+        <item>Homeless</item>
+        <item>International</item>
+        <item>Misc</item>
+        <item>Research</item>
+        <item>Special Needs</item>
+        <item>Technology</item>
+    </string-array>
+</resources>

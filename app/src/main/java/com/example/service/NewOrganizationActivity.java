@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.models.Organization;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -22,7 +25,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
     // ui views
     private EditText etName;
     private EditText etDescription;
-    private EditText etCategory;
+    private Spinner spinnerCategory;
     private Button btnSubmit;
 
     @Override
@@ -33,7 +36,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
         // bind ui views
         etName = findViewById(R.id.new_org_name);
         etDescription = findViewById(R.id.new_org_description);
-        etCategory = findViewById(R.id.new_org_category);
+        spinnerCategory = findViewById(R.id.new_org_spinner_categories);
         btnSubmit = findViewById(R.id.new_org_submit_btn);
 
         // when submit button clicked
@@ -43,13 +46,17 @@ public class NewOrganizationActivity extends AppCompatActivity {
 
                 String name = etName.getText().toString();
                 String description = etDescription.getText().toString();
-                String category = etCategory.getText().toString();
+                String category = spinnerCategory.getSelectedItem().toString();
+
+                Log.i(TAG, name + " " + description + " " + category);
 
                 if (validOrganization(name, description, category)) {
                     registerOrganization(name, description, category);
                 }
             }
         });
+
+        createCategoryAdapter();
 
     }
 
@@ -82,6 +89,8 @@ public class NewOrganizationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        createCategoryAdapter();
     }
 
     // goes to main activity
@@ -94,5 +103,14 @@ public class NewOrganizationActivity extends AppCompatActivity {
     // displays message to user
     private void makeMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // create spinner for categories
+    private void createCategoryAdapter() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setOnItemSelectedListener(new CategorySpinnerClass());
     }
 }
