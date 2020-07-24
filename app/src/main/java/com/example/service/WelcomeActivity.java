@@ -55,7 +55,10 @@ public class WelcomeActivity extends AppCompatActivity {
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-        finish();
+
+        // TODO:
+
+        this.finish();
     }
 
     // goes to login activity

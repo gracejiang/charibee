@@ -89,7 +89,7 @@ public class EditProfileActivity extends AppCompatActivity {
         if (bio.length() > 0) {
             etBio.setText(bio);
         }
-        
+
         // upload new profile pic clicked
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override

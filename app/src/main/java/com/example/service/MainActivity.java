@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.service.fragments.DiscoverFragment;
@@ -14,6 +15,8 @@ import com.example.service.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TAG = "MainActivity";
 
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
@@ -53,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new ProfileFragment();
                 break;
             default:
-                fragment = null;
+                Log.e(TAG, "default case should not be hit");
+                fragment = new HomeFragment();
         }
 
         fragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragment).commit();

@@ -48,8 +48,6 @@ public class NewOrganizationActivity extends AppCompatActivity {
                 String description = etDescription.getText().toString();
                 String category = spinnerCategory.getSelectedItem().toString();
 
-                Log.i(TAG, name + " " + description + " " + category);
-
                 if (validOrganization(name, description, category)) {
                     registerOrganization(name, description, category);
                 }

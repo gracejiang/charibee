@@ -1,5 +1,8 @@
 package com.example.service.models;
 
+import android.util.Log;
+
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -10,6 +13,7 @@ import java.util.List;
 
 public class User {
 
+    public static final String TAG = "User";
     ParseUser user;
 
     public static final String KEY_FIRST_NAME = "firstName";
@@ -40,21 +44,33 @@ public class User {
         return bio;
     }
 
+    public String getUsername() {
+        try {
+            return user.fetchIfNeeded().getString("username");
+        } catch (ParseException e) {
+            Log.e(TAG, "ParseError", e);
+            return "error";
+        }
+    }
+
     public void setBio(String bio) {
         if (bio != null && bio.length() > 0) {
             user.put(KEY_BIO, bio);
         }
     }
 
-    public List<Organization> getOrgs() {
-        List<ParseObject> orgs = new ArrayList<>();
-        JSONArray orgsJsonArray = user.getJSONArray("orgs");
+    public List<Organization> getOrganizations() {
+        List<Organization> organizations = new ArrayList<>();
 
-        // TODO
-        // do json array conversion to organizations here
-        // http://docs.parseplatform.org/android/guide/#one-to-many
 
-        return new ArrayList<>();
+
+        return organizations;
+    }
+
+    public void addOrg(Organization org) {
+        List<Organization> orgsList = new ArrayList<>();
+        orgsList.add(org);
+        user.put("orgsJoined", orgsList);
     }
 
 }

@@ -78,11 +78,14 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     }
 
     private void joinOrganization() {
+        // add orgs to user class
         ParseUser currentUser = ParseUser.getCurrentUser();
-        List<Organization> orgsList = new ArrayList<>();
-        orgsList.add(org);
-        currentUser.put("orgsJoined", orgsList);
+
+        // add user to orgs class
+        org.addVolunteer(currentUser);
+
         Log.i(TAG, "successfully joined");
+
     }
 
 }
