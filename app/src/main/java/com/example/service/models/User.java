@@ -22,7 +22,10 @@ public class User {
     public static final String KEY_PROFILE_PIC = "profilePic";
     public static final String KEY_BIO = "bio";
     public static final String KEY_NUM_POINTS = "numPoints";
-    public static final String KEY_ORGS = "orgs";
+
+    public static final String KEY_ORGS_IDS = "orgsJoinedIds";
+    public static final String KEY_ORGS = "orgsJoined";
+
 
     // TODO: eventually abstract all the ParseUser.getXYZ() into User.getXYZ();
 
@@ -32,10 +35,22 @@ public class User {
         this.user = user;
     }
 
+    // get user's full name
     public String getName() {
         return user.getString(KEY_FIRST_NAME) + " " + user.getString(KEY_LAST_NAME);
     }
 
+    // get user's username
+    public String getUsername() {
+        try {
+            return user.fetchIfNeeded().getString(KEY_USERNAME);
+        } catch (ParseException e) {
+            Log.e(TAG, "ParseError", e);
+            return "error";
+        }
+    }
+
+    // get user's bio
     public String getBio() {
         String bio = user.getString(KEY_BIO);
         if (bio == null) {
@@ -44,33 +59,46 @@ public class User {
         return bio;
     }
 
-    public String getUsername() {
-        try {
-            return user.fetchIfNeeded().getString("username");
-        } catch (ParseException e) {
-            Log.e(TAG, "ParseError", e);
-            return "error";
-        }
-    }
-
+    // set user's bio
     public void setBio(String bio) {
         if (bio != null && bio.length() > 0) {
             user.put(KEY_BIO, bio);
         }
     }
 
+    // get all ids of organizations
+    public List<String> getOrganizationIds() {
+        List<String> orgIds = (List<String>) user.get(KEY_ORGS_IDS);
+        return orgIds;
+    }
+
+    // get all organizations from a user
     public List<Organization> getOrganizations() {
-        List<Organization> organizations = new ArrayList<>();
-
-
-
+        List<Organization> organizations = (List<Organization>) user.get(KEY_ORGS);
+        // uncomment for debugging purposes
+//        for (Organization org : organizations) {
+//            Log.i(TAG, org.getName());
+//        }
         return organizations;
     }
 
+    // add an organization to a user
     public void addOrg(Organization org) {
-        List<Organization> orgsList = new ArrayList<>();
-        orgsList.add(org);
-        user.put("orgsJoined", orgsList);
+
+        String orgId = org.getObjectId();
+        List<String> orgIds = getOrganizationIds();
+
+        // check if org exists in db already
+        if (!orgIds.contains(orgId)) {
+            orgIds.add(orgId);
+            user.put(KEY_ORGS_IDS, orgIds);
+
+            List<Organization> organizations = getOrganizations();
+            organizations.add(org);
+            user.put(KEY_ORGS, organizations);
+
+            user.saveInBackground();
+        }
     }
 
 }

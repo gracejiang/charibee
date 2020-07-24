@@ -4,6 +4,7 @@ package com.example.service.models;
 import android.util.Log;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -31,7 +32,12 @@ public class Organization extends ParseObject {
     public Organization() { }
 
     public String getName() {
-        return getString(KEY_NAME);
+        try {
+            return this.fetchIfNeeded().getString(KEY_NAME);
+        } catch (ParseException e) {
+            Log.e(TAG, "ParseError", e);
+            return getString(KEY_NAME);
+        }
     }
 
     public void setName(String name) {

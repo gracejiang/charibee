@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.service.models.Organization;
+import com.example.service.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -78,14 +79,13 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     }
 
     private void joinOrganization() {
-        // add orgs to user class
+        // add org to current user
         ParseUser currentUser = ParseUser.getCurrentUser();
+        User user = new User(currentUser);
+        user.addOrg(org);
 
-        // add user to orgs class
+        // add current user to org
         org.addVolunteer(currentUser);
-
-        Log.i(TAG, "successfully joined");
-
     }
 
 }
