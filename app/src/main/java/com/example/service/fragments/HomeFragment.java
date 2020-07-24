@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +16,22 @@ import android.widget.Button;
 
 import com.example.service.R;
 import com.example.service.NewOrganizationActivity;
+import com.example.service.functions.DiscoverOrgsAdapter;
+import com.example.service.functions.HomeOrgsAdapter;
+import com.example.service.models.Organization;
+import com.example.service.models.User;
+import com.parse.ParseUser;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    private HomeOrgsAdapter adapter;
+    private List<Organization> orgs;
+
     // ui views
     private Button btnNewOrg;
+    private RecyclerView rvOrgs;
 
     public HomeFragment() {
     }
@@ -29,6 +42,7 @@ public class HomeFragment extends Fragment {
 
         // bind ui views
         btnNewOrg = v.findViewById(R.id.home_new_org_btn);
+        rvOrgs = v.findViewById(R.id.home_orgs_rv);
 
         return v;
     }
@@ -36,6 +50,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User user = new User(currentUser);
+        orgs = user.getOrganizations();
+
+        updateAdapter(orgs);
 
         // when new org button clicked
         btnNewOrg.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +65,16 @@ public class HomeFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+
+    }
+
+    // update org adapter given list of organizations
+    private void updateAdapter(List<Organization> orgsList) {
+        adapter = new HomeOrgsAdapter(getContext(), orgsList); // (1) create adapter
+        rvOrgs.setAdapter(adapter); // (2) set adapter on rv
+        rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
+        adapter.notifyDataSetChanged();
     }
 
 }

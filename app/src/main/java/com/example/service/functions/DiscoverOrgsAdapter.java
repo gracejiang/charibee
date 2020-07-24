@@ -19,14 +19,14 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class OrgsAdapter extends RecyclerView.Adapter<OrgsAdapter.ViewHolder> {
+public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapter.ViewHolder> {
 
-    public static final String TAG = "OrgsAdapter";
+    public static final String TAG = "DiscoverOrgsAdapter";
 
     private Context context;
     private List<Organization> orgs;
 
-    public OrgsAdapter(Context context, List<Organization> orgs) {
+    public DiscoverOrgsAdapter(Context context, List<Organization> orgs) {
         this.context = context;
         this.orgs = orgs;
     }
@@ -73,8 +73,6 @@ public class OrgsAdapter extends RecyclerView.Adapter<OrgsAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-
-            Log.i(TAG, position + "");
 
             if (position != RecyclerView.NO_POSITION) {
                 Organization org = orgs.get(position);

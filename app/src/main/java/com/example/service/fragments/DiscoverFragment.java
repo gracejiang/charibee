@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.service.R;
-import com.example.service.functions.OrgsAdapter;
+import com.example.service.functions.DiscoverOrgsAdapter;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -29,7 +29,7 @@ public class DiscoverFragment extends Fragment {
 
     public static final String TAG = "DiscoverFragment";
 
-    private OrgsAdapter adapter;
+    private DiscoverOrgsAdapter adapter;
 
     // data source
     private List<Organization> allOrgs = new ArrayList<>();
@@ -60,13 +60,13 @@ public class DiscoverFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // recycler view adapter
-        upadateAdapter(allOrgs);
+        updateAdapter(allOrgs);
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String searchPhrase = etSearch.getText().toString();
-                upadateAdapter(search(searchPhrase));
+                updateAdapter(search(searchPhrase));
             }
         });
 
@@ -85,8 +85,8 @@ public class DiscoverFragment extends Fragment {
     }
 
     // update org adapter given list of organizations
-    private void upadateAdapter(List<Organization> orgsList) {
-        adapter = new OrgsAdapter(getContext(), orgsList); // (1) create adapter
+    private void updateAdapter(List<Organization> orgsList) {
+        adapter = new DiscoverOrgsAdapter(getContext(), orgsList); // (1) create adapter
         rvOrgs.setAdapter(adapter); // (2) set adapter on rv
         rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();

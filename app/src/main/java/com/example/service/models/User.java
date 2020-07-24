@@ -29,8 +29,6 @@ public class User {
 
     // TODO: eventually abstract all the ParseUser.getXYZ() into User.getXYZ();
 
-    public User() {}
-
     public User(ParseUser user) {
         this.user = user;
     }
