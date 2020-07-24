@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String TAG = "LoginActivity";
 
     // ui views
-    private EditText etEmail;
+    private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
 
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // binds ui elements
-        etEmail = findViewById(R.id.login_username);
+        etUsername = findViewById(R.id.login_username);
         etPassword = findViewById(R.id.login_password);
         btnLogin = findViewById(R.id.login_submit_btn);
 
@@ -36,11 +36,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
+                String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                if (validLoginUser(email, password)) {
-                    loginUser(email, password);
+                if (validLoginUser(username, password)) {
+                    loginUser(username.toLowerCase(), password);
                 }
             }
         });
@@ -48,9 +48,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // checks if fields are valid to login
-    private boolean validLoginUser(String email, String password) {
-        if (email == null || email.length() == 0) {
-            makeMessage("Please enter a valid email.");
+    private boolean validLoginUser(String username, String password) {
+        if (username == null || username.length() == 0) {
+            makeMessage("Please enter a valid username.");
             return false;
         } else if (password == null|| password.length() == 0) {
             makeMessage("Please enter a valid password.");
@@ -60,9 +60,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // logs the user in
-    private void loginUser(String email, String password) {
+    private void loginUser(String username, String password) {
 
-        ParseUser.logInInBackground(email, password, new LogInCallback() {
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     goMainActivity();
