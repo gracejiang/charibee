@@ -61,6 +61,8 @@ public class User {
     public void setBio(String bio) {
         if (bio != null && bio.length() > 0) {
             user.put(KEY_BIO, bio);
+        } else {
+            user.remove(KEY_BIO);
         }
     }
 

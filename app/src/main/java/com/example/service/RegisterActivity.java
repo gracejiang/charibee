@@ -95,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("firstName", firstName);
         user.put("lastName", lastName);
         user.put("numPoints", 0);
-        user.put("bio", " ");
         user.put("orgsJoined", new ArrayList<Organization>());
         user.put("orgsJoinedIds", new ArrayList<String>());
 
