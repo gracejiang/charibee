@@ -19,6 +19,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private Button btnRegister;
+    private Button btnMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         btnLogin = findViewById(R.id.welcome_login_btn);
         btnRegister = findViewById(R.id.welcome_register_btn);
+        btnMap = findViewById(R.id.welcome_map_btn);
 
         // when login button clicked
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +51,21 @@ public class WelcomeActivity extends AppCompatActivity {
                 goToRegisterActivity();
             }
         });
+
+        // when map button clicked
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               goMapActivity();
+            }
+        });
+
+    }
+
+    // go map activity
+    private void goMapActivity() {
+        Intent i = new Intent(this, MapTestActivity.class);
+        startActivity(i);
     }
 
     // goes to main activity
@@ -56,7 +73,7 @@ public class WelcomeActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
 
-        // TODO:
+        // TODO: fix finish feature
 
         this.finish();
     }

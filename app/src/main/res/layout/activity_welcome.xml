@@ -35,4 +35,10 @@
         android:textColor="#FFFFFF"
         tools:layout_editor_absoluteX="286dp"
         tools:layout_editor_absoluteY="650dp" />
+
+    <Button
+        android:id="@+id/welcome_map_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to Map" />
 </LinearLayout>
