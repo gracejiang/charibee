@@ -7,6 +7,8 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +22,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -45,8 +52,30 @@ public class MapActivity extends AppCompatActivity {
         if (mLocationPermissionsGranted) {
             initMap();
             getDeviceLocation();
+
+            geoLocate("fremont");
         }
 
+    }
+
+
+
+    private void geoLocate(String locationString) {
+        Geocoder geocoder = new Geocoder(MapActivity.this);
+        List<Address> list = new ArrayList<>();
+
+        try {
+            list = geocoder.getFromLocationName(locationString, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            Log.i(TAG, "geolocated: " +  address.toString());
+
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getAddressLine(0));
+        }
     }
 
     // initialize map fragment
@@ -55,7 +84,6 @@ public class MapActivity extends AppCompatActivity {
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                // Log.i(TAG, "initMap: map is ready");
                 mMap = googleMap;
             }
         });
@@ -77,9 +105,8 @@ public class MapActivity extends AppCompatActivity {
                             Location currLocation = (Location) task.getResult();
                             LatLng currLocationLatLng = new LatLng(currLocation.getLatitude(), currLocation.getLongitude());
 
-
                             // display current location
-                            moveCamera(currLocationLatLng, DEFAULT_ZOOM);
+                            moveCamera(currLocationLatLng, DEFAULT_ZOOM, "My Location");
 
                             // checks permissions (required for setMyLocationEnabled function)
                             if (ActivityCompat.checkSelfPermission(MapActivity.this, FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -100,9 +127,17 @@ public class MapActivity extends AppCompatActivity {
     }
 
     // move camera to current lat/long
-    private void moveCamera(LatLng latLng, float zoom) {
+    private void moveCamera(LatLng latLng, float zoom, String title) {
         // Log.i(TAG, "moving camera to lat: " + latLng.latitude + ", lng: " + latLng.longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        if (mMap != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng)
+                    .title(title);
+            mMap.addMarker(options);
+        } else {
+            Log.i(TAG, "mMap null, async error");
+        }
     }
 
     // if all the permissions are granted
