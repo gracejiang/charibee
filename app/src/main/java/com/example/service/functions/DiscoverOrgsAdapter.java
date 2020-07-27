@@ -53,7 +53,9 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvName;
+        private TextView tvCategory;
         private TextView tvDescription;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,11 +63,13 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             itemView.setOnClickListener(this);
 
             tvName = itemView.findViewById(R.id.item_org_name);
+            tvCategory = itemView.findViewById(R.id.item_org_category);
             tvDescription = itemView.findViewById(R.id.item_org_description);
         }
 
         public void bind(Organization org) {
             tvName.setText(org.getName());
+            tvCategory.setText(org.getCategory());
             tvDescription.setText(org.getDescription());
         }
 
@@ -85,3 +89,4 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
 
 
 }
+

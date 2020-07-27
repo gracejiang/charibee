@@ -12,11 +12,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.service.R;
+import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.functions.DiscoverOrgsAdapter;
+import com.example.service.functions.RoleSpinnerClass;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -33,11 +38,15 @@ public class DiscoverFragment extends Fragment {
 
     // data source
     private List<Organization> allOrgs = new ArrayList<>();
-    private List<Organization> currOrgs = new ArrayList<>();
+
+    // filter integrated with search
+    private List<Organization> filterOrgs = new ArrayList<>();
+    private int filterPosition = 0;
 
     // ui views
     private EditText etSearch;
     private Button btnSearch;
+    private Spinner spnCategory;
     private RecyclerView rvOrgs;
 
     public DiscoverFragment() {
@@ -50,6 +59,7 @@ public class DiscoverFragment extends Fragment {
         // bind ui views
         etSearch = view.findViewById(R.id.discover_search_et);
         btnSearch = view.findViewById(R.id.discover_search_btn);
+        spnCategory = view.findViewById(R.id.discover_category_filter_spinner);
         rvOrgs = view.findViewById(R.id.discover_orgs_rv);
 
         return view;
@@ -61,6 +71,9 @@ public class DiscoverFragment extends Fragment {
 
         // recycler view adapter
         updateAdapter(allOrgs);
+
+        // spinner adapter
+        createCategoryAdapter();
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +88,15 @@ public class DiscoverFragment extends Fragment {
 
     // search for specific organization
     private List<Organization> search(String phrase) {
+        // checking if a filter is already selected
+        List<Organization> searchFromOrgs = allOrgs;
+        if (filterPosition != 0) {
+            searchFromOrgs = filterOrgs;
+        }
+
+        // searching from proper list
         List<Organization> searchResults = new ArrayList<>();
-        for (Organization org : allOrgs) {
+        for (Organization org : searchFromOrgs) {
             if (org.getName().toLowerCase().contains(phrase)) {
                 searchResults.add(org);
             }
@@ -118,6 +138,49 @@ public class DiscoverFragment extends Fragment {
         });
     }
 
+    // create spinner for category options
+    private void createCategoryAdapter() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories_with_all, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnCategory.setAdapter(adapter);
+        spnCategory.setOnItemSelectedListener(new CategoryFilterSpinner());
+    }
+
+    // filter by
+    private void filterBy(String categoryName) {
+        List<Organization> filterResults = new ArrayList<>();
+        for (Organization org : allOrgs) {
+            if (org.getCategory().toLowerCase().equals(categoryName)) {
+                filterResults.add(org);
+            }
+        }
+        filterOrgs = filterResults;
+        updateAdapter(filterResults);
+    }
+
+
+    class CategoryFilterSpinner implements AdapterView.OnItemSelectedListener {
+
+        private String[] categories = {"All", "Animals", "Education", "Elderly", "Environmental",
+                                        "Fundraising", "Homeless", "International", "Misc",
+                                        "Research", "Special Needs", "Technology"};
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+            filterPosition = position;
+            if (position == 0) {
+                updateAdapter(allOrgs);
+            } else {
+                String categoryName = categories[position];
+                filterBy(categoryName.toLowerCase());
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    }
 
 
 

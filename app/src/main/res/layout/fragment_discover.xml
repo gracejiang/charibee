@@ -29,6 +29,11 @@
 
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/discover_category_filter_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/discover_orgs_rv"
         android:layout_width="match_parent"
