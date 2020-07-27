@@ -41,4 +41,10 @@
         android:layout_height="wrap_content"
         android:text="Join Organization" />
 
+    <Button
+        android:id="@+id/org_details_edit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Organization" />
+
 </LinearLayout>

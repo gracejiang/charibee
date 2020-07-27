@@ -70,25 +70,8 @@ public class EditProfileActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.edit_profile_cancel_btn);
         btnSave = findViewById(R.id.edit_profile_save_btn);
 
-        // load in avatar preview
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
-        if (profilePic != null) {
-            Glide.with(this)
-                    .load(httpToHttps(profilePic.getUrl()))
-                    .circleCrop()
-                    .into(ivAvatarPreview);
-        } else {
-            Log.e(TAG, "couldn't load profile pic");
-        }
-
-        // load in text views
-        etUsername.setText(currentUser.getUsername());
-        String bio = user.getBio();
-
-        if (bio.length() > 0) {
-            etBio.setText(bio);
-        }
+        // load in views
+        loadInViews();
 
         // upload new profile pic clicked
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +99,28 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void loadInViews() {
+        // load in avatar preview
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
+        if (profilePic != null) {
+            Glide.with(this)
+                    .load(httpToHttps(profilePic.getUrl()))
+                    .circleCrop()
+                    .into(ivAvatarPreview);
+        } else {
+            Log.e(TAG, "couldn't load profile pic");
+        }
+
+        // load in text views
+        etUsername.setText(currentUser.getUsername());
+        String bio = user.getBio();
+
+        if (bio.length() > 0) {
+            etBio.setText(bio);
+        }
     }
 
     private boolean validFields() {

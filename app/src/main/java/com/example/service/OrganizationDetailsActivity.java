@@ -2,12 +2,15 @@ package com.example.service;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.service.data.Data;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseException;
@@ -30,7 +33,8 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvCategory;
     private TextView tvDescription;
     private TextView tvOrganizer;
-    private TextView btnJoinOrg;
+    private Button btnJoinOrg;
+    private Button btnEditOrg;
 
     // org details variables
     private String currUserId = "";
@@ -50,6 +54,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.org_details_description);
         tvOrganizer = findViewById(R.id.org_details_organizer);
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
+        btnEditOrg = findViewById(R.id.org_details_edit_btn);
 
         setOrgValues();
 
@@ -68,6 +73,18 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        if (currUserId.equals(org.getOrganizer().getObjectId())) {
+            // when edit org button pressed
+            btnEditOrg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goEditOrganizationActivity();
+                }
+            });
+        } else {
+            btnEditOrg.setVisibility(View.GONE);
+        }
     }
 
     // set orgs values to ui views
@@ -140,6 +157,17 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         // tell user successfully left org
         makeMessage("You have successfully left the group " + org.getName() + "!");
+    }
+
+    // go to edit organization activity
+    private void goEditOrganizationActivity() {
+        // looked into: https://stackoverflow.com/questions/2736389/how-to-pass-an-object-from-one-activity-to-another-on-android
+        // but can't implement both Parcelable and Serializable in same class (Organization), so decided to abstract data
+        // out to seperate data class
+
+        Intent i = new Intent(this, EditOrganizationActivity.class);
+        Data.setOrg(org);
+        startActivity(i);
     }
 
     // display message to user
