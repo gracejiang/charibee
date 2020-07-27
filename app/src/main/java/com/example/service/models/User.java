@@ -101,4 +101,38 @@ public class User {
         }
     }
 
+    // remove organization from user
+    public void removeOrg(Organization org) {
+
+        String orgId = org.getObjectId();
+        List<String> orgIds = getOrganizationIds();
+
+        Log.i("deleteOrg", "orgId: " + orgId);
+
+        // check if org exists in db already
+        if (orgIds.contains(orgId)) {
+
+            List<Organization> organizations = getOrganizations();
+
+            for (int i = 0; i < orgIds.size(); i++) {
+                if (orgIds.get(i).equals(orgId)) {
+                    orgIds.remove(i);
+                    organizations.remove(i);
+
+                    user.put(KEY_ORGS_IDS, orgIds);
+                    user.put(KEY_ORGS, organizations);
+
+                    user.saveInBackground();
+
+                    Log.i("deleteOrg", "org found and deleted");
+
+                    return;
+                }
+            }
+
+            Log.i("deleteOrg", "no org found");
+        }
+
+    }
+
 }

@@ -103,4 +103,31 @@ public class Organization extends ParseObject {
             this.saveInBackground();
         }
     }
+
+    // remove volunteer from organization
+    public void removeVolunteer(ParseUser volunteer) {
+        String volunteerId = volunteer.getObjectId();
+        List<String> volunteerIds = getVolunteerIds();
+
+        // check if volunteer exists in db already
+        if (volunteerIds.contains(volunteerId)) {
+
+            List<ParseUser> volunteers = getVolunteers();
+
+            for (int i = 0; i < volunteerIds.size(); i++) {
+                if (volunteerIds.get(i).equals(volunteerId)) {
+                    volunteerIds.remove(i);
+                    volunteers.remove(i);
+
+                    put(KEY_VOLUNTEER_IDS, volunteerIds);
+                    put(KEY_VOLUNTEERS, volunteers);
+
+                    this.saveInBackground();
+
+                    return;
+                }
+            }
+
+        }
+    }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.service.models.Organization;
 import com.example.service.models.User;
@@ -31,11 +32,16 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvOrganizer;
     private TextView btnJoinOrg;
 
+    // org details variables
+    private String currUserId = "";
+    private boolean userInOrg = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization_details);
 
+        currUserId = ParseUser.getCurrentUser().getObjectId();
         org = (Organization) Parcels.unwrap(getIntent().getParcelableExtra(Organization.class.getSimpleName()));
 
         // bind ui views
@@ -51,7 +57,15 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         btnJoinOrg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                joinOrganization();
+                if (userInOrg) {
+                    leaveOrganization();
+                    userInOrg = false;
+                    setButtonValue(userInOrg);
+                } else {
+                    joinOrganization();
+                    userInOrg = true;
+                    setButtonValue(userInOrg);
+                }
             }
         });
     }
@@ -76,8 +90,31 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvCategory.setText(category);
         tvDescription.setText(description);
         tvOrganizer.setText(organizerText);
+
+        userInOrg = checkIfUserInOrg();
+        setButtonValue(userInOrg);
+
     }
 
+
+    // check if in org
+    private boolean checkIfUserInOrg() {
+        if (org.getVolunteerIds().contains(currUserId)) {
+            return true;
+        }
+        return false;
+    }
+
+    // set button value based off in org or not
+    private void setButtonValue(boolean inOrg) {
+        if (inOrg) {
+            btnJoinOrg.setText("Leave Organization");
+        } else {
+            btnJoinOrg.setText("Join Organization");
+        }
+    }
+
+    // lets current user join organization
     private void joinOrganization() {
         // add org to current user
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -86,6 +123,28 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         // add current user to org
         org.addVolunteer(currentUser);
+
+        // tell user successfully joined org
+        makeMessage("You have successfully joined the group " + org.getName() + "!");
+    }
+
+    // removes current user from organization
+    private void leaveOrganization() {
+        // remove org from current user
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User user = new User(currentUser);
+        user.removeOrg(org);
+
+        // remove current user from org
+        org.removeVolunteer(currentUser);
+
+        // tell user successfully left org
+        makeMessage("You have successfully left the group " + org.getName() + "!");
+    }
+
+    // display message to user
+    private void makeMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 }
