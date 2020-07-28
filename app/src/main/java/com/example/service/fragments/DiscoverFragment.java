@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 
 import com.example.service.R;
 import com.example.service.functions.CategorySpinnerClass;
+import com.example.service.functions.CustomItemDivider;
 import com.example.service.functions.DiscoverOrgsAdapter;
 import com.example.service.functions.RoleSpinnerClass;
 import com.example.service.models.Organization;
@@ -75,6 +77,12 @@ public class DiscoverFragment extends Fragment {
         // spinner adapter
         createCategoryAdapter();
 
+        // add dividers btwn orgs
+        RecyclerView.ItemDecoration dividerItemDecoration = new CustomItemDivider(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
+        // dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
+        rvOrgs.addItemDecoration(dividerItemDecoration);
+
+        // when search button clicked
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +91,7 @@ public class DiscoverFragment extends Fragment {
             }
         });
 
+        // populate data
         queryOrgs();
     }
 
