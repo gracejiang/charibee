@@ -37,15 +37,17 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private Button btnEditOrg;
 
     // org details variables
-    private String currUserId = "";
-    private boolean userInOrg = false;
+    private ParseUser currentParseUser;
+    private User currentUser;
+    private boolean userInOrg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization_details);
 
-        currUserId = ParseUser.getCurrentUser().getObjectId();
+        currentParseUser = ParseUser.getCurrentUser();
+        currentUser = new User(currentParseUser);
         org = (Organization) Parcels.unwrap(getIntent().getParcelableExtra(Organization.class.getSimpleName()));
 
         // bind ui views
@@ -74,7 +76,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
             }
         });
 
-        if (currUserId.equals(org.getOrganizer().getObjectId())) {
+        if (currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId())) {
             // when edit org button pressed
             btnEditOrg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -89,7 +91,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
     // set orgs values to ui views
     private void setOrgValues() {
-
         String name = org.getName();
         String category = org.getCategory();
         String description = org.getDescription();
@@ -114,9 +115,12 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     }
 
 
-    // check if in org
+    // check if user in org
     private boolean checkIfUserInOrg() {
-        if (org.getVolunteerIds().contains(currUserId)) {
+        List<String> orgIds = currentUser.getOrganizationIds();
+        String currOrgId = org.getObjectId();
+
+        if (orgIds.contains(currOrgId)) {
             return true;
         }
         return false;
@@ -134,12 +138,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     // lets current user join organization
     private void joinOrganization() {
         // add org to current user
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        User user = new User(currentUser);
-        user.addOrg(org);
+        currentUser.addOrg(org);
 
         // add current user to org
-        org.addVolunteer(currentUser);
+        org.addVolunteer(currentParseUser);
 
         // tell user successfully joined org
         makeMessage("You have successfully joined the group " + org.getName() + "!");
@@ -148,12 +150,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     // removes current user from organization
     private void leaveOrganization() {
         // remove org from current user
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        User user = new User(currentUser);
-        user.removeOrg(org);
+        currentUser.removeOrg(org);
 
         // remove current user from org
-        org.removeVolunteer(currentUser);
+        org.removeVolunteer(currentParseUser);
 
         // tell user successfully left org
         makeMessage("You have successfully left the group " + org.getName() + "!");
