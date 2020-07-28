@@ -3,9 +3,11 @@ package com.example.service;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.parse.ParseUser;
 
@@ -20,6 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnLogin;
     private Button btnRegister;
     private Button btnMap;
+    private ImageView ivIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,11 @@ public class WelcomeActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.welcome_login_btn);
         btnRegister = findViewById(R.id.welcome_register_btn);
         btnMap = findViewById(R.id.welcome_map_btn);
+        ivIcon = findViewById(R.id.welcome_icon);
+
+        // set icon
+        Drawable iconDrawable = getResources().getDrawable(R.drawable.ic_icon);
+        ivIcon.setImageDrawable(iconDrawable);
 
         // when login button clicked
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         // when map button clicked
+        btnMap.setVisibility(View.GONE);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

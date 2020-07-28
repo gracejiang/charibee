@@ -20,7 +20,7 @@
             app:cardCornerRadius="150dp">
 
             <ImageView
-                android:id="@+id/edit_profile_avatar_preview"
+                android:id="@+id/welcome_icon"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"

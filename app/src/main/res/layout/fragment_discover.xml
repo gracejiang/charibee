@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:backgroundTint="@color/button_color"
-            android:text="Search"
-            android:textColor="@color/button_text_color" />
+            android:textColor="@color/button_text_color"
+            android:text="Search"/>
 
     </LinearLayout>
 
