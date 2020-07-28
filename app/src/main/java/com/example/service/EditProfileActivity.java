@@ -32,7 +32,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -65,7 +64,7 @@ public class EditProfileActivity extends AppCompatActivity {
         photoFileName = currentUser.getUsername() + "_avatar.jpg";
 
         // bind ui views
-        ivAvatarPreview = findViewById(R.id.edit_profile_avatar_preview);
+        ivAvatarPreview = findViewById(R.id.welcome_icon);
         btnEditAvatar = findViewById(R.id.edit_profile_update_avatar_btn);
         etUsername = findViewById(R.id.edit_profile_username);
         etBio = findViewById(R.id.edit_profile_bio);

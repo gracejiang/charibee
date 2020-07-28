@@ -53,6 +53,7 @@ public class HomeOrgsAdapter extends RecyclerView.Adapter<HomeOrgsAdapter.ViewHo
 
         private TextView tvName;
         private TextView tvDescription;
+        private TextView tvCategory;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,11 +62,13 @@ public class HomeOrgsAdapter extends RecyclerView.Adapter<HomeOrgsAdapter.ViewHo
 
             tvName = itemView.findViewById(R.id.item_org_name);
             tvDescription = itemView.findViewById(R.id.item_org_description);
+            tvCategory = itemView.findViewById(R.id.item_org_category);
         }
 
         public void bind(Organization org) {
             tvName.setText(org.getName());
             tvDescription.setText(org.getDescription());
+            tvCategory.setText(org.getCategory());
         }
 
 

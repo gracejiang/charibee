@@ -30,15 +30,15 @@
     <Button
         android:id="@+id/login_submit_btn"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/button_height"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#4CAF50"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
-        android:text="Login"
-        android:textColor="#FFFFFF"
         android:topLeftRadius="10dp"
-        android:topRightRadius="10dp" />
+        android:topRightRadius="10dp"
+        android:backgroundTint="@color/button_color"
+        android:textColor="@color/white"
+        android:text="Login" />
 
 
 </LinearLayout>

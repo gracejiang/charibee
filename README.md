@@ -1,38 +1,4 @@
-# Sharevice
-
-Sharevice is an Android application to help users find nonprofits to volunteer at.
-
-
-
-### Roadmap
-
-**Week One**
-
-- [ ] View wireframes
-- [ ] Connections between different views
-- [ ] Set up Parse backend
-- [ ] Parse object schema + connection with Android application
-- [ ] Login/Logout/Register feature
-
-
-
-**Week Two**
-
-Basic Application Functionality
-
-
-
-**Week Three**
-
-App expectation requirements
-
-
-
-**Week Four**
-
-Final polishes
-
-
+# charibee
 
 ### App expectations
 
@@ -44,10 +10,8 @@ Final polishes
   * User profile pictures
   * (Stretch) Feed updates
 * [wk 3] Your app integrates with a SDK (e.g. Google Maps SDK, Facebook SDK)
-  * Google Login SDK
-  * Firebase backend? (Firebase Analytics SDK)
+  * Google Maps SDK
 * [wk 3] Your app contains at least one more complex algorithm (talk over this with your manager)
-
 * [wk 4] Your app uses gesture recognizers (e.g. double tap to like, e.g. pinch to scale)
 * [wk 4] Your app use an animation (doesn’t have to be fancy) (e.g. fade in/out, e.g. animating a view growing and shrinking)
 * [wk 4] Your app incorporates an external library to add visual polish

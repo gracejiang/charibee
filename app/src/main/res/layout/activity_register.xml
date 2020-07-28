@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
@@ -12,54 +13,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="First Name"
         android:inputType="textPersonName"
-        android:text=""
-        android:hint="First Name" />
+        android:text="" />
 
     <EditText
         android:id="@+id/register_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Last Name"
         android:inputType="textPersonName"
-        android:text=""
-        android:hint="Last Name" />
+        android:text="" />
 
     <EditText
         android:id="@+id/register_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Username"
         android:inputType="textPersonName"
-        android:text=""
-        android:hint="Username" />
+        android:text="" />
 
     <EditText
         android:id="@+id/register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textPersonName"
-        android:text=""
-        android:hint="Email" />
+        android:text="" />
 
     <EditText
         android:id="@+id/register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:text=""
-        android:hint="Password" />
+        android:text="" />
 
     <EditText
         android:id="@+id/register_password_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Confirm Password"
         android:inputType="textPassword"
-        android:text=""
-        android:hint="Confirm Password" />
+        android:text="" />
 
     <Spinner
         android:id="@+id/register_role_spinner"
@@ -75,7 +76,7 @@
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
         android:text="Register"
-        android:textColor="@color/button_text_color"
+        android:textColor="@color/white"
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp" />
 

@@ -32,7 +32,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvName;
     private TextView tvCategory;
     private TextView tvDescription;
-    private TextView tvOrganizer;
     private Button btnJoinOrg;
     private Button btnEditOrg;
 
@@ -54,7 +53,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvName = findViewById(R.id.org_details_name);
         tvCategory = findViewById(R.id.org_details_category);
         tvDescription = findViewById(R.id.org_details_description);
-        tvOrganizer = findViewById(R.id.org_details_organizer);
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
         btnEditOrg = findViewById(R.id.org_details_edit_btn);
 
@@ -107,7 +105,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvName.setText(name);
         tvCategory.setText(category);
         tvDescription.setText(description);
-        tvOrganizer.setText(organizerText);
 
         userInOrg = checkIfUserInOrg();
         setButtonValue(userInOrg);
