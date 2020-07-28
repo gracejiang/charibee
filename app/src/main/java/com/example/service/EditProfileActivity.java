@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -77,7 +79,25 @@ public class EditProfileActivity extends AppCompatActivity {
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                launchCamera();
+                // launchCamera();
+
+                PopupMenu popup = new PopupMenu(EditProfileActivity.this, btnEditAvatar);
+                popup.getMenuInflater().inflate(R.menu.profile_pic_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getTitle().equals("Take Photo")) {
+                            launchCamera();
+                        } else if (menuItem.getTitle().equals("Remove Current Photo")) {
+                            removePic();
+                        }
+                        return true;
+                    }
+                });
+
+                popup.show();
+
             }
         });
 
@@ -94,13 +114,14 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validFields()) {
-                    saveProfile();
+                    saveProfile(resizePicture(getPhotoFileUri(photoFileName), 300));
                     goProfileFragment();
                 }
             }
         });
     }
 
+    // load in current user's fields into views
     private void loadInViews() {
         // load in avatar preview
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -123,6 +144,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    // checks if all fields are valid before saving
     private boolean validFields() {
         if (etUsername.getText().length() == 0) {
             makeMessage("Please enter in a valid username.");
@@ -165,31 +187,6 @@ public class EditProfileActivity extends AppCompatActivity {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
-    // resizes picture
-    private File resizePicture(int width) {
-        Uri takenPhotoUri = Uri.fromFile(getPhotoFileUri(photoFileName));
-        // by this point we have the camera photo on disk
-        Bitmap rawTakenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-        // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
-        Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, width);
-        // Configure byte output stream
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        // Compress the image further
-        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
-        // Create a new file for the resized bitmap (`getPhotoFileUri` defined above)
-        File resizedFile = getPhotoFileUri(photoFileName + "_resized");
-        try {
-            resizedFile.createNewFile();
-            FileOutputStream fos = new FileOutputStream(resizedFile);
-            fos.write(bytes.toByteArray());
-            fos.close();
-            return resizedFile;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     // SAVE RESULTS FOR NEW UPDATED AVATAR
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -205,13 +202,49 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    // save profile info
-    private void saveProfile() {
+    // remove picture
+    public void removePic() {
+        String path = getApplication().getFilesDir().getAbsolutePath();
+        path += "/assets/default_avatar.png";
+        Log.i(TAG, path);
 
+        File imgFile = new File(path);
+
+        if (imgFile.exists()) {
+            Log.i(TAG, "exists!");
+            ivAvatarPreview.setImageURI(Uri.fromFile(imgFile));
+            updatedPfp = true;
+        } else {
+            Log.i(TAG, "error in loading in file");
+        }
+    }
+
+    // resizes picture
+    private File resizePicture(File file, int width) {
+        // See BitmapScaler.java: https://gist.github.com/nesquena/3885707fd3773c09f1bb
+        Uri photoUri = Uri.fromFile(file);
+        Bitmap rawTakenImage = BitmapFactory.decodeFile(photoUri.getPath());
+        Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(rawTakenImage, width);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+        File resizedFile = getPhotoFileUri(photoFileName + "_resized");
+        try {
+            resizedFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(resizedFile);
+            fos.write(bytes.toByteArray());
+            fos.close();
+            return resizedFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // save profile info
+    private void saveProfile(File file) {
         // updated pfp?
         if (updatedPfp) {
-            File resizedPicture = resizePicture(300);
-            currentUser.put("profilePic", new ParseFile(resizedPicture));
+            currentUser.put("profilePic", new ParseFile(file));
         }
 
         currentUser.setUsername(etUsername.getText().toString());
@@ -235,15 +268,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private void goProfileFragment() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-
-        // doesn't work, but trying to set fragment to profile fragment
-//        try {
-//            // look up .getSupportFragmentManager().popBackStackImmediate(name); later
-//            FragmentManager fm = new MainActivity().getSupportFragmentManager();
-//            Fragment fragment = new ProfileFragment();
-//            fm.beginTransaction().replace(R.id.main_frame_layout, fragment).commit();
-//        } catch (IllegalStateException e) { }
-
         finish();
     }
 
@@ -257,21 +281,9 @@ public class EditProfileActivity extends AppCompatActivity {
         return httpsUrl;
     }
 
-    // checks if an email is valid
-    private static boolean isEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
-
-        Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
-        return pat.matcher(email).matches();
-    }
-
     // shows user a message
     private void makeMessage(String message) {
         Toast.makeText(EditProfileActivity.this, message, Toast.LENGTH_SHORT).show();
     }
+
 }
