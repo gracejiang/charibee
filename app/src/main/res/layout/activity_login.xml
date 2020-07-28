@@ -30,7 +30,7 @@
     <Button
         android:id="@+id/login_submit_btn"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/button_height"
         android:layout_marginTop="12dp"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"

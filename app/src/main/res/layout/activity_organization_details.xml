@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="12dp"
     android:orientation="vertical"
     tools:context=".OrganizationDetailsActivity">
 
@@ -12,6 +12,7 @@
         android:id="@+id/org_details_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="monospace"
         android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -26,14 +27,6 @@
         android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/org_details_organizer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="TextView"
-        android:textStyle="italic" />
-
-    <TextView
         android:id="@+id/org_details_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,8 +36,8 @@
     <Button
         android:id="@+id/org_details_join_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="12dp"
         android:backgroundTint="@color/button_color"
         android:text="Join Organization"
         android:textColor="@color/button_text_color" />
@@ -52,7 +45,7 @@
     <Button
         android:id="@+id/org_details_edit_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:text="Edit Organization" />
 
 </LinearLayout>

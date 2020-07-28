@@ -34,14 +34,14 @@
         <Button
             android:id="@+id/settings_cancel_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height"
             android:layout_weight="1"
             android:text="Cancel" />
 
         <Button
             android:id="@+id/settings_save_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height"
             android:layout_weight="1"
             android:backgroundTint="@color/button_color"
             android:text="Update Password"

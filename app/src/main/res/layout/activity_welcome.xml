@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp">
+        android:layout_marginTop="140dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="150dp"
@@ -45,29 +45,44 @@
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/welcome_login_btn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/button_color"
-        android:text="Login"
-        android:textColor="@color/white"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="650dp" />
+        android:layout_marginTop="10dp"
+        android:padding="6dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/welcome_register_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/dark_blue"
-        android:text="Register"
-        android:textColor="@color/button_text_color"
-        tools:layout_editor_absoluteX="286dp"
-        tools:layout_editor_absoluteY="650dp" />
+        <Button
+            android:id="@+id/welcome_login_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/button_height"
+            android:backgroundTint="@color/button_color"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:layout_marginRight="3dp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="650dp" />
+
+        <Button
+            android:id="@+id/welcome_register_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/button_height"
+            android:backgroundTint="@color/dark_blue"
+            android:text="Register"
+            android:textColor="@color/button_text_color"
+            android:layout_marginLeft="3dp"
+            tools:layout_editor_absoluteX="286dp"
+            tools:layout_editor_absoluteY="650dp" />
+
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/welcome_map_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:text="Go to Map" />
 </LinearLayout>
