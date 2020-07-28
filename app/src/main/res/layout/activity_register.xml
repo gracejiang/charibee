@@ -71,11 +71,11 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#2196F3"
+        android:backgroundTint="@color/button_color"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
         android:text="Register"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/button_text_color"
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp" />
 

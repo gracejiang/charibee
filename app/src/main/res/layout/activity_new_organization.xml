@@ -4,15 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical"
     tools:context=".NewOrganizationActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Register your organization."
-        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/new_org_name"
@@ -39,7 +33,10 @@
         android:id="@+id/new_org_submit_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register Organization" />
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/button_color"
+        android:text="Register Organization"
+        android:textColor="@color/button_text_color" />
 
 
 </LinearLayout>
