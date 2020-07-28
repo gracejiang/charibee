@@ -114,16 +114,11 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
     }
 
-
     // check if user in org
     private boolean checkIfUserInOrg() {
         List<String> orgIds = currentUser.getOrganizationIds();
         String currOrgId = org.getObjectId();
-
-        if (orgIds.contains(currOrgId)) {
-            return true;
-        }
-        return false;
+        return orgIds.contains(currOrgId);
     }
 
     // set button value based off in org or not

@@ -114,7 +114,7 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validFields()) {
-                    saveProfile(resizePicture(getPhotoFileUri(photoFileName), 300));
+                    saveProfile();
                     goProfileFragment();
                 }
             }
@@ -241,10 +241,11 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     // save profile info
-    private void saveProfile(File file) {
+    private void saveProfile() {
         // updated pfp?
         if (updatedPfp) {
-            currentUser.put("profilePic", new ParseFile(file));
+            File resizedFile = resizePicture(getPhotoFileUri(photoFileName), 300);
+            currentUser.put("profilePic", new ParseFile(resizedFile));
         }
 
         currentUser.setUsername(etUsername.getText().toString());
