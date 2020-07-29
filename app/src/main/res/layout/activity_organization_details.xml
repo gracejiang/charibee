@@ -76,4 +76,12 @@
         android:layout_height="@dimen/button_height"
         android:text="Edit Organization" />
 
+    <Button
+        android:id="@+id/org_details_delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:text="Delete Organization" />
+
 </LinearLayout>

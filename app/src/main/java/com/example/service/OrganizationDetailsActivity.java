@@ -38,6 +38,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvPhoneNumber;
     private Button btnJoinOrg;
     private Button btnEditOrg;
+    private Button btnDeleteOrg;
 
     // org details variables
     private ParseUser currentParseUser;
@@ -63,10 +64,11 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvPhoneNumber = findViewById(R.id.org_details_phone_number);
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
         btnEditOrg = findViewById(R.id.org_details_edit_btn);
+        btnDeleteOrg = findViewById(R.id.org_details_delete_btn);
 
         setOrgValues();
 
-        // when join org button pressed
+        // when join / leave org button pressed
         btnJoinOrg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +84,9 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
             }
         });
 
-        if (currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId())) {
+
+        // set visibility for the edit button
+        if (isOrganizer()) {
             // when edit org button pressed
             btnEditOrg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,9 +94,25 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
                     goEditOrganizationActivity();
                 }
             });
+
+            // when delete button pressed
+            btnDeleteOrg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = org.getName();
+                    deleteOrg();
+                    goDiscoverFragment();
+                    makeMessage("Your organization " + name + " has been deleted.");
+                }
+            });
         } else {
             btnEditOrg.setVisibility(View.GONE);
+            btnDeleteOrg.setVisibility(View.GONE);
         }
+    }
+
+    private boolean isOrganizer() {
+        return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
     }
 
     // set orgs values to ui views
@@ -194,6 +214,25 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     // display message to user
     private void makeMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // delete an org
+    private void deleteOrg() {
+        List<ParseUser> parseUsers = org.getVolunteers();
+
+        for (ParseUser parseUser : parseUsers) {
+            User user = new User(parseUser);
+            user.removeOrg(org);
+            Log.i(TAG, "size: " + user.getOrganizations().size());
+        }
+
+        org.deleteInBackground();
+    }
+
+    private void goDiscoverFragment() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }
