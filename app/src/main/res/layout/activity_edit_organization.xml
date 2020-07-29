@@ -21,12 +21,54 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/edit_org_description"
+        android:id="@+id/edit_org_tagline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
+        android:hint="Tagline"/>
+
+    <EditText
+        android:id="@+id/edit_org_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:minLines="5"
         android:hint="Description"/>
+
+    <EditText
+        android:id="@+id/edit_org_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Address"/>
+
+    <EditText
+        android:id="@+id/edit_org_website"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Website"/>
+
+    <EditText
+        android:id="@+id/edit_org_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Email"/>
+
+    <EditText
+        android:id="@+id/edit_org_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Phone Number"/>
 
     <Button
         android:id="@+id/edit_org_save_btn"

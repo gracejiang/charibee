@@ -54,7 +54,7 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
 
         private TextView tvName;
         private TextView tvCategory;
-        private TextView tvDescription;
+        private TextView tvTagline;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -64,13 +64,13 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
 
             tvName = itemView.findViewById(R.id.item_org_name);
             tvCategory = itemView.findViewById(R.id.item_org_category);
-            tvDescription = itemView.findViewById(R.id.item_org_description);
+            tvTagline = itemView.findViewById(R.id.item_org_tagline);
         }
 
         public void bind(Organization org) {
             tvName.setText(org.getName());
             tvCategory.setText(org.getCategory());
-            tvDescription.setText(org.getDescription());
+            tvTagline.setText(org.getTagline());
         }
 
 

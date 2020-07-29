@@ -52,7 +52,7 @@ public class HomeOrgsAdapter extends RecyclerView.Adapter<HomeOrgsAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvName;
-        private TextView tvDescription;
+        private TextView tvTagline;
         private TextView tvCategory;
 
         public ViewHolder(@NonNull View itemView) {
@@ -61,13 +61,13 @@ public class HomeOrgsAdapter extends RecyclerView.Adapter<HomeOrgsAdapter.ViewHo
             itemView.setOnClickListener(this);
 
             tvName = itemView.findViewById(R.id.item_org_name);
-            tvDescription = itemView.findViewById(R.id.item_org_description);
+            tvTagline = itemView.findViewById(R.id.item_org_tagline);
             tvCategory = itemView.findViewById(R.id.item_org_category);
         }
 
         public void bind(Organization org) {
             tvName.setText(org.getName());
-            tvDescription.setText(org.getDescription());
+            tvTagline.setText(org.getTagline());
             tvCategory.setText(org.getCategory());
         }
 

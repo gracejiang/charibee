@@ -18,14 +18,21 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.regex.Pattern;
+
 public class NewOrganizationActivity extends AppCompatActivity {
 
     public static final String TAG = "NewOrganizationActivity";
 
     // ui views
     private EditText etName;
-    private EditText etDescription;
     private Spinner spinnerCategory;
+    private EditText etTagline;
+    private EditText etDescription;
+    private EditText etAddress;
+    private EditText etWebsite;
+    private EditText etEmail;
+    private EditText etPhoneNumber;
     private Button btnSubmit;
 
     @Override
@@ -35,8 +42,13 @@ public class NewOrganizationActivity extends AppCompatActivity {
 
         // bind ui views
         etName = findViewById(R.id.new_org_name);
-        etDescription = findViewById(R.id.new_org_description);
         spinnerCategory = findViewById(R.id.new_org_spinner_categories);
+        etTagline = findViewById(R.id.new_org_tagline);
+        etDescription = findViewById(R.id.new_org_description);
+        etAddress = findViewById(R.id.new_org_address);
+        etWebsite = findViewById(R.id.new_org_website);
+        etEmail = findViewById(R.id.new_org_email);
+        etPhoneNumber = findViewById(R.id.new_org_phone_number);
         btnSubmit = findViewById(R.id.new_org_submit_btn);
 
         // when submit button clicked
@@ -45,11 +57,16 @@ public class NewOrganizationActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 String name = etName.getText().toString();
-                String description = etDescription.getText().toString();
                 String category = spinnerCategory.getSelectedItem().toString();
+                String tagline = etTagline.getText().toString();
+                String description = etDescription.getText().toString();
+                String address = etAddress.getText().toString();
+                String website = etWebsite.getText().toString();
+                String email = etEmail.getText().toString();
+                String phoneNumber = etPhoneNumber.getText().toString();
 
-                if (validOrganization(name, description, category)) {
-                    registerOrganization(name, description, category);
+                if (validOrganization(name, category, tagline, description, email, phoneNumber)) {
+                    registerOrganization(name, category, tagline, description, address, website, email, phoneNumber);
                 }
             }
         });
@@ -58,22 +75,32 @@ public class NewOrganizationActivity extends AppCompatActivity {
 
     }
 
-    private boolean validOrganization(String name, String description, String category) {
-        if (name.length() == 0 || description.length() == 0 || category.length() == 0) {
-            makeMessage("Please fill out all the fields.");
+    private boolean validOrganization(String name, String category, String tagline, String description, String email, String phoneNumber) {
+        if (name.length() == 0 || category.length() == 0 || tagline.length() == 0 || description.length() == 0) {
+            makeMessage("Please fill out all required fields.");
+            return false;
+        } else if (email.length() != 0 && !isEmail(email)) {
+            makeMessage("Please enter a valid email.");
             return false;
         }
         return true;
     }
 
-    private void registerOrganization(final String name, String description, String category) {
+    private void registerOrganization(final String name, String category, String tagline, String description, String address, String website, String email, String phoneNumber) {
         Organization org = new Organization();
 
-        // set object values
+        // set org values
         org.setName(name);
+        org.setCategory(category);
+        org.setTagline(tagline);
         org.setDescription(description);
         org.setOrganizer(ParseUser.getCurrentUser());
-        org.setCategory(category);
+
+        org.setAddress(address);
+        org.setWebsite(website);
+        org.setEmail(email);
+        org.setPhoneNumber(phoneNumber);
+
 
         org.saveInBackground(new SaveCallback() {
             @Override
@@ -101,6 +128,19 @@ public class NewOrganizationActivity extends AppCompatActivity {
     // displays message to user
     private void makeMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    // checks if an email is valid
+    private static boolean isEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (email == null)
+            return false;
+        return pat.matcher(email).matches();
     }
 
     // create spinner for categories

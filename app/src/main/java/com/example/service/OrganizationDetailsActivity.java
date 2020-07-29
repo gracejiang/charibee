@@ -32,6 +32,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvName;
     private TextView tvCategory;
     private TextView tvDescription;
+    private TextView tvAddress;
+    private TextView tvWebsite;
+    private TextView tvEmail;
+    private TextView tvPhoneNumber;
     private Button btnJoinOrg;
     private Button btnEditOrg;
 
@@ -53,6 +57,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvName = findViewById(R.id.org_details_name);
         tvCategory = findViewById(R.id.org_details_category);
         tvDescription = findViewById(R.id.org_details_description);
+        tvAddress = findViewById(R.id.org_details_address);
+        tvWebsite = findViewById(R.id.org_details_website);
+        tvEmail = findViewById(R.id.org_details_email);
+        tvPhoneNumber = findViewById(R.id.org_details_phone_number);
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
         btnEditOrg = findViewById(R.id.org_details_edit_btn);
 
@@ -92,6 +100,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         String name = org.getName();
         String category = org.getCategory();
         String description = org.getDescription();
+        String address = org.getAddress();
+        String website = org.getWebsite();
+        String email = org.getEmail();
+        String phoneNumber = org.getPhoneNumber();
         ParseUser organizer = org.getOrganizer();
 
         String organizerText = "";
@@ -102,13 +114,30 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // required fields
         tvName.setText(name);
         tvCategory.setText(category);
         tvDescription.setText(description);
 
+        // not required fields
+        setIntoView(tvAddress, address);
+        setIntoView(tvWebsite, website);
+        setIntoView(tvEmail, email);
+        setIntoView(tvPhoneNumber, phoneNumber);
+
+        // sets join or leave into button
         userInOrg = checkIfUserInOrg();
         setButtonValue(userInOrg);
 
+    }
+
+    // set value into view if value is not null
+    private void setIntoView(TextView tv, String value) {
+        if (value != null && value.length() > 0) {
+            tv.setText(value);
+        } else {
+            tv.setVisibility(View.GONE);
+        }
     }
 
     // check if user in org

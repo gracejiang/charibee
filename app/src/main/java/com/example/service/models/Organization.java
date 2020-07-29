@@ -21,11 +21,18 @@ public class Organization extends ParseObject {
     public static final String TAG = "Organization";
 
     public static final String KEY_NAME = "name";
-    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_CATEGORY = "category";
+    public static final String KEY_TAGLINE = "tagline";
+    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_ORGANIZER = "organizer";
     public static final String KEY_VOLUNTEERS = "volunteers";
     public static final String KEY_VOLUNTEER_IDS = "volunteerIds";
+    public static final String KEY_ADDRESS = "address";
+    public static final String KEY_LATITUDE = "lat";
+    public static final String KEY_LONGITUDE = "long";
+    public static final String KEY_WEBSITE = "website";
+    public static final String KEY_EMAIL = "email";
+    public static final String KEY_PHONE_NUMBER = "phoneNumber";
     // location;
     // member ids
     // shifts
@@ -68,6 +75,55 @@ public class Organization extends ParseObject {
     public void setOrganizer(ParseUser organizer) {
         put(KEY_ORGANIZER, organizer);
     }
+
+    public void setTagline(String tagline) {
+        put(KEY_TAGLINE, tagline);
+    }
+
+    public String getTagline() {
+        return getString(KEY_TAGLINE);
+    }
+
+    public void setAddress(String address) {
+        if (address != null && address.length() > 0) {
+            put(KEY_ADDRESS, address);
+        }
+    }
+
+    public String getAddress() {
+        return getString(KEY_ADDRESS);
+    }
+
+    public void setWebsite(String website) {
+        if (website != null && website.length() > 0) {
+            put(KEY_WEBSITE, website);
+        }
+    }
+
+    public String getWebsite() {
+        return getString(KEY_WEBSITE);
+    }
+
+    public void setEmail(String email) {
+        if (email != null && email.length() > 0) {
+            put(KEY_EMAIL, email);
+        }
+    }
+
+    public String getEmail() {
+        return getString(KEY_EMAIL);
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber != null && phoneNumber.length() > 0) {
+            put(KEY_PHONE_NUMBER, phoneNumber);
+        }
+    }
+
+    public String getPhoneNumber() {
+        return getString(KEY_PHONE_NUMBER);
+    }
+
 
     // get all ids of volunteers in org
     public List<String> getVolunteerIds() {
