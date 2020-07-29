@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Address"
+        android:hint="Address (Optional)"
         android:inputType="textPersonName" />
 
     <EditText
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Organization Website"
+        android:hint="Organization Website (Optional)"
         android:inputType="textPersonName" />
 
     <EditText
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Email (Optional)"
         android:inputType="textPersonName" />
 
     <EditText
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Phone Number"
+        android:hint="Phone Number (Optional)"
         android:inputType="textPersonName" />
 
     <Button
