@@ -61,6 +61,11 @@
         android:layout_marginTop="8dp"
         android:text="Description" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/org_details_rv_volunteers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/org_details_join_btn"
         android:layout_width="match_parent"

@@ -34,7 +34,12 @@ public class User {
 
     // get user's full name
     public String getName() {
-        return user.getString(KEY_FIRST_NAME) + " " + user.getString(KEY_LAST_NAME);
+        try {
+            return user.fetchIfNeeded().getString(KEY_FIRST_NAME) + " " + user.fetchIfNeeded().getString(KEY_LAST_NAME);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "errorUser";
     }
 
     // get user's username

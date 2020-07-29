@@ -1,6 +1,9 @@
 package com.example.service;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.service.data.Data;
+import com.example.service.functions.CustomItemDivider;
+import com.example.service.functions.DiscoverOrgsAdapter;
+import com.example.service.functions.VolunteersAdapter;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseException;
@@ -39,6 +45,11 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private Button btnJoinOrg;
     private Button btnEditOrg;
     private Button btnDeleteOrg;
+    private RecyclerView rvVolunteers;
+
+    // volunteer details
+    private VolunteersAdapter adapter;
+    private List<ParseUser> volunteersList = new ArrayList<>();
 
     // org details variables
     private ParseUser currentParseUser;
@@ -65,8 +76,14 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
         btnEditOrg = findViewById(R.id.org_details_edit_btn);
         btnDeleteOrg = findViewById(R.id.org_details_delete_btn);
+        rvVolunteers = findViewById(R.id.org_details_rv_volunteers);
 
+        // sets ui views
         setOrgValues();
+
+        // volunteers recycler view
+        updateAdapter(volunteersList);
+        queryVolunteers();
 
         // when join / leave org button pressed
         btnJoinOrg.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +103,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
 
         // set visibility for the edit button
-        if (isOrganizer()) {
+        if (hasPermissionsToEdit()) {
             // when edit org button pressed
             btnEditOrg.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,7 +128,8 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isOrganizer() {
+    // if current user has permissions to edit
+    private boolean hasPermissionsToEdit() {
         return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
     }
 
@@ -176,6 +194,21 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         }
     }
 
+    // sets recycler view to display all volunteers
+    private void updateAdapter(List<ParseUser> usersList) {
+        adapter = new VolunteersAdapter(this, usersList); // (1) create adapter
+        rvVolunteers.setAdapter(adapter); // (2) set adapter on rv
+        rvVolunteers.setLayoutManager(new LinearLayoutManager(this)); // (3) set layout manager on rv
+        adapter.notifyDataSetChanged();
+    }
+
+    // query all volunteer users
+    private void queryVolunteers() {
+        volunteersList.clear();
+        volunteersList.addAll((List<ParseUser>) org.get(Organization.KEY_VOLUNTEERS));
+        adapter.notifyDataSetChanged();
+    }
+
     // lets current user join organization
     private void joinOrganization() {
         // add org to current user
@@ -229,10 +262,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         org.deleteInBackground();
     }
 
+    // go back to discover fragment
     private void goDiscoverFragment() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
     }
-
 }

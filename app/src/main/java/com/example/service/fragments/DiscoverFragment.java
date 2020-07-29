@@ -79,7 +79,6 @@ public class DiscoverFragment extends Fragment {
 
         // add dividers btwn orgs
         RecyclerView.ItemDecoration dividerItemDecoration = new CustomItemDivider(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
-        // dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_view_divider));
         rvOrgs.addItemDecoration(dividerItemDecoration);
 
         // when search button clicked
@@ -147,6 +146,7 @@ public class DiscoverFragment extends Fragment {
         });
     }
 
+    // FILTER BY FEATURES
     // create spinner for category options
     private void createCategoryAdapter() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.categories_with_all, android.R.layout.simple_spinner_item);
@@ -155,7 +155,7 @@ public class DiscoverFragment extends Fragment {
         spnCategory.setOnItemSelectedListener(new CategoryFilterSpinner());
     }
 
-    // filter by
+    // filter by functionality
     private void filterBy(String categoryName) {
         List<Organization> filterResults = new ArrayList<>();
         for (Organization org : allOrgs) {
@@ -166,7 +166,6 @@ public class DiscoverFragment extends Fragment {
         filterOrgs = filterResults;
         updateAdapter(filterResults);
     }
-
 
     class CategoryFilterSpinner implements AdapterView.OnItemSelectedListener {
 
@@ -190,7 +189,6 @@ public class DiscoverFragment extends Fragment {
 
         }
     }
-
 
 
 }
