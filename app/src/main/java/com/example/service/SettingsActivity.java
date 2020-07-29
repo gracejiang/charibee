@@ -83,8 +83,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     // return to profile fragment
     private void goProfileFragment() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
         finish();
     }
 }

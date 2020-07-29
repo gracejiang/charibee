@@ -143,4 +143,8 @@ public class ProfileFragment extends Fragment {
         return httpsUrl;
     }
 
+    public void updateBioTv(String bio) {
+        tvBio.setText(bio);
+    }
+
 }
