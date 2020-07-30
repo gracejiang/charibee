@@ -1,6 +1,4 @@
-package com.example.service;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.service.location;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -10,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.service.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 

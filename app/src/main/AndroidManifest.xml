@@ -15,9 +15,9 @@
         android:roundIcon="@drawable/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditOrganizationActivity"></activity>
-        <activity android:name=".MapActivity" />
-        <activity android:name=".MapTestActivity" />
+        <activity android:name=".EditOrganizationActivity" />
+        <activity android:name=".location.MapActivity" />
+        <activity android:name=".location.MapTestActivity" />
         <activity android:name=".SettingsActivity" />
 
         <provider

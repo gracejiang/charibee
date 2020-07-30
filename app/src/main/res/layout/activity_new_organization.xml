@@ -1,84 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    android:orientation="vertical"
     tools:context=".NewOrganizationActivity">
 
-    <EditText
-        android:id="@+id/new_org_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Organization Name"
-        android:inputType="textPersonName" />
 
-    <Spinner
-        android:id="@+id/new_org_spinner_categories"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/new_org_tagline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter a brief tagline for your organization."
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/new_org_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Organization Name"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/new_org_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter a description for your organization."
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:minLines="5" />
+        <Spinner
+            android:id="@+id/new_org_spinner_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/new_org_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Address (Optional)"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/new_org_tagline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter a brief tagline for your organization."
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/new_org_website"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Organization Website (Optional)"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/new_org_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter a description for your organization."
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:minLines="5" />
 
-    <EditText
-        android:id="@+id/new_org_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email (Optional)"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/new_org_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Address (Optional)"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/new_org_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Phone Number (Optional)"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/new_org_website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Organization Website (Optional)"
+            android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/new_org_submit_btn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/button_color"
-        android:text="Register Organization"
-        android:textColor="@color/button_text_color" />
+        <EditText
+            android:id="@+id/new_org_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email (Optional)"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/new_org_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Phone Number (Optional)"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/new_org_submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/button_color"
+            android:text="Register Organization"
+            android:textColor="@color/button_text_color" />
+
+    </LinearLayout>
 
 
-</LinearLayout>
+</ScrollView>

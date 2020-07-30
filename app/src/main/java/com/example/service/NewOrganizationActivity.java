@@ -1,7 +1,5 @@
 package com.example.service;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +10,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.service.functions.CategorySpinnerClass;
+import com.example.service.location.MapActivity;
 import com.example.service.models.Organization;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -116,6 +117,12 @@ public class NewOrganizationActivity extends AppCompatActivity {
         });
 
         createCategoryAdapter();
+    }
+
+    // go to address activity
+    private void goAddressActivity() {
+        Intent i = new Intent(this, MapActivity.class);
+        startActivity(i);
     }
 
     // goes to main activity

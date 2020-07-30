@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.service.location.MapTestActivity;
 import com.parse.ParseUser;
 
 /*
@@ -61,7 +62,6 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         // when map button clicked
-        btnMap.setVisibility(View.GONE);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

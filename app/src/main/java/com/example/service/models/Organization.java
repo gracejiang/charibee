@@ -8,10 +8,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-import org.json.JSONArray;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,7 +40,7 @@ public class Organization extends ParseObject {
             return this.fetchIfNeeded().getString(KEY_NAME);
         } catch (ParseException e) {
             Log.e(TAG, "ParseError", e);
-            return getString(KEY_NAME);
+            return "";
         }
     }
 
