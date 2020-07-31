@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.service.R;
+import com.example.service.data.Data;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.internal.OnConnectionFailedListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -52,12 +54,18 @@ public class MapActivity extends AppCompatActivity implements OnConnectionFailed
     // ui
     private AutoCompleteTextView etSearchText;
     private ImageView ivCurrLocation;
+    private Button btnSetLocation;
 
     // vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlaceAutocompleteAdapter placeAutocompleteAdapter;
+
+    // save results
+    private String setAddress = "";
+    private double lat;
+    private double lng;
 
 
     @Override
@@ -73,28 +81,37 @@ public class MapActivity extends AppCompatActivity implements OnConnectionFailed
         // bind ui views
         etSearchText = findViewById(R.id.map_et_search);
         ivCurrLocation = findViewById(R.id.map_ic_current_loc);
+        btnSetLocation = findViewById(R.id.map_set_location_btn);
 
         getLocationPermission();
         if (mLocationPermissionsGranted) {
             initMap();
             getDeviceLocation();
             init();
+
+            btnSetLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    saveResults();
+                }
+            });
         }
+    }
 
-
+    // saves results and returns to previous activity
+    private void saveResults() {
+        Data.setAddress(setAddress);
+        Data.setLat(lat);
+        Data.setLng(lng);
+        finish();
     }
 
     // views to be initialized when map permissions approved
     private void init() {
         setSearchTextListener();
         setGPSLocatorListener();
-        setAdapter();
     }
 
-    // set adapter
-    private void setAdapter() {
-       // placeAutocompleteAdapter = new PlaceAutocompleteAdapter();
-    }
 
     // listens for search text and geolocates when enter pressed
     private void setSearchTextListener() {
@@ -141,9 +158,10 @@ public class MapActivity extends AppCompatActivity implements OnConnectionFailed
 
         if (list.size() > 0) {
             Address address = list.get(0);
-            // Log.i(TAG, "geolocated: " +  address.toString());
-
-            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getAddressLine(0));
+            setAddress = address.getAddressLine(0);
+            lat = address.getLatitude();
+            lng = address.getLongitude();
+            moveCamera(new LatLng(lat, lng), DEFAULT_ZOOM, setAddress);
         }
     }
 

@@ -3,8 +3,10 @@ package com.example.service.models;
 
 import android.util.Log;
 
+import com.example.service.data.Data;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -24,8 +26,7 @@ public class Organization extends ParseObject {
     public static final String KEY_VOLUNTEERS = "volunteers";
     public static final String KEY_VOLUNTEER_IDS = "volunteerIds";
     public static final String KEY_ADDRESS = "address";
-    public static final String KEY_LATITUDE = "lat";
-    public static final String KEY_LONGITUDE = "long";
+    public static final String KEY_ADDRESS_POINTS = "addressPoints";
     public static final String KEY_WEBSITE = "website";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_PHONE_NUMBER = "phoneNumber";
@@ -81,8 +82,9 @@ public class Organization extends ParseObject {
     }
 
     public void setAddress(String address) {
-        if (address != null && address.length() > 0) {
+        if (address != null && address.length() > 0 && !address.equals("Click to Enter Address")) {
             put(KEY_ADDRESS, address);
+            put(KEY_ADDRESS_POINTS, new ParseGeoPoint(Data.getLat(), Data.getLng()));
         }
     }
 

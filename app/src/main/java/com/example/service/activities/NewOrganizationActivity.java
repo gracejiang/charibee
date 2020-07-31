@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service.R;
+import com.example.service.data.Data;
 import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.location.MapActivity;
 import com.example.service.models.Organization;
@@ -53,6 +54,9 @@ public class NewOrganizationActivity extends AppCompatActivity {
         etPhoneNumber = findViewById(R.id.new_org_phone_number);
         btnSubmit = findViewById(R.id.new_org_submit_btn);
 
+        // reset address data
+        clearData();
+
         // when set address button clicked
         btnSetAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,19 +74,30 @@ public class NewOrganizationActivity extends AppCompatActivity {
                 String category = spinnerCategory.getSelectedItem().toString();
                 String tagline = etTagline.getText().toString();
                 String description = etDescription.getText().toString();
-                String address = null;
                 String website = etWebsite.getText().toString();
                 String email = etEmail.getText().toString();
                 String phoneNumber = etPhoneNumber.getText().toString();
 
                 if (validOrganization(name, category, tagline, description, email, phoneNumber)) {
-                    registerOrganization(name, category, tagline, description, address, website, email, phoneNumber);
+                    registerOrganization(name, category, tagline, description, website, email, phoneNumber);
                 }
             }
         });
 
         createCategoryAdapter();
 
+    }
+
+    @Override
+    protected void onResume() {
+        btnSetAddress.setText(Data.getAddress());
+        super.onResume();
+    }
+
+    private void clearData() {
+        Data.clearAddress();
+        Data.setLat(0);
+        Data.setLng(0);
     }
 
     private boolean validOrganization(String name, String category, String tagline, String description, String email, String phoneNumber) {
@@ -96,7 +111,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
         return true;
     }
 
-    private void registerOrganization(final String name, String category, String tagline, String description, String address, String website, String email, String phoneNumber) {
+    private void registerOrganization(final String name, String category, String tagline, String description, String website, String email, String phoneNumber) {
         Organization org = new Organization();
 
         // set org values
@@ -105,13 +120,12 @@ public class NewOrganizationActivity extends AppCompatActivity {
         org.setTagline(tagline);
         org.setDescription(description);
         org.setOrganizer(ParseUser.getCurrentUser());
-
-        org.setAddress(address);
+        org.setAddress(Data.getAddress());
         org.setWebsite(website);
         org.setEmail(email);
         org.setPhoneNumber(phoneNumber);
 
-
+        // save to parse
         org.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
