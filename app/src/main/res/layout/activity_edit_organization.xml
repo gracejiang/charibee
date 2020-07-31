@@ -42,13 +42,11 @@
             android:minLines="5"
             android:hint="Description"/>
 
-        <EditText
-            android:id="@+id/edit_org_address"
+        <Button
+            android:id="@+id/edit_org_address_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Address"/>
+            android:text="Button" />
 
         <EditText
             android:id="@+id/edit_org_website"

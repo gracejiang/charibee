@@ -1,7 +1,5 @@
 package com.example.service.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +9,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.service.R;
 import com.example.service.data.Data;
 import com.example.service.functions.CategorySpinnerClass;
+import com.example.service.location.MapActivity;
 import com.example.service.models.Organization;
 
 public class EditOrganizationActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class EditOrganizationActivity extends AppCompatActivity {
     private Spinner spnCategory;
     private EditText etTagline;
     private EditText etDescription;
-    private EditText etAddress;
+    private Button btnAddress;
     private EditText etWebsite;
     private EditText etEmail;
     private EditText etPhoneNumber;
@@ -40,13 +41,14 @@ public class EditOrganizationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_organization);
 
         org = Data.getOrg();
+        Data.clearAddress();
 
         // bind ui views
         etName = findViewById(R.id.edit_org_name);
         spnCategory = findViewById(R.id.edit_org_category_spinner);
         etTagline = findViewById(R.id.edit_org_tagline);
         etDescription = findViewById(R.id.edit_org_description);
-        etAddress = findViewById(R.id.edit_org_address);
+        btnAddress = findViewById(R.id.edit_org_address_btn);
         etWebsite = findViewById(R.id.edit_org_website);
         etEmail = findViewById(R.id.edit_org_email);
         etPhoneNumber = findViewById(R.id.edit_org_phone_number);
@@ -66,6 +68,20 @@ public class EditOrganizationActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // when edit address button clicked
+        btnAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goMapActivity();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        btnAddress.setText(Data.getAddress());
+        super.onResume();
     }
 
     // load in views
@@ -76,7 +92,7 @@ public class EditOrganizationActivity extends AppCompatActivity {
         etDescription.setText(org.getDescription());
 
         // set if theres a value
-        setIntoView(etAddress, org.getAddress());
+        setIntoView(btnAddress, org.getAddress());
         setIntoView(etWebsite, org.getWebsite());
         setIntoView(etEmail, org.getEmail());
         setIntoView(etPhoneNumber, org.getPhoneNumber());
@@ -90,6 +106,12 @@ public class EditOrganizationActivity extends AppCompatActivity {
     private void setIntoView(EditText et, String value) {
         if (value != null && value.length() > 0) {
             et.setText(value);
+        }
+    }
+
+    private void setIntoView(Button btn, String value) {
+        if (value != null && value.length() > 0) {
+            btn.setText(value);
         }
     }
 
@@ -112,7 +134,7 @@ public class EditOrganizationActivity extends AppCompatActivity {
         org.setName(etName.getText().toString());
         org.setDescription(etDescription.getText().toString());
         org.setCategory(spnCategory.getSelectedItem().toString());
-        org.setAddress(etAddress.getText().toString());
+        org.setAddress(Data.getAddress());
         org.setWebsite(etWebsite.getText().toString());
         org.setEmail(etEmail.getText().toString());
         org.setPhoneNumber(etPhoneNumber.getText().toString());
@@ -120,6 +142,11 @@ public class EditOrganizationActivity extends AppCompatActivity {
         org.saveInBackground();
     }
 
+    // go to map activity
+    private void goMapActivity() {
+        Intent i = new Intent(this, MapActivity.class);
+        startActivity(i);
+    }
 
     // return to home fragment
     private void goHomeFragment() {

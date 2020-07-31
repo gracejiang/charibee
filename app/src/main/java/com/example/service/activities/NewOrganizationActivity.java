@@ -142,7 +142,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
         createCategoryAdapter();
     }
 
-    // go to address activity
+    // go to map activity
     private void goMapActivity() {
         Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
