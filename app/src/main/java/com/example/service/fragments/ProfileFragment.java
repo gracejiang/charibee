@@ -3,11 +3,6 @@ package com.example.service.fragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
-import com.example.service.SettingsActivity;
-import com.example.service.EditProfileActivity;
 import com.example.service.R;
-import com.example.service.WelcomeActivity;
+import com.example.service.activities.EditProfileActivity;
+import com.example.service.activities.SettingsActivity;
+import com.example.service.activities.WelcomeActivity;
 import com.example.service.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -64,29 +63,8 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        user = new User(currentUser);
-
-        String firstName = (String) currentUser.get("firstName");
-        String lastName = (String) currentUser.get("lastName");
-        String username = currentUser.getUsername();
-        String bio = user.getBio();
-
-        // set profile pic
-        ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
-        if (profilePic != null) {
-            Glide.with(getContext())
-                    .load(httpToHttps(profilePic.getUrl()))
-                    .circleCrop()
-                    .into(ivAvatar);
-        } else {
-            Log.e(TAG, "couldn't load profile pic");
-        }
-
-        // set text
-        tvFullName.setText(firstName + " " + lastName);
-        tvUsername.setText("@" + username);
-        tvBio.setText(bio);
+        // set values
+        setValues();
 
         // edit profile button clicked
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +90,38 @@ public class ProfileFragment extends Fragment {
                 goWelcomeActivity();
             }
         });
+    }
+
+    private void setValues() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        user = new User(currentUser);
+
+        String firstName = (String) currentUser.get("firstName");
+        String lastName = (String) currentUser.get("lastName");
+        String username = currentUser.getUsername();
+        String bio = user.getBio();
+
+        // set profile pic
+        ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
+        if (profilePic != null) {
+            Glide.with(getContext())
+                    .load(httpToHttps(profilePic.getUrl()))
+                    .circleCrop()
+                    .into(ivAvatar);
+        } else {
+            Log.e(TAG, "couldn't load profile pic");
+        }
+
+        // set text
+        tvFullName.setText(firstName + " " + lastName);
+        tvUsername.setText("@" + username);
+        tvBio.setText(bio);
+    }
+
+    @Override
+    public void onResume() {
+        setValues();
+        super.onResume();
     }
 
     // go to edit profile activity

@@ -32,7 +32,7 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_search_24" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/map_et_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -42,6 +42,7 @@
             android:textSize="15sp"
             android:textColor="@color/black"
             android:background="@null"
+            android:inputType="textPersonName"
             android:hint="Enter Address, City, or Zip Code"
             android:imeOptions="actionSearch"/>
     </RelativeLayout>
@@ -56,5 +57,16 @@
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_gps_24" />
+
+    <Button
+        android:id="@+id/map_set_location_btn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:background="@color/button_color"
+        android:textColor="@color/button_text_color"
+        android:text="Set Location" />
 
 </RelativeLayout>

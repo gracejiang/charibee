@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.service.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.service.R;
 import com.example.service.fragments.DiscoverFragment;
 import com.example.service.fragments.HomeFragment;
 import com.example.service.fragments.ProfileFragment;

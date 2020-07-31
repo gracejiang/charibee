@@ -1,6 +1,5 @@
-package com.example.service;
+package com.example.service.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.service.R;
 import com.example.service.functions.RoleSpinnerClass;
 import com.example.service.models.Organization;
 import com.parse.ParseException;

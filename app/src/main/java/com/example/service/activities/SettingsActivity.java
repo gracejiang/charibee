@@ -1,14 +1,14 @@
-package com.example.service;
+package com.example.service.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.service.R;
 import com.parse.ParseUser;
 
 public class SettingsActivity extends AppCompatActivity {

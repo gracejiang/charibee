@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.service.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.service.R;
 import com.example.service.data.Data;
 import com.example.service.functions.VolunteersAdapter;
 import com.example.service.models.Organization;

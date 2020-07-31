@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 // Google Services plugin
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 
 android {

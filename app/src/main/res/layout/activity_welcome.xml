@@ -7,7 +7,7 @@
     android:background="@color/pale_yellow"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".WelcomeActivity">
+    tools:context=".activities.WelcomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

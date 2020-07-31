@@ -1,8 +1,4 @@
-package com.example.service;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
+package com.example.service.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,7 +16,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import com.bumptech.glide.Glide;
+import com.example.service.R;
 import com.example.service.functions.BitmapScaler;
 import com.example.service.models.User;
 import com.parse.ParseException;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    tools:context=".NewOrganizationActivity">
+    tools:context=".activities.NewOrganizationActivity">
 
 
     <LinearLayout
@@ -44,13 +44,11 @@
             android:inputType="textMultiLine"
             android:minLines="5" />
 
-        <EditText
-            android:id="@+id/new_org_address"
+        <Button
+            android:id="@+id/new_org_set_address_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Address (Optional)"
-            android:inputType="textPersonName" />
+            android:text="Set Address (Optional)" />
 
         <EditText
             android:id="@+id/new_org_website"

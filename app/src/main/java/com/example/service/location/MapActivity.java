@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +21,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.service.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.internal.OnConnectionFailedListener;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,7 +40,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity implements OnConnectionFailedListener {
 
     public static final String TAG = "MapActivity";
 
@@ -47,13 +49,15 @@ public class MapActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final float DEFAULT_ZOOM = 15f;
 
+    // ui
+    private AutoCompleteTextView etSearchText;
+    private ImageView ivCurrLocation;
+
+    // vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
-    // ui
-    private EditText etSearchText;
-    private ImageView ivCurrLocation;
+    private PlaceAutocompleteAdapter placeAutocompleteAdapter;
 
 
     @Override
@@ -74,11 +78,22 @@ public class MapActivity extends AppCompatActivity {
         if (mLocationPermissionsGranted) {
             initMap();
             getDeviceLocation();
-            setSearchTextListener();
-            setGPSLocatorListener();
+            init();
         }
 
 
+    }
+
+    // views to be initialized when map permissions approved
+    private void init() {
+        setSearchTextListener();
+        setGPSLocatorListener();
+        setAdapter();
+    }
+
+    // set adapter
+    private void setAdapter() {
+       // placeAutocompleteAdapter = new PlaceAutocompleteAdapter();
     }
 
     // listens for search text and geolocates when enter pressed
@@ -227,6 +242,11 @@ public class MapActivity extends AppCompatActivity {
             }
         }
 
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
 }

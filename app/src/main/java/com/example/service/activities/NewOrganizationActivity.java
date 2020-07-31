@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.service.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.service.R;
 import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.location.MapActivity;
 import com.example.service.models.Organization;
@@ -30,7 +31,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
     private Spinner spinnerCategory;
     private EditText etTagline;
     private EditText etDescription;
-    private EditText etAddress;
+    private Button btnSetAddress;
     private EditText etWebsite;
     private EditText etEmail;
     private EditText etPhoneNumber;
@@ -46,11 +47,19 @@ public class NewOrganizationActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.new_org_spinner_categories);
         etTagline = findViewById(R.id.new_org_tagline);
         etDescription = findViewById(R.id.new_org_description);
-        etAddress = findViewById(R.id.new_org_address);
+        btnSetAddress = findViewById(R.id.new_org_set_address_btn);
         etWebsite = findViewById(R.id.new_org_website);
         etEmail = findViewById(R.id.new_org_email);
         etPhoneNumber = findViewById(R.id.new_org_phone_number);
         btnSubmit = findViewById(R.id.new_org_submit_btn);
+
+        // when set address button clicked
+        btnSetAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goMapActivity();
+            }
+        });
 
         // when submit button clicked
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +70,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
                 String category = spinnerCategory.getSelectedItem().toString();
                 String tagline = etTagline.getText().toString();
                 String description = etDescription.getText().toString();
-                String address = etAddress.getText().toString();
+                String address = null;
                 String website = etWebsite.getText().toString();
                 String email = etEmail.getText().toString();
                 String phoneNumber = etPhoneNumber.getText().toString();
@@ -120,7 +129,7 @@ public class NewOrganizationActivity extends AppCompatActivity {
     }
 
     // go to address activity
-    private void goAddressActivity() {
+    private void goMapActivity() {
         Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
     }

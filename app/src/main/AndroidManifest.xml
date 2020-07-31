@@ -15,10 +15,10 @@
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditOrganizationActivity" />
+        <activity android:name=".activities.EditOrganizationActivity" />
         <activity android:name=".location.MapActivity" />
         <activity android:name=".location.MapTestActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".activities.SettingsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -30,19 +30,19 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".OrganizationDetailsActivity" />
-        <activity android:name=".NewOrganizationActivity" />
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".activities.EditProfileActivity" />
+        <activity android:name=".activities.OrganizationDetailsActivity" />
+        <activity android:name=".activities.NewOrganizationActivity" />
+        <activity android:name=".activities.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" /> <!-- Google Maps -->
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.MainActivity" /> <!-- Google Maps -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

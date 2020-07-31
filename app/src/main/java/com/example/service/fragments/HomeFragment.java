@@ -16,9 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.service.R;
-import com.example.service.NewOrganizationActivity;
+import com.example.service.activities.NewOrganizationActivity;
 import com.example.service.functions.CustomItemDivider;
-import com.example.service.functions.DiscoverOrgsAdapter;
 import com.example.service.functions.HomeOrgsAdapter;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
