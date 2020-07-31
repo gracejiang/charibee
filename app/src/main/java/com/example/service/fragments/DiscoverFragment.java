@@ -1,14 +1,6 @@
 package com.example.service.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
-import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.functions.CustomItemDivider;
 import com.example.service.functions.DiscoverOrgsAdapter;
-import com.example.service.functions.RoleSpinnerClass;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DiscoverFragment extends Fragment {
@@ -50,6 +49,9 @@ public class DiscoverFragment extends Fragment {
     private Button btnSearch;
     private Spinner spnCategory;
     private RecyclerView rvOrgs;
+
+    // long click listener
+    DiscoverOrgsAdapter.OnLongClickListener onLongClickListener;
 
     public DiscoverFragment() {
     }
@@ -73,6 +75,15 @@ public class DiscoverFragment extends Fragment {
 
         // recycler view adapter
         updateAdapter(allOrgs);
+
+        // long click listener
+        onLongClickListener = new DiscoverOrgsAdapter.OnLongClickListener() {
+            @Override
+            public void onItemLongClicked(int position) {
+                Organization orgToJoin = filterOrgs.get(position);
+                Toast.makeText(getContext(), orgToJoin.getName(), Toast.LENGTH_SHORT).show();
+            }
+        };
 
         // spinner adapter
         createCategoryAdapter();
@@ -114,7 +125,7 @@ public class DiscoverFragment extends Fragment {
 
     // update org adapter given list of organizations
     private void updateAdapter(List<Organization> orgsList) {
-        adapter = new DiscoverOrgsAdapter(getContext(), orgsList); // (1) create adapter
+        adapter = new DiscoverOrgsAdapter(getContext(), orgsList, onLongClickListener); // (1) create adapter
         rvOrgs.setAdapter(adapter); // (2) set adapter on rv
         rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();
@@ -134,12 +145,12 @@ public class DiscoverFragment extends Fragment {
                     Log.e(TAG, "issue loading orgs from parse" + e.getMessage());
                     return;
                 }
-
-                for (Organization org : orgs) {
-                    // Log.i(TAG, org.getName());
-                }
+//                for (Organization org : orgs) {
+//                    // Log.i(TAG, org.getName());
+//                }
 
                 allOrgs.addAll(orgs);
+                Collections.sort(allOrgs);
                 adapter.notifyDataSetChanged();
 
             }

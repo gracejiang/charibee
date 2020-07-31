@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @ParseClassName("Organization")
-public class Organization extends ParseObject {
+public class Organization extends ParseObject implements Comparable {
 
     public static final String TAG = "Organization";
 
@@ -184,5 +184,10 @@ public class Organization extends ParseObject {
             }
 
         }
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.getName().compareTo(((Organization) o).getName());
     }
 }

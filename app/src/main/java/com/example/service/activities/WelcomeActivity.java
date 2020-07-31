@@ -63,6 +63,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
         // when map button clicked
+        btnMap.setVisibility(View.GONE);
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

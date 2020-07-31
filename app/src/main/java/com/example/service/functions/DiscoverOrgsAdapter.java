@@ -22,12 +22,18 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
 
     public static final String TAG = "DiscoverOrgsAdapter";
 
+    public interface OnLongClickListener {
+        void onItemLongClicked(int position);
+    }
+
     private Context context;
     private List<Organization> orgs;
+    private OnLongClickListener longClickListener;
 
-    public DiscoverOrgsAdapter(Context context, List<Organization> orgs) {
+    public DiscoverOrgsAdapter(Context context, List<Organization> orgs, OnLongClickListener longClickListener) {
         this.context = context;
         this.orgs = orgs;
+        this.longClickListener = longClickListener;
     }
 
     @NonNull
@@ -70,6 +76,8 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             tvName.setText(org.getName());
             tvCategory.setText(org.getCategory());
             tvTagline.setText(org.getTagline());
+
+
         }
 
 

@@ -145,6 +145,10 @@ public class ProfileFragment extends Fragment {
 
     // converts http link to https
     private String httpToHttps(String url) {
+        if (url == null) {
+            return "";
+        }
+
         if (url.contains("https")) {
             return url;
         }
