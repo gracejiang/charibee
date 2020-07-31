@@ -1,10 +1,5 @@
 package com.example.service;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,16 +8,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.service.data.Data;
-import com.example.service.functions.CustomItemDivider;
-import com.example.service.functions.DiscoverOrgsAdapter;
 import com.example.service.functions.VolunteersAdapter;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-import org.json.JSONArray;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -256,10 +252,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         for (ParseUser parseUser : parseUsers) {
             User user = new User(parseUser);
             user.removeOrg(org);
-            Log.i(TAG, "size: " + user.getOrganizations().size());
+            Log.i(TAG, user.getName()  + " deleteOrg: " + user.getOrganizations().size());
         }
 
-        org.deleteInBackground();
+        // org.deleteInBackground();
     }
 
     // go back to discover fragment

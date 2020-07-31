@@ -7,7 +7,12 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.AutoCompleteTextView;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,7 +52,9 @@ public class MapActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     // ui
-    private AutoCompleteTextView mSearchText;
+    private EditText etSearchText;
+    private ImageView ivCurrLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +67,53 @@ public class MapActivity extends AppCompatActivity {
         PlacesClient placesClient = Places.createClient(this);
 
         // bind ui views
-        mSearchText = findViewById(R.id.map_search);
+        etSearchText = findViewById(R.id.map_et_search);
+        ivCurrLocation = findViewById(R.id.map_ic_current_loc);
 
         getLocationPermission();
         if (mLocationPermissionsGranted) {
             initMap();
             getDeviceLocation();
-
-            geoLocate("fremont");
+            setSearchTextListener();
+            setGPSLocatorListener();
         }
+
 
     }
 
+    // listens for search text and geolocates when enter pressed
+    private void setSearchTextListener() {
+        Log.d(TAG, "init: initializing");
 
+        etSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
 
+                // if enter button pressed
+                if (actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == keyEvent.KEYCODE_ENTER) {
+
+                    // execute method for searching
+                    geoLocate(etSearchText.getText().toString());
+                }
+                return false;
+            }
+        });
+    }
+
+    // when gps button is clicked
+    private void setGPSLocatorListener() {
+        ivCurrLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDeviceLocation();
+            }
+        });
+    }
+
+    // finds location of string and pans camera to location
     private void geoLocate(String locationString) {
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> list = new ArrayList<>();
@@ -86,7 +126,7 @@ public class MapActivity extends AppCompatActivity {
 
         if (list.size() > 0) {
             Address address = list.get(0);
-            Log.i(TAG, "geolocated: " +  address.toString());
+            // Log.i(TAG, "geolocated: " +  address.toString());
 
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getAddressLine(0));
         }
@@ -101,7 +141,6 @@ public class MapActivity extends AppCompatActivity {
                 mMap = googleMap;
             }
         });
-
     }
 
     // get devices location
@@ -126,6 +165,7 @@ public class MapActivity extends AppCompatActivity {
                             if (ActivityCompat.checkSelfPermission(MapActivity.this, FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                                 return;
                             }
+
                             mMap.setMyLocationEnabled(true);
 
                         } else {
@@ -140,17 +180,21 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
-    // move camera to current lat/long
+    // move camera to lat/long
     private void moveCamera(LatLng latLng, float zoom, String title) {
-        // Log.i(TAG, "moving camera to lat: " + latLng.latitude + ", lng: " + latLng.longitude);
-        if (mMap != null) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title(title);
-            mMap.addMarker(options);
-        } else {
+        // map is null, cannot move camera at time
+        if (mMap == null) {
             Log.i(TAG, "mMap null, async error");
+            return;
+        }
+
+        // move the camera to correct position
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        // drop a pin at the location
+        if (!title.equals("My Location")) {
+            MarkerOptions options = new MarkerOptions().position(latLng).title(title);
+            mMap.addMarker(options);
         }
     }
 

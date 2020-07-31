@@ -2,9 +2,7 @@ package com.example.service.models;
 
 import android.util.Log;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -129,12 +127,15 @@ public class User {
                     organizations.remove(i);
 
                     user.put(KEY_ORGS_IDS, orgIds);
+
+                    Log.i("deleteOrg", "LOCAL org ids size: " + orgIds.size());
+
                     user.put(KEY_ORGS, organizations);
                     user.saveInBackground();
 
-//                    Log.i("deleteOrg", "org found and deleted");
-//                    User u = new User(user);
-//                    Log.i(TAG, u.getName() + " has: " + u.getOrganizationIds().size() + " orgs");
+                    Log.i("deleteOrg", "org found and deleted");
+                    User u = new User(user);
+                    Log.i("deleteOrg", "RETRIEVED org ids size for user " + u.getName() + ": " + u.getOrganizationIds().size());
 
                     return;
                 }
@@ -144,21 +145,4 @@ public class User {
         }
 
     }
-
-    // get ParseUser object by ID
-    private static void deleteOrg(final String userId, final Organization org) {
-        ParseQuery<ParseUser> query = ParseUser.getQuery();
-        query.whereEqualTo("objectId", userId); // find adults
-        query.findInBackground(new FindCallback<ParseUser>() {
-            public void done(List<ParseUser> objects, ParseException e) {
-                if (e == null) {
-                    // found user! delete the org
-                    ParseUser parseUser = objects.get(0);
-                    User user = new User(parseUser);
-                    user.removeOrg(org);
-                } else { Log.e(TAG, "error retrieving user " + userId + ": " + e); }
-            }
-        });
-    }
-
 }

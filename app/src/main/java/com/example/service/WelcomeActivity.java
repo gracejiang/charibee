@@ -42,7 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
         ivIcon = findViewById(R.id.welcome_icon);
 
         // set icon
-        Drawable iconDrawable = getResources().getDrawable(R.drawable.ic_icon);
+        Drawable iconDrawable = getResources().getDrawable(R.drawable.ic_app_icon);
         ivIcon.setImageDrawable(iconDrawable);
 
         // when login button clicked

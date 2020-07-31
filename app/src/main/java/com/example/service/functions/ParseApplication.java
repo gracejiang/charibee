@@ -6,9 +6,6 @@ import com.example.service.models.Organization;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-
 // setup here:
 // https://guides.codepath.org/android/Building-Data-driven-Apps-with-Parse#setup-network-permissions
 

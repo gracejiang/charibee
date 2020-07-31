@@ -27,7 +27,7 @@
                 android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
-                tools:srcCompat="@drawable/ic_icon" />
+                tools:srcCompat="@drawable/ic_app_icon" />
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
