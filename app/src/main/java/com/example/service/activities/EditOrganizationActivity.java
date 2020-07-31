@@ -97,6 +97,9 @@ public class EditOrganizationActivity extends AppCompatActivity {
         setIntoView(etEmail, org.getEmail());
         setIntoView(etPhoneNumber, org.getPhoneNumber());
 
+        // set address
+
+
         // load in spinner view
         int spinnerPosition = adapter.getPosition(org.getCategory());
         spnCategory.setSelection(spinnerPosition);
@@ -111,7 +114,8 @@ public class EditOrganizationActivity extends AppCompatActivity {
 
     private void setIntoView(Button btn, String value) {
         if (value != null && value.length() > 0) {
-            btn.setText(value);
+            btnAddress.setText(value);
+            Data.setAddress(value);
         }
     }
 
