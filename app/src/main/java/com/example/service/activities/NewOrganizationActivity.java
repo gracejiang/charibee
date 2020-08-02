@@ -17,6 +17,7 @@ import com.example.service.data.Data;
 import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.location.MapActivity;
 import com.example.service.models.Organization;
+import com.example.service.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -112,14 +113,16 @@ public class NewOrganizationActivity extends AppCompatActivity {
     }
 
     private void registerOrganization(final String name, String category, String tagline, String description, String website, String email, String phoneNumber) {
-        Organization org = new Organization();
+        final Organization org = new Organization();
+
+        final ParseUser currentUser = ParseUser.getCurrentUser();
 
         // set org values
         org.setName(name);
         org.setCategory(category);
         org.setTagline(tagline);
         org.setDescription(description);
-        org.setOrganizer(ParseUser.getCurrentUser());
+        org.setOrganizer(currentUser);
         org.setAddress(Data.getAddress());
         org.setWebsite(website);
         org.setEmail(email);
@@ -130,7 +133,14 @@ public class NewOrganizationActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    Log.i(TAG, name + " was registered");
+                    // add org to user
+                    User u = new User(currentUser);
+                    u.addOrg(org);
+
+                    // add user to org
+                    org.addVolunteer(currentUser);
+
+                    // return to main activity
                     goMainActivity();
                 } else {
                     Log.e(TAG, "Error will saving", e);

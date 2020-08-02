@@ -91,7 +91,6 @@ public class User {
 
     // add an organization to a user
     public void addOrg(Organization org) {
-
         String orgId = org.getObjectId();
         List<String> orgIds = getOrganizationIds();
 
