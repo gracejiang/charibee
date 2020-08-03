@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -264,5 +266,27 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    // animate button when swiping right
+    private void addAnimation() {
+        // Inflate animation from XML
+        Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.item_org);
+        animFadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // Fires when animation starts
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // ...
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // ...
+            }
+        });
     }
 }

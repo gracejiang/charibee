@@ -58,7 +58,10 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
         return orgs.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        ParseUser currentParseUser;
+        User currentUser;
 
         private TextView tvName;
         private TextView tvCategory;
@@ -68,29 +71,63 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(this);
-
+            // set views
             tvName = itemView.findViewById(R.id.item_org_name);
             tvCategory = itemView.findViewById(R.id.item_org_category);
             tvTagline = itemView.findViewById(R.id.item_org_tagline);
 
-            // when user swipes
+            // set current user values
+            currentParseUser = ParseUser.getCurrentUser();
+            currentUser = new User(currentParseUser);
+
+            // when user swipes right
             itemView.setOnTouchListener(new OnSwipeTouchListener(context) {
+
+                // when user swipes right, join org
                 @Override
                 public void onSwipeRight() {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        ParseUser currentParseUser = ParseUser.getCurrentUser();
-                        User currentUser = new User(currentParseUser);
-
                         Organization org = orgs.get(position);
                         org.addVolunteer(currentParseUser);
                         currentUser.addOrg(org);
 
-                        Toast.makeText(context, "You have successfully joined the group " + org.getName() + "!", Toast.LENGTH_SHORT).show();
+                        makeMessage("You have successfully joined the group " + org.getName() + "!");
+                    }
+                }
+
+                // when user swipes left, leave org
+                @Override
+                public void onSwipeLeft() {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Organization org = orgs.get(position);
+
+                        // remove org from current user
+                        currentUser.removeOrg(org);
+
+                        // remove current user from org
+                        org.removeVolunteer(currentParseUser);
+
+                        // tell user successfully left org
+                        makeMessage("You have successfully left the group " + org.getName() + "!");
+                    }
+                }
+
+                // when users clicks
+                @Override
+                public void onClick() {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Organization org = orgs.get(position);
+                        Intent intent = new Intent(context, OrganizationDetailsActivity.class);
+                        intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
+                        context.startActivity(intent);
                     }
                 }
             });
+
+
         }
 
         public void bind(Organization org) {
@@ -100,17 +137,11 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
         }
 
 
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
+    }
 
-            if (position != RecyclerView.NO_POSITION) {
-                Organization org = orgs.get(position);
-                Intent intent = new Intent(context, OrganizationDetailsActivity.class);
-                intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
-                context.startActivity(intent);
-            }
-        }
+    private void makeMessage(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+
     }
 
 
