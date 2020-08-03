@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.service.activities.OrganizationDetailsActivity;
 import com.example.service.R;
+import com.example.service.activities.OrganizationDetailsActivity;
 import com.example.service.models.Organization;
+import com.example.service.models.User;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -70,14 +73,30 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             tvName = itemView.findViewById(R.id.item_org_name);
             tvCategory = itemView.findViewById(R.id.item_org_category);
             tvTagline = itemView.findViewById(R.id.item_org_tagline);
+
+            // when user swipes
+            itemView.setOnTouchListener(new OnSwipeTouchListener(context) {
+                @Override
+                public void onSwipeRight() {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        ParseUser currentParseUser = ParseUser.getCurrentUser();
+                        User currentUser = new User(currentParseUser);
+
+                        Organization org = orgs.get(position);
+                        org.addVolunteer(currentParseUser);
+                        currentUser.addOrg(org);
+
+                        Toast.makeText(context, "You have successfully joined the group " + org.getName() + "!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
 
         public void bind(Organization org) {
             tvName.setText(org.getName());
             tvCategory.setText(org.getCategory());
             tvTagline.setText(org.getTagline());
-
-
         }
 
 
