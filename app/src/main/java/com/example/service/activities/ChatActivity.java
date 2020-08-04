@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -55,9 +54,9 @@ public class ChatActivity extends AppCompatActivity {
     // Setup button event handler which posts the entered message to Parse
     void setupMessagePosting() {
         // Find the text field and button
-        etMessage = (EditText) findViewById(R.id.etMessage);
-        btnSend = (ImageButton) findViewById(R.id.btSend);
-        rvChat = (RecyclerView) findViewById(R.id.rvChat);
+        etMessage = (EditText) findViewById(R.id.chat_message_et);
+        btnSend = (ImageButton) findViewById(R.id.chat_send_et);
+        rvChat = (RecyclerView) findViewById(R.id.chat_msg_rv);
         mMessages = new ArrayList<>();
         mFirstLoad = true;
         final String userId = ParseUser.getCurrentUser().getObjectId();
@@ -73,26 +72,26 @@ public class ChatActivity extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String data = etMessage.getText().toString();
+                String messageStr = etMessage.getText().toString();
 
-                // Using new `Message` Parse-backed model now
-                Message message = new Message();
-                message.setBody(data);
-                message.setUserId(ParseUser.getCurrentUser().getObjectId());
+                if (messageStr != null & messageStr.length() > 0) {
+                    // Using new `Message` Parse-backed model now
+                    Message message = new Message();
+                    message.setBody(messageStr);
+                    message.setUserId(ParseUser.getCurrentUser().getObjectId());
 
-                message.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(ChatActivity.this, "Successfully created message on Parse",
-                                    Toast.LENGTH_SHORT).show();
-                            refreshMessages();
-                        } else {
-                            Log.e(TAG, "Failed to save message", e);
+                    message.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                refreshMessages();
+                            } else {
+                                Log.e(TAG, "Failed to save message", e);
+                            }
                         }
-                    }
-                });
-                etMessage.setText(null);
+                    });
+                    etMessage.setText(null);
+                }
             }
         });
     }

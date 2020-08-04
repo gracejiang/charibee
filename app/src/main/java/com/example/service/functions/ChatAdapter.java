@@ -1,6 +1,7 @@
 package com.example.service.functions;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
         @Override
         public void bindMessage(Message message) {
+            Log.i("chat debug", message.getUserId());
             Glide.with(mContext)
                     .load(getProfileUrl(message.getUserId()))
                     .circleCrop() // create an effect of a round profile picture
@@ -143,4 +145,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         }
         return "https://www.gravatar.com/avatar/" + hex + "?d=identicon";
     }
+
+
+    // converts http link to https
+    private String httpToHttps(String url) {
+        if (url == null) {
+            return "";
+        }
+
+        if (url.contains("https")) {
+            return url;
+        }
+
+        String httpsUrl = "https" + url.substring(4);
+        return httpsUrl;
+    }
+
 }

@@ -74,4 +74,8 @@ dependencies {
     // material ui
     implementation "com.google.android.material:material:1.2.0-alpha03"
 
+    // animation
+    implementation 'com.nineoldandroids:library:2.4.0'
+
+
 }

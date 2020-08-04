@@ -8,7 +8,7 @@
     tools:context=".activities.ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvChat"
+        android:id="@+id/chat_msg_rv"
         android:transcriptMode="alwaysScroll"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -29,18 +29,18 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <EditText
-            android:id="@+id/etMessage"
+            android:id="@+id/chat_message_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btSend"
-            android:layout_toLeftOf="@+id/btSend"
+            android:layout_alignBottom="@+id/chat_send_et"
+            android:layout_toLeftOf="@+id/chat_send_et"
             android:gravity="top"
-            android:hint="Say Hi"
+            android:hint="Send Message"
             android:imeOptions="actionSend"
             android:inputType="textShortMessage" />
 
         <ImageButton
-            android:id="@+id/btSend"
+            android:id="@+id/chat_send_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
