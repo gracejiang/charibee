@@ -6,6 +6,9 @@ import com.example.service.models.Organization;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 // setup here:
 // https://guides.codepath.org/android/Building-Data-driven-Apps-with-Parse#setup-network-permissions
 
@@ -16,6 +19,12 @@ public class ParseApplication extends Application {
 
         // register models
         ParseObject.registerSubclass(Organization.class);
+
+        // chat feature
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.networkInterceptors().add(httpLoggingInterceptor);
 
         // configuration
         Parse.initialize(new Parse.Configuration.Builder(this)

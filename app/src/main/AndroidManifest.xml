@@ -15,7 +15,8 @@
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.UserDetailsActivity"></activity>
+        <activity android:name=".activities.ChatActivity"></activity>
+        <activity android:name=".activities.UserDetailsActivity" />
         <activity android:name=".activities.EditOrganizationActivity" />
         <activity android:name=".location.MapActivity" />
         <activity android:name=".location.MapTestActivity" />

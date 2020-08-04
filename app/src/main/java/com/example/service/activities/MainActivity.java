@@ -1,17 +1,18 @@
 package com.example.service.activities;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-
 import com.example.service.R;
 import com.example.service.fragments.DiscoverFragment;
 import com.example.service.fragments.HomeFragment;
+import com.example.service.fragments.MessagesFragment;
 import com.example.service.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.menu_discover:
                 fragment = new DiscoverFragment();
+                break;
+            case R.id.menu_messages:
+                fragment = new MessagesFragment();
                 break;
             case R.id.menu_profile:
                 fragment = new ProfileFragment();

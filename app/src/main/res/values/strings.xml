@@ -2,4 +2,6 @@
     <string name="app_name">charibee</string>
     <string name="google_maps_API_KEY">AIzaSyDjubfSlbMRKOiREhDIRmaOwaZth9vyZDQ</string>
     <string name="google_places_API_KEY">AIzaSyAscLrhAje_CS0O8nJt-0IzlQDkB5WhxJs</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
