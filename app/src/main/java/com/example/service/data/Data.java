@@ -1,6 +1,7 @@
 package com.example.service.data;
 
 import com.example.service.models.Organization;
+import com.example.service.models.User;
 
 public class Data {
 
@@ -8,6 +9,7 @@ public class Data {
     public static String address = "Click to Enter Address";
     public static double lat;
     public static double lng;
+    public static User toUser;
 
     Data() {
 
@@ -47,6 +49,14 @@ public class Data {
 
     public static double getLng() {
         return lng;
+    }
+
+    public static User getToUser() {
+        return toUser;
+    }
+
+    public static void setToUser(User pUser) {
+        toUser = pUser;
     }
 
 }

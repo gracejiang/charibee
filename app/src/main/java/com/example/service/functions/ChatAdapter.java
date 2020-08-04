@@ -14,12 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.service.R;
 import com.example.service.models.Message;
+import com.example.service.models.User;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHolder> {
+
+    public static final String TAG = "ChatAdapter";
 
     // variables
     private List<Message> mMessages;
@@ -108,7 +113,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                     .circleCrop() // create an effect of a round profile picture
                     .into(imageOther);
             body.setText(message.getBody());
-            name.setText(message.getUserId()); // in addition to message show user ID
+            User fromUser = new User(message.getFromUser());
+
+            name.setText(fromUser.getName());
+
+            ParseFile profilePic = (ParseFile) fromUser.getProfilePic();
+            if (profilePic != null) {
+                Glide.with(mContext)
+                        .load(httpToHttps(profilePic.getUrl()))
+                        .circleCrop()
+                        .into(imageOther);
+            } else {
+                Log.e(TAG, "couldn't load profile pic");
+            }
         }
     }
 
@@ -124,11 +141,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
         @Override
         public void bindMessage(Message message) {
-            Log.i("chat debug", message.getUserId());
-            Glide.with(mContext)
-                    .load(getProfileUrl(message.getUserId()))
-                    .circleCrop() // create an effect of a round profile picture
-                    .into(imageMe);
+            User toUser = new User(ParseUser.getCurrentUser());
+            ParseFile profilePic = (ParseFile) toUser.getProfilePic();
+            if (profilePic != null) {
+                Glide.with(mContext)
+                        .load(httpToHttps(profilePic.getUrl()))
+                        .circleCrop()
+                        .into(imageMe);
+            } else {
+                Log.e(TAG, "couldn't load profile pic");
+            }
+
             body.setText(message.getBody());
         }
     }

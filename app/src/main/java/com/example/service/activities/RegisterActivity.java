@@ -1,7 +1,5 @@
 package com.example.service.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +10,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.service.R;
 import com.example.service.functions.RoleSpinnerClass;
 import com.example.service.models.Organization;
+import com.example.service.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -97,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("numPoints", 0);
         user.put("orgsJoined", new ArrayList<Organization>());
         user.put("orgsJoinedIds", new ArrayList<String>());
+        user.put("messagesWith", new ArrayList<User>());
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
+import com.example.service.data.Data;
 import com.example.service.functions.ChatAdapter;
 import com.example.service.models.Message;
+import com.example.service.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -42,21 +44,30 @@ public class ChatActivity extends AppCompatActivity {
     ChatAdapter mAdapter;
     boolean mFirstLoad; // Keep track of initial load to scroll to the bottom of the ListView
 
+    // users
+    private ParseUser currentUser;
+    private User toUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        currentUser = ParseUser.getCurrentUser();
+        toUser = Data.getToUser();
+
         setupMessagePosting();
     }
 
     // Setup button event handler which posts the entered message to Parse
     void setupMessagePosting() {
-        // Find the text field and button
+        // bind ui views
         etMessage = (EditText) findViewById(R.id.chat_message_et);
         btnSend = (ImageButton) findViewById(R.id.chat_send_et);
         rvChat = (RecyclerView) findViewById(R.id.chat_msg_rv);
+
+        // set data values
         mMessages = new ArrayList<>();
         mFirstLoad = true;
         final String userId = ParseUser.getCurrentUser().getObjectId();
@@ -74,11 +85,13 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String messageStr = etMessage.getText().toString();
 
-                if (messageStr != null & messageStr.length() > 0) {
+                if (messageStr != null & messageStr.length() > 0 && toUser != null) {
                     // Using new `Message` Parse-backed model now
                     Message message = new Message();
                     message.setBody(messageStr);
                     message.setUserId(ParseUser.getCurrentUser().getObjectId());
+                    message.setToUser(toUser.getParseUser());
+                    message.setFromUser(ParseUser.getCurrentUser());
 
                     message.saveInBackground(new SaveCallback() {
                         @Override
@@ -127,7 +140,7 @@ public class ChatActivity extends AppCompatActivity {
 
     // MORE EFFICIENT QUERYING (every 3 seconds instead of constant)
 
-    // Create a handler which can run code periodically
+    // create handler which runs code periodically
     static final long POLL_INTERVAL = TimeUnit.SECONDS.toMillis(3);
     Handler myHandler = new android.os.Handler();
     Runnable mRefreshMessagesRunnable = new Runnable() {
@@ -142,7 +155,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Only start checking for new messages when the app becomes active in foreground
+        // only start checking for new messages when the app becomes active in foreground
         myHandler.postDelayed(mRefreshMessagesRunnable, POLL_INTERVAL);
     }
 

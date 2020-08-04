@@ -36,6 +36,11 @@ public class User {
         this.user = user;
     }
 
+    // get user id
+    public String getId() {
+        return user.getObjectId();
+    }
+
     // get user's full name
     public String getName() {
         try {
@@ -58,7 +63,12 @@ public class User {
 
     // get user's profile pic
     public ParseFile getProfilePic() {
-        return (ParseFile) user.get(KEY_PROFILE_PIC);
+        try {
+            return (ParseFile) user.fetchIfNeeded().get(KEY_PROFILE_PIC);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // get user's bio
@@ -161,4 +171,11 @@ public class User {
         List<String> orgIds = getOrganizationIds();
         return (orgIds.contains(orgId));
     }
+
+    // get parse user
+    public ParseUser getParseUser() {
+        return user;
+    }
+
+
 }
