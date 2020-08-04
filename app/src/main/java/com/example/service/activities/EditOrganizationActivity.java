@@ -136,6 +136,7 @@ public class EditOrganizationActivity extends AppCompatActivity {
     // save changes to updated organization
     private void saveChanges() {
         org.setName(etName.getText().toString());
+        org.setTagline(etTagline.getText().toString());
         org.setDescription(etDescription.getText().toString());
         org.setCategory(spnCategory.getSelectedItem().toString());
         org.setAddress(Data.getAddress());

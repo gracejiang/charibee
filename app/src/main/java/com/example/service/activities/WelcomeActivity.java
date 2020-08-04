@@ -100,13 +100,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // fade in login buton
         ObjectAnimator titleFadeAnim = ObjectAnimator.ofFloat(tvTitle, "alpha", 0f, 1f);
-        titleFadeAnim.setDuration(300);
+        titleFadeAnim.setDuration(600);
 
         ObjectAnimator loginFadeAnim = ObjectAnimator.ofFloat(btnLogin, "alpha", 0f, 1f);
-        loginFadeAnim.setDuration(300);
+        loginFadeAnim.setDuration(600);
 
         ObjectAnimator registerFadeAnim = ObjectAnimator.ofFloat(btnRegister, "alpha", 0f, 1f);
-        registerFadeAnim.setDuration(300);
+        registerFadeAnim.setDuration(600);
 
         // animation order
         AnimatorSet animatorSet = new AnimatorSet();
