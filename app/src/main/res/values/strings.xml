@@ -4,4 +4,8 @@
     <string name="google_places_API_KEY">AIzaSyAscLrhAje_CS0O8nJt-0IzlQDkB5WhxJs</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--chat feature-->
+    <string name="profile_me">My Profile Pic</string>
+    <string name="profile_other">Other profile pic</string>
 </resources>
