@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.service.R;
 import com.example.service.functions.CustomItemDivider;
 import com.example.service.functions.DiscoverOrgsAdapter;
+import com.example.service.functions.RecyclerViewClickInterface;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DiscoverFragment extends Fragment {
+public class DiscoverFragment extends Fragment implements RecyclerViewClickInterface {
 
     public static final String TAG = "DiscoverFragment";
 
@@ -176,6 +177,16 @@ public class DiscoverFragment extends Fragment {
         }
         filterOrgs = filterResults;
         updateAdapter(filterResults);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        
+    }
+
+    @Override
+    public void onLongItemClick(int position) {
+
     }
 
     class CategoryFilterSpinner implements AdapterView.OnItemSelectedListener {
