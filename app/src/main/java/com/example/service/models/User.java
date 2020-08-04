@@ -3,6 +3,7 @@ package com.example.service.models;
 import android.util.Log;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -48,6 +49,11 @@ public class User {
             Log.e(TAG, "ParseError", e);
             return "error";
         }
+    }
+
+    // get user's profile pic
+    public ParseFile getProfilePic() {
+        return (ParseFile) user.get(KEY_PROFILE_PIC);
     }
 
     // get user's bio
