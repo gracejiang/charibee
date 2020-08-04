@@ -11,9 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
+import com.example.service.activities.UserDetailsActivity;
 import com.example.service.models.User;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -69,14 +71,15 @@ public class VolunteersAdapter extends RecyclerView.Adapter<VolunteersAdapter.Vi
 
         @Override
         public void onClick(View view) {
-//            int position = getAdapterPosition();
-//
-//            if (position != RecyclerView.NO_POSITION) {
-//                Organization org = orgs.get(position);
-//                Intent intent = new Intent(context, OrganizationDetailsActivity.class);
-//                intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
-//                context.startActivity(intent);
-//            }
+            int position = getAdapterPosition();
+
+            if (position != RecyclerView.NO_POSITION) {
+                ParseUser pUser = users.get(position);
+                User user = new User(pUser);
+                Intent intent = new Intent(context, UserDetailsActivity.class);
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+                context.startActivity(intent);
+            }
         }
     }
 

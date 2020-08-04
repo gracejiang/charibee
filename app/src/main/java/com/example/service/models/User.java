@@ -6,9 +6,12 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Parcel
 public class User {
 
     public static final String TAG = "User";
@@ -26,6 +29,8 @@ public class User {
 
 
     // TODO: eventually abstract all the ParseUser.getXYZ() into User.getXYZ();
+
+    public User() {}
 
     public User(ParseUser user) {
         this.user = user;

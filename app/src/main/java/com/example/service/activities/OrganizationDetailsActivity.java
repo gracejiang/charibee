@@ -65,20 +65,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         org = (Organization) Parcels.unwrap(getIntent().getParcelableExtra(Organization.class.getSimpleName()));
 
         // bind ui views
-        tvName = findViewById(R.id.org_details_name);
-        tvCategory = findViewById(R.id.org_details_category);
-        tvDescription = findViewById(R.id.org_details_description);
-        tvAddress = findViewById(R.id.org_details_address);
-        tvWebsite = findViewById(R.id.org_details_website);
-        tvEmail = findViewById(R.id.org_details_email);
-        tvPhoneNumber = findViewById(R.id.org_details_phone_number);
-        btnJoinOrg = findViewById(R.id.org_details_join_btn);
-        btnEditOrg = findViewById(R.id.org_details_edit_btn);
-        btnDeleteOrg = findViewById(R.id.org_details_delete_btn);
-        rvVolunteers = findViewById(R.id.org_details_rv_volunteers);
+        bindUiViews();
 
         // sets ui views
-        setOrgValues();
+        setUiValues();
 
         // volunteers recycler view
         updateAdapter(volunteersList);
@@ -127,13 +117,23 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         }
     }
 
-    // if current user has permissions to edit
-    private boolean hasPermissionsToEdit() {
-        return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
+    private void bindUiViews() {
+        // bind ui views
+        tvName = findViewById(R.id.org_details_name);
+        tvCategory = findViewById(R.id.org_details_category);
+        tvDescription = findViewById(R.id.org_details_description);
+        tvAddress = findViewById(R.id.org_details_address);
+        tvWebsite = findViewById(R.id.org_details_website);
+        tvEmail = findViewById(R.id.org_details_email);
+        tvPhoneNumber = findViewById(R.id.org_details_phone_number);
+        btnJoinOrg = findViewById(R.id.org_details_join_btn);
+        btnEditOrg = findViewById(R.id.org_details_edit_btn);
+        btnDeleteOrg = findViewById(R.id.org_details_delete_btn);
+        rvVolunteers = findViewById(R.id.org_details_rv_volunteers);
     }
 
     // set orgs values to ui views
-    private void setOrgValues() {
+    private void setUiValues() {
         String name = org.getName();
         String category = org.getCategory();
         String description = org.getDescription();
@@ -146,7 +146,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         String organizerText = "";
         try {
             organizerText = "Organized by " + organizer.fetchIfNeeded().getString("firstName") + " "
-                            + organizer.fetchIfNeeded().getString("lastName") + ".";
+                    + organizer.fetchIfNeeded().getString("lastName") + ".";
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -166,6 +166,11 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         userInOrg = checkIfUserInOrg();
         setButtonValue(userInOrg);
 
+    }
+
+    // if current user has permissions to edit
+    private boolean hasPermissionsToEdit() {
+        return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
     }
 
     // set value into view if value is not null
