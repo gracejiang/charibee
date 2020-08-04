@@ -25,18 +25,17 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
 
     public static final String TAG = "DiscoverOrgsAdapter";
 
-    public interface OnLongClickListener {
-        void onItemLongClicked(int position);
-    }
-
+    // data
     private Context context;
     private List<Organization> orgs;
-    private OnLongClickListener longClickListener;
 
-    public DiscoverOrgsAdapter(Context context, List<Organization> orgs, OnLongClickListener longClickListener) {
+    // current user
+    ParseUser currentParseUser = ParseUser.getCurrentUser();
+    User currentUser = new User(currentParseUser);
+
+    public DiscoverOrgsAdapter(Context context, List<Organization> orgs) {
         this.context = context;
         this.orgs = orgs;
-        this.longClickListener = longClickListener;
     }
 
     @NonNull
@@ -58,10 +57,7 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
         return orgs.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        ParseUser currentParseUser;
-        User currentUser;
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView tvName;
         private TextView tvCategory;
@@ -80,54 +76,9 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             currentParseUser = ParseUser.getCurrentUser();
             currentUser = new User(currentParseUser);
 
-            // when user swipes right
-            itemView.setOnTouchListener(new OnSwipeTouchListener(context) {
-
-                // when user swipes right, join org
-                @Override
-                public void onSwipeRight() {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        Organization org = orgs.get(position);
-                        org.addVolunteer(currentParseUser);
-                        currentUser.addOrg(org);
-
-                        makeMessage("You have successfully joined the group " + org.getName() + "!");
-                    }
-                }
-
-                // when user swipes left, leave org
-                @Override
-                public void onSwipeLeft() {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        Organization org = orgs.get(position);
-
-                        // remove org from current user
-                        currentUser.removeOrg(org);
-
-                        // remove current user from org
-                        org.removeVolunteer(currentParseUser);
-
-                        // tell user successfully left org
-                        makeMessage("You have successfully left the group " + org.getName() + "!");
-                    }
-                }
-
-                // when users clicks
-                @Override
-                public void onClick() {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        Organization org = orgs.get(position);
-                        Intent intent = new Intent(context, OrganizationDetailsActivity.class);
-                        intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
-                        context.startActivity(intent);
-                    }
-                }
-            });
-
-
+            // set listeners
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         public void bind(Organization org) {
@@ -136,14 +87,50 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             tvTagline.setText(org.getTagline());
         }
 
+        // view org
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Organization org = orgs.get(position);
+                Intent intent = new Intent(context, OrganizationDetailsActivity.class);
+                intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
+                context.startActivity(intent);
+            }
+        }
 
+        // join or leave org
+        @Override
+        public boolean onLongClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Organization org = orgs.get(position);
+                if (!currentUser.containsOrg(org.getObjectId())) {
+                    joinOrg(org);
+                } else {
+                    leaveOrg(org);
+                }
+            }
+            return true;
+        }
     }
 
     private void makeMessage(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void joinOrg(Organization org) {
+        org.addVolunteer(currentParseUser);
+        currentUser.addOrg(org);
+        makeMessage("You have successfully joined the group " + org.getName() + "!");
 
     }
 
+    private void leaveOrg(Organization org) {
+        currentUser.removeOrg(org);
+        org.removeVolunteer(currentParseUser);
+        makeMessage("You have successfully left the group " + org.getName() + "!");
+    }
 
 }
 

@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.service.R;
 import com.example.service.functions.CustomItemDivider;
 import com.example.service.functions.DiscoverOrgsAdapter;
-import com.example.service.functions.RecyclerViewClickInterface;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -32,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DiscoverFragment extends Fragment implements RecyclerViewClickInterface {
+public class DiscoverFragment extends Fragment {
 
     public static final String TAG = "DiscoverFragment";
 
@@ -50,9 +48,6 @@ public class DiscoverFragment extends Fragment implements RecyclerViewClickInter
     private Button btnSearch;
     private Spinner spnCategory;
     private RecyclerView rvOrgs;
-
-    // long click listener
-    DiscoverOrgsAdapter.OnLongClickListener onLongClickListener;
 
     public DiscoverFragment() {
     }
@@ -76,15 +71,6 @@ public class DiscoverFragment extends Fragment implements RecyclerViewClickInter
 
         // recycler view adapter
         updateAdapter(allOrgs);
-
-        // long click listener
-        onLongClickListener = new DiscoverOrgsAdapter.OnLongClickListener() {
-            @Override
-            public void onItemLongClicked(int position) {
-                Organization orgToJoin = filterOrgs.get(position);
-                Toast.makeText(getContext(), orgToJoin.getName(), Toast.LENGTH_SHORT).show();
-            }
-        };
 
         // spinner adapter
         createCategoryAdapter();
@@ -126,7 +112,7 @@ public class DiscoverFragment extends Fragment implements RecyclerViewClickInter
 
     // update org adapter given list of organizations
     private void updateAdapter(List<Organization> orgsList) {
-        adapter = new DiscoverOrgsAdapter(getContext(), orgsList, onLongClickListener); // (1) create adapter
+        adapter = new DiscoverOrgsAdapter(getContext(), orgsList); // (1) create adapter
         rvOrgs.setAdapter(adapter); // (2) set adapter on rv
         rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();
@@ -136,24 +122,18 @@ public class DiscoverFragment extends Fragment implements RecyclerViewClickInter
     private void queryOrgs() {
         allOrgs.clear();
         ParseQuery<Organization> query = ParseQuery.getQuery(Organization.class);
-
         query.findInBackground(new FindCallback<Organization>() {
             @Override
             public void done(List<Organization> orgs, ParseException e) {
-
                 if (e != null) {
                     // issue getting post
                     Log.e(TAG, "issue loading orgs from parse" + e.getMessage());
                     return;
                 }
-//                for (Organization org : orgs) {
-//                    // Log.i(TAG, org.getName());
-//                }
 
                 allOrgs.addAll(orgs);
                 Collections.sort(allOrgs);
                 adapter.notifyDataSetChanged();
-
             }
         });
     }
@@ -179,16 +159,8 @@ public class DiscoverFragment extends Fragment implements RecyclerViewClickInter
         updateAdapter(filterResults);
     }
 
-    @Override
-    public void onItemClick(int position) {
-        
-    }
 
-    @Override
-    public void onLongItemClick(int position) {
-
-    }
-
+    // filter spinner
     class CategoryFilterSpinner implements AdapterView.OnItemSelectedListener {
 
         private String[] categories = {"All", "Animals", "Education", "Elderly", "Environmental",
@@ -211,6 +183,8 @@ public class DiscoverFragment extends Fragment implements RecyclerViewClickInter
 
         }
     }
+
+
 
 
 }

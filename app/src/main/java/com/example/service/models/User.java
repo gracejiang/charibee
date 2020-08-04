@@ -150,4 +150,10 @@ public class User {
         }
 
     }
+
+    // if user is in org
+    public boolean containsOrg(String orgId) {
+        List<String> orgIds = getOrganizationIds();
+        return (orgIds.contains(orgId));
+    }
 }
