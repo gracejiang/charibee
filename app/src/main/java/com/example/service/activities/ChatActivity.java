@@ -63,6 +63,7 @@ public class ChatActivity extends AppCompatActivity {
         toUser = Data.getToUser();
 
         setupMessagePosting();
+        refreshMessages();
     }
 
     // Setup button event handler which posts the entered message to Parse
@@ -170,7 +171,7 @@ public class ChatActivity extends AppCompatActivity {
     // MORE EFFICIENT QUERYING (every 3 seconds instead of constant)
 
     // create handler which runs code periodically
-    static final long POLL_INTERVAL = TimeUnit.SECONDS.toMillis(1);
+    static final long POLL_INTERVAL = TimeUnit.SECONDS.toMillis(20);
     Handler myHandler = new android.os.Handler();
     Runnable mRefreshMessagesRunnable = new Runnable() {
         @Override
