@@ -79,7 +79,7 @@ public class ChatActivity extends AppCompatActivity {
         mAdapter = new ChatAdapter(ChatActivity.this, userId, mMessages);
         rvChat.setAdapter(mAdapter);
 
-        // associate the LayoutManager with the RecylcerView
+        // associate the LayoutManager with the RecyclerView
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this);
         linearLayoutManager.setReverseLayout(true); // orders msgs from oldest to newest
         rvChat.setLayoutManager(linearLayoutManager);
@@ -123,20 +123,16 @@ public class ChatActivity extends AppCompatActivity {
 
     // Query messages from Parse so we can load them into the chat adapter
     void refreshMessages() {
-        // Construct query to execute
-        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
-        // Configure limit and sort order
-        query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW);
 
-        // get the latest 50 messages, order will show up newest to oldest of this group
-        query.orderByDescending("createdAt");
-        // Execute query to fetch all messages from Parse asynchronously
-        // This is equivalent to a SELECT query with SQL
+        // query msgs
+        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
+        // query.setLimit(MAX_CHAT_MESSAGES_TO_SHOW); // limits 50 msgs
+
         query.findInBackground(new FindCallback<Message>() {
             public void done(List<Message> messages, ParseException e) {
                 if (e == null) {
                     mMessages.clear();
-                    mMessages.addAll(messages);
+                    mMessages.addAll(filterMsgs(messages));
                     mAdapter.notifyDataSetChanged(); // update adapter
                     // Scroll to the bottom of the list on initial load
                     if (mFirstLoad) {
@@ -150,10 +146,31 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    // manual filtering
+    private List<Message> filterMsgs(List<Message> messages) {
+        List<Message> msgs = new ArrayList<>();
+        for (Message msg : messages) {
+            if (validMessage(msg)) {
+                msgs.add(msg);
+            }
+        }
+        return msgs;
+    }
+
+    private boolean validMessage(Message message) {
+        String currUserId = pCurrentUser.getObjectId();
+        String toUserId = toUser.getId();
+
+        String msgToUserId = message.getToUser().getObjectId();
+        String msgFromUserId = message.getFromUser().getObjectId();
+        return ((msgToUserId.equals(toUserId) && msgFromUserId.equals(currUserId))
+                || (msgToUserId.equals(currUserId) && msgFromUserId.equals(toUserId)));
+    }
+
     // MORE EFFICIENT QUERYING (every 3 seconds instead of constant)
 
     // create handler which runs code periodically
-    static final long POLL_INTERVAL = TimeUnit.SECONDS.toMillis(3);
+    static final long POLL_INTERVAL = TimeUnit.SECONDS.toMillis(1);
     Handler myHandler = new android.os.Handler();
     Runnable mRefreshMessagesRunnable = new Runnable() {
         @Override
