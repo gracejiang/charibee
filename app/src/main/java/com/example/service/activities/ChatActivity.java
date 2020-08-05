@@ -151,7 +151,7 @@ public class ChatActivity extends AppCompatActivity {
         List<Message> msgs = new ArrayList<>();
         for (Message msg : messages) {
             if (validMessage(msg)) {
-                msgs.add(msg);
+                msgs.add(0, msg);
             }
         }
         return msgs;
