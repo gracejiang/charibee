@@ -2,6 +2,10 @@ package com.example.service.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,15 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
 import com.example.service.R;
 import com.example.service.activities.NewOrganizationActivity;
-import com.example.service.functions.CustomItemDivider;
 import com.example.service.adapters.HomeOrgsAdapter;
+import com.example.service.functions.CustomItemDivider;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseUser;
@@ -44,6 +43,11 @@ public class HomeFragment extends Fragment {
         // bind ui views
         btnNewOrg = v.findViewById(R.id.home_new_org_btn);
         rvOrgs = v.findViewById(R.id.home_orgs_rv);
+
+        // set view if volunteer
+        if (ParseUser.getCurrentUser().get("role").equals("Volunteer")) {
+            btnNewOrg.setVisibility(View.GONE);
+        }
 
         return v;
     }

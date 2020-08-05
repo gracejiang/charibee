@@ -108,7 +108,6 @@ public class ProfileFragment extends Fragment {
                     .load(httpToHttps(profilePic.getUrl()))
                     .circleCrop()
                     .into(ivAvatar);
-            Log.i(TAG, "loaded pfp!");
         } else {
             Log.e(TAG, "couldn't load profile pic");
         }

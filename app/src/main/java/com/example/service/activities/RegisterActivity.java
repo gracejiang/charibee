@@ -98,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("orgsJoined", new ArrayList<Organization>());
         user.put("orgsJoinedIds", new ArrayList<String>());
         user.put("messagesWith", new ArrayList<ParseUser>());
+        user.put("role", spinnerRole.getSelectedItem().toString());
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

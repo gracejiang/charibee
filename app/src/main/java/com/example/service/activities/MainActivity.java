@@ -15,6 +15,7 @@ import com.example.service.fragments.HomeFragment;
 import com.example.service.fragments.MessagesFragment;
 import com.example.service.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
 
         // default bottom nav selection
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
+
+        // remove discover view if admin
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            setAdminView();
+        }
+    }
+
+    private void setAdminView() {
+        bottomNavigationView.getMenu().removeItem(R.id.menu_discover);
     }
 
     public void setFragmentView(int fragmentId) {
