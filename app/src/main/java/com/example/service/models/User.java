@@ -24,9 +24,10 @@ public class User {
     public static final String KEY_BIO = "bio";
     public static final String KEY_NUM_POINTS = "numPoints";
 
+
     public static final String KEY_ORGS_IDS = "orgsJoinedIds";
     public static final String KEY_ORGS = "orgsJoined";
-
+    public static final String KEY_MSGS_WITH = "messagesWith";
 
     // TODO: eventually abstract all the ParseUser.getXYZ() into User.getXYZ();
 
@@ -175,6 +176,37 @@ public class User {
     // get parse user
     public ParseUser getParseUser() {
         return user;
+    }
+
+    // get all msgs with users from a user
+    public List<ParseUser> getMessagesWith() {
+        List<ParseUser> users = (List<ParseUser>) user.get(KEY_MSGS_WITH);
+        return users;
+    }
+
+    // contains msg with user?
+    public boolean containsMsgWith(User user) {
+        List<ParseUser> users = getMessagesWith();
+        for (ParseUser u : users) {
+            if (u.getObjectId().equals(user.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // add msg to user
+    public void addUserToMsgsWith(User addUser) {
+        if (!containsMsgWith(addUser)) {
+            Log.i(TAG, user.getUsername() + " doesnt have " + addUser.getUsername());
+            List<ParseUser> users = getMessagesWith();
+            Log.i(TAG, "msgs with size: " + users.size());
+            users.add(addUser.getParseUser());
+            user.put(KEY_MSGS_WITH, users);
+            user.saveInBackground();
+
+            Log.i(TAG, "new msgs with size: " + getMessagesWith().size());
+        }
     }
 
 

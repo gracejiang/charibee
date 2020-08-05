@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
 import com.example.service.data.Data;
-import com.example.service.functions.VolunteersAdapter;
+import com.example.service.adapters.VolunteersAdapter;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseException;

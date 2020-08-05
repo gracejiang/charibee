@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
 import com.example.service.data.Data;
-import com.example.service.functions.ChatAdapter;
+import com.example.service.adapters.ChatAdapter;
 import com.example.service.models.Message;
 import com.example.service.models.User;
 import com.parse.FindCallback;
@@ -45,8 +45,12 @@ public class ChatActivity extends AppCompatActivity {
     boolean mFirstLoad; // Keep track of initial load to scroll to the bottom of the ListView
 
     // users
-    private ParseUser currentUser;
+    private ParseUser pCurrentUser;
+    private User currentUser;
     private User toUser;
+
+    // boolean new msg
+    private boolean newMsg = true;
 
 
     @Override
@@ -54,7 +58,8 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        currentUser = ParseUser.getCurrentUser();
+        pCurrentUser = ParseUser.getCurrentUser();
+        currentUser = new User(pCurrentUser);
         toUser = Data.getToUser();
 
         setupMessagePosting();
@@ -70,7 +75,7 @@ public class ChatActivity extends AppCompatActivity {
         // set data values
         mMessages = new ArrayList<>();
         mFirstLoad = true;
-        final String userId = ParseUser.getCurrentUser().getObjectId();
+        final String userId = pCurrentUser.getObjectId();
         mAdapter = new ChatAdapter(ChatActivity.this, userId, mMessages);
         rvChat.setAdapter(mAdapter);
 
@@ -89,9 +94,9 @@ public class ChatActivity extends AppCompatActivity {
                     // Using new `Message` Parse-backed model now
                     Message message = new Message();
                     message.setBody(messageStr);
-                    message.setUserId(ParseUser.getCurrentUser().getObjectId());
+                    message.setUserId(pCurrentUser.getObjectId());
                     message.setToUser(toUser.getParseUser());
-                    message.setFromUser(ParseUser.getCurrentUser());
+                    message.setFromUser(pCurrentUser);
 
                     message.saveInBackground(new SaveCallback() {
                         @Override
@@ -104,6 +109,13 @@ public class ChatActivity extends AppCompatActivity {
                         }
                     });
                     etMessage.setText(null);
+
+                    if (newMsg) {
+                        Log.i(TAG, "made it into new msg!");
+                        // toUser.addUserToMsgsWith(currentUser);
+                        currentUser.addUserToMsgsWith(toUser);
+                        newMsg = false;
+                    }
                 }
             }
         });

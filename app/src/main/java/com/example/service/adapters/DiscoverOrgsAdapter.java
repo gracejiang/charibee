@@ -1,4 +1,4 @@
-package com.example.service.functions;
+package com.example.service.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -49,7 +49,6 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Organization org = orgs.get(position);
         holder.bind(org);
-
     }
 
     @Override

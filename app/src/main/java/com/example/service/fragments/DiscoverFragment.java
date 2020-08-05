@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
 import com.example.service.functions.CustomItemDivider;
-import com.example.service.functions.DiscoverOrgsAdapter;
+import com.example.service.adapters.DiscoverOrgsAdapter;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
 import com.parse.ParseException;

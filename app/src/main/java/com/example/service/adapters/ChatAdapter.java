@@ -1,4 +1,4 @@
-package com.example.service.functions;
+package com.example.service.adapters;
 
 import android.content.Context;
 import android.util.Log;
