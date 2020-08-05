@@ -108,6 +108,7 @@ public class ProfileFragment extends Fragment {
                     .load(httpToHttps(profilePic.getUrl()))
                     .circleCrop()
                     .into(ivAvatar);
+            Log.i(TAG, "loaded pfp!");
         } else {
             Log.e(TAG, "couldn't load profile pic");
         }
@@ -120,8 +121,8 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onResume() {
-        setValues();
         super.onResume();
+        setValues();
     }
 
     // go to edit profile activity

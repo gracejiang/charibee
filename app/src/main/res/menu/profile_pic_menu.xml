@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/pfp_take_pic"
-        android:title="Take Photo"/>
+        android:title="Take Photo with Camera"/>
 
-    <item android:id="@+id/pfp_remove_pic"
-        android:title="Remove Current Photo"/>
+    <item android:id="@+id/pfp_upload_pic"
+        android:title="Upload Photo from Gallery"/>
 
 </menu>

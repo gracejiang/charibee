@@ -3,7 +3,9 @@ package com.example.service.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -52,7 +54,14 @@ public class EditProfileActivity extends AppCompatActivity {
     private boolean updatedPfp = false;
     private File photoFile;
     private String photoFileName;
+
+    // gallery variables
+    Bitmap bitmap;
+    boolean uploadedPic = false;
+
+    // codes
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1;
+    public static final int PICK_IMAGE_ACTIVITY_REQUEST_CODE = 2;
 
 
     @Override
@@ -87,10 +96,12 @@ public class EditProfileActivity extends AppCompatActivity {
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        if (menuItem.getTitle().equals("Take Photo")) {
+                        if (menuItem.getTitle().equals("Take Photo with Camera")) {
+                            uploadedPic = false;
                             launchCamera();
-                        } else if (menuItem.getTitle().equals("Remove Current Photo")) {
-                            removePic();
+                        } else if (menuItem.getTitle().equals("Upload Photo from Gallery")) {
+                            uploadedPic = true;
+                            launchGallery();
                         }
                         return true;
                     }
@@ -114,7 +125,11 @@ public class EditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validFields()) {
-                    saveProfile();
+                    if (uploadedPic) {
+                        saveProfile(bitmap);
+                    } else {
+                        saveProfile();
+                    }
                     goProfileFragment();
                 }
             }
@@ -187,19 +202,48 @@ public class EditProfileActivity extends AppCompatActivity {
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
     }
 
+    // GALLERY ACTIVITY
+
+    // launch gallery application to upload picture
+    private void launchGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+
+        if (intent.resolveActivity(EditProfileActivity.this.getPackageManager()) != null) {
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
+    }
+
     // SAVE RESULTS FOR NEW UPDATED AVATAR
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // take picture
+        // camera: take picture
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 ivAvatarPreview.setImageBitmap(takenImage);
                 updatedPfp = true;
+                return;
             }
         }
+
+        // gallery: upload picture
+        if (requestCode == PICK_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                try {
+                    Uri uri = data.getData();
+                    bitmap = loadFromUri(uri);
+                    ivAvatarPreview.setImageBitmap(bitmap);
+                    updatedPfp = true;
+                } catch (NullPointerException e) {
+                    Log.e(TAG, "null pointer exception when uploading pic " + e);
+                }
+            }
+        }
+
     }
 
     // remove picture
@@ -217,6 +261,54 @@ public class EditProfileActivity extends AppCompatActivity {
         } else {
             Log.i(TAG, "error in loading in file");
         }
+    }
+
+    // load image from Uri
+    public Bitmap loadFromUri(Uri photoUri) {
+        Bitmap image = null;
+        try {
+            // check version of Android on device
+            if(Build.VERSION.SDK_INT > 27){
+                // on newer versions of Android, use the new decodeBitmap method
+                ImageDecoder.Source source = ImageDecoder.createSource(EditProfileActivity.this.getContentResolver(), photoUri);
+                image = ImageDecoder.decodeBitmap(source);
+            } else {
+                // support older versions of Android by using getBitmap
+                image = MediaStore.Images.Media.getBitmap(EditProfileActivity.this.getContentResolver(), photoUri);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    // save uploaded pics
+    private void saveProfile(Bitmap bitmap) {
+        // updated pfp?
+        if (updatedPfp) {
+            // compresses image to lower quality
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] image = stream.toByteArray();
+            currentUser.put("profilePic", new ParseFile(image));
+        }
+
+        currentUser.setUsername(etUsername.getText().toString());
+        user.setBio(etBio.getText().toString());
+
+        currentUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    // error while posting pic
+                    Log.e(TAG, "error updating your profile", e);
+                    return;
+                } else {
+                    Log.i(TAG, "profile successfully updated!");
+                }
+            }
+        });
+
     }
 
     // resizes picture
