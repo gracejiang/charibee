@@ -1,6 +1,5 @@
 package com.example.service.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
-import com.example.service.activities.ChatActivity;
 import com.example.service.adapters.MessageAdapter;
 import com.example.service.functions.CustomItemDivider;
 import com.example.service.models.User;
@@ -55,13 +53,6 @@ public class MessagesFragment extends Fragment {
 
         // populate data
         queryMsgsWith();
-
-    }
-
-    // go to chat activity
-    private void goChatActivity() {
-        Intent i = new Intent(getContext(), ChatActivity.class);
-        startActivity(i);
     }
 
     // update org adapter given list of organizations

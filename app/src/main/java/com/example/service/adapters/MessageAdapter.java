@@ -1,6 +1,7 @@
 package com.example.service.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.service.R;
+import com.example.service.activities.ChatActivity;
+import com.example.service.data.Data;
 import com.example.service.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -50,13 +53,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return withMsgs.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView ivAvatar;
         private TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            // set on click listener
+            itemView.setOnClickListener(this);
+
             ivAvatar = itemView.findViewById(R.id.item_message_iv_avatar);
             tvName = itemView.findViewById(R.id.item_message_name);
         }
@@ -76,6 +83,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 Log.e(TAG, "couldn't load profile pic");
             }
         }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                ParseUser pUser = withMsgs.get(position);
+                Data.setToUser(new User(pUser));
+                goChatActivity();
+            }
+        }
+    }
+
+    // go to chat activity
+    private void goChatActivity() {
+        Intent i = new Intent(context, ChatActivity.class);
+        context.startActivity(i);
     }
 
     // converts http link to https
