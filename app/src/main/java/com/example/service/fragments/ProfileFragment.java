@@ -2,6 +2,7 @@ package com.example.service.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.example.service.activities.EditProfileActivity;
 import com.example.service.activities.SettingsActivity;
 import com.example.service.activities.WelcomeActivity;
 import com.example.service.models.User;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
@@ -31,7 +33,7 @@ public class ProfileFragment extends Fragment {
     User user;
 
     // ui views
-    private ImageView ivAvatar;
+    public ImageView ivAvatar;
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
@@ -104,10 +106,16 @@ public class ProfileFragment extends Fragment {
         // set profile pic
         ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
         if (profilePic != null) {
-            Glide.with(getContext())
-                    .load(httpToHttps(profilePic.getUrl()))
-                    .circleCrop()
-                    .into(ivAvatar);
+            try {
+                if (profilePic.getData() != null) {
+                    byte[] photoBytes = profilePic.getData();
+                    ivAvatar.setImageBitmap(BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length));
+                } else {
+                    downloadAndShowImage(profilePic);
+                }
+            } catch (ParseException e) {
+                downloadAndShowImage(profilePic);
+            }
         } else {
             Log.e(TAG, "couldn't load profile pic");
         }
@@ -116,6 +124,13 @@ public class ProfileFragment extends Fragment {
         tvFullName.setText(firstName + " " + lastName);
         tvUsername.setText("@" + username);
         tvBio.setText(bio);
+    }
+
+    private void downloadAndShowImage(ParseFile profilePic) {
+        Glide.with(getContext())
+                .load(httpToHttps(profilePic.getUrl()))
+                .circleCrop()
+                .into(ivAvatar);
     }
 
     @Override

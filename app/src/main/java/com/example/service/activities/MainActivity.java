@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
 
+    HomeFragment homeFragment = new HomeFragment();
+    DiscoverFragment discoverFragment = new DiscoverFragment();
+    MessagesFragment messagesFragment = new MessagesFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,22 +64,23 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment;
         switch (fragmentId) {
             case R.id.menu_home:
-                fragment = new HomeFragment();
+                fragment = homeFragment;
                 break;
             case R.id.menu_discover:
-                fragment = new DiscoverFragment();
+                fragment = discoverFragment;
                 break;
             case R.id.menu_messages:
-                fragment = new MessagesFragment();
+                fragment = messagesFragment;
                 break;
             case R.id.menu_profile:
-                fragment = new ProfileFragment();
+                fragment = profileFragment;
                 break;
             default:
                 Log.e(TAG, "default case should not be hit");
-                fragment = new HomeFragment();
+                fragment = homeFragment;
         }
 
         fragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragment).commit();
     }
+
 }

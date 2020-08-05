@@ -116,7 +116,7 @@ public class EditProfileActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goProfileFragment();
+                finish();
             }
         });
 
@@ -142,10 +142,21 @@ public class EditProfileActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
         if (profilePic != null) {
-            Glide.with(this)
-                    .load(httpToHttps(profilePic.getUrl()))
-                    .circleCrop()
-                    .into(ivAvatarPreview);
+            if (profilePic.getUrl() != null) {
+                Glide.with(this)
+                        .load(httpToHttps(profilePic.getUrl()))
+                        .circleCrop()
+                        .into(ivAvatarPreview);
+            } else {
+                try {
+                    if (profilePic.getData() != null) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(profilePic.getData(), 0, profilePic.getData().length);
+                        ivAvatarPreview.setImageBitmap(bitmap);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             Log.e(TAG, "couldn't load profile pic");
         }
@@ -284,13 +295,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
     // save uploaded pics
     private void saveProfile(Bitmap bitmap) {
+
         // updated pfp?
         if (updatedPfp) {
             // compresses image to lower quality
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] image = stream.toByteArray();
-            currentUser.put("profilePic", new ParseFile(image));
+            currentUser.put("profilePic", new ParseFile(stream.toByteArray()));
         }
 
         currentUser.setUsername(etUsername.getText().toString());
@@ -308,7 +319,6 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     // resizes picture
@@ -334,6 +344,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     // save profile info
     private void saveProfile() {
+
         // updated pfp?
         if (updatedPfp) {
             File resizedFile = resizePicture(getPhotoFileUri(photoFileName), 300);
