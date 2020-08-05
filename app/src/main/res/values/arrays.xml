@@ -6,31 +6,59 @@
     </string-array>
 
     <string-array name="categories">
+        <item>Advocacy &amp; Human Rights</item>
         <item>Animals</item>
-        <item>Education</item>
-        <item>Elderly</item>
-        <item>Environmental</item>
-        <item>Fundraising</item>
-        <item>Homeless</item>
+        <item>Arts &amp; Culture</item>
+        <item>Children &amp; Youth</item>
+        <item>Community</item>
+        <item>Crisis Support</item>
+        <item>Disaster Relief</item>
+        <item>Education &amp; Literacy</item>
+        <item>Emergency &amp; Safety</item>
+        <item>Faith-Based</item>
+        <item>Health &amp; Medicine</item>
+        <item>Homeless &amp; Housing</item>
+        <item>Hunger</item>
+        <item>Immigrants &amp; Refugees</item>
         <item>International</item>
-        <item>Misc</item>
-        <item>Research</item>
+        <item>Justice &amp; Legal</item>
+        <item>LGBTQ+</item>
+        <item>Misc &amp; Other</item>
+        <item>People with Disabilities</item>
+        <item>Politics</item>
+        <item>Race &amp; Ethnicity</item>
+        <item>Seniors</item>
         <item>Special Needs</item>
         <item>Technology</item>
+        <item>Women</item>
     </string-array>
 
     <string-array name="categories_with_all">
         <item>All</item>
+        <item>Advocacy &amp; Human Rights</item>
         <item>Animals</item>
-        <item>Education</item>
-        <item>Elderly</item>
-        <item>Environmental</item>
-        <item>Fundraising</item>
-        <item>Homeless</item>
+        <item>Arts &amp; Culture</item>
+        <item>Children &amp; Youth</item>
+        <item>Community</item>
+        <item>Crisis Support</item>
+        <item>Disaster Relief</item>
+        <item>Education &amp; Literacy</item>
+        <item>Emergency &amp; Safety</item>
+        <item>Faith-Based</item>
+        <item>Health &amp; Medicine</item>
+        <item>Homeless &amp; Housing</item>
+        <item>Hunger</item>
+        <item>Immigrants &amp; Refugees</item>
         <item>International</item>
-        <item>Misc</item>
-        <item>Research</item>
+        <item>Justice &amp; Legal</item>
+        <item>LGBTQ+</item>
+        <item>Misc &amp; Other</item>
+        <item>People with Disabilities</item>
+        <item>Politics</item>
+        <item>Race &amp; Ethnicity</item>
+        <item>Seniors</item>
         <item>Special Needs</item>
         <item>Technology</item>
+        <item>Women</item>
     </string-array>
 </resources>
