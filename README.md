@@ -2,13 +2,21 @@
 
 Charibee is an app that helps volunteers view organizations that they currently volunteer at and discover new local organizations to join.
 
-**Current Progress**
-
-<img src='assets/demo-1.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' />
 
 
+**App State on 8/5/2020**
 
-<img src='assets/demo-2.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' />
+<img src='assets/admin.gif' title='App Walkthrough 1' width='30%' alt='App Walkthrough' />
+
+<img src='assets/volunteer-chat.gif' title='App Walkthrough 1' width='30%' alt='App Walkthrough' />
+
+<img src='assets/chat-and-pfp.gif' title='App Walkthrough 1' width='30%' alt='App Walkthrough' />
+
+
+
+**App State on 7/31/2020**
+
+<img src='assets/demo-2.gif' title='App Walkthrough 1' width='30%' alt='App Walkthrough' />
 
 **MVP Features**
 
@@ -17,12 +25,11 @@ Charibee is an app that helps volunteers view organizations that they currently 
   - [x] Organizers can create new organizations for volunteers to join, and can edit/delete their current organizations
   - [x] All users can edit their profiles including username, bio, and account password
 - [x] Integrate Map SDK so organizations can enter in their address
-  - [ ] Organizations will display relative distance to user’s current location
 - [x] The user can set a profile picture using the Android camera
 - [x] The app interacts with a Parse Database to store and retrieve information about users and organizations
 - [x] Volunteers can discover new organizations that they can join:
   - [x] Discovery page that shows all of the organizations that volunteers can join
   - [x] Volunteers can search for new specific organizations by name
   - [x] Volunteers can filter organizations by category
-- [ ] Volunteers can  long click on an organization to join it
-- [ ] The app uses the Material UI library for a clean UI experience
+- [x] Volunteers can  long click on an organization to join it
+- [x] The app uses the Material UI library for a clean UI experience
