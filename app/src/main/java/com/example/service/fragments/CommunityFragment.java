@@ -72,6 +72,9 @@ public class CommunityFragment extends Fragment {
                 String searchPhrase = etSearch.getText().toString();
                 if (searchPhrase != null & searchPhrase.length() > 0) {
                     queryUsers(searchPhrase);
+                } else {
+                    allUsers.clear();
+                    updateAdapter(allUsers);
                 }
             }
         });
