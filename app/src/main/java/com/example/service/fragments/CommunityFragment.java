@@ -55,6 +55,8 @@ public class CommunityFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.i(TAG, "this is being reached");
+
         // recycler view adapter
         updateAdapter(allUsers);
 
