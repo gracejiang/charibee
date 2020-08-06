@@ -54,12 +54,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     // card view
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:23.1.1'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:design:23.1.1'
-    //noinspection GradleCompatible
-    implementation 'com.android.support:cardview-v7:23.1.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     // parcels for passing object through intents
     implementation 'org.parceler:parceler-api:1.1.12'
