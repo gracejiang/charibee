@@ -56,6 +56,16 @@ public class User {
         return "errorUser";
     }
 
+    // get user's first name
+    public String getFirstName() {
+        try {
+            return user.fetchIfNeeded().getString(KEY_FIRST_NAME);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "errorUser";
+    }
+
     // get user's username
     public String getUsername() {
         try {

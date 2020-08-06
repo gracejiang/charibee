@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
+    private ActionBarDrawerToggle drawerToggle;
+    private TextView tvSidebarHeader;
 
     HomeFragment homeFragment = new HomeFragment();
     DiscoverFragment discoverFragment = new DiscoverFragment();
@@ -46,10 +50,15 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        tvSidebarHeader = findViewById(R.id.sidebar_header_tv);
 
         setSupportActionBar(toolbar);
         setupDrawerContent(nvDrawer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        mDrawer.addDrawerListener(drawerToggle);
 
         // fragment manager
         fragmentManager = getSupportFragmentManager();
