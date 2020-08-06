@@ -6,7 +6,7 @@ Charibee is an app that helps volunteers view organizations that they currently 
 
 **App State on 8/6/2020**
 
-<img src='assets/demo-1.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-2-updated.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-3.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-4.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' />
+<img src='assets/demo-1.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-2-updated.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-3.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-4.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' /><img src='assets/demo-5.gif' title='App Walkthrough 1' width='50%' alt='App Walkthrough' />
 
 
 **App State on 7/31/2020**

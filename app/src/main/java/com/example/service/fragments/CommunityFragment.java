@@ -10,12 +10,15 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
 import com.example.service.adapters.CommunityUsersAdapter;
+import com.example.service.functions.CustomItemDivider;
+import com.example.service.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -60,6 +63,10 @@ public class CommunityFragment extends Fragment {
         // recycler view adapter
         updateAdapter(allUsers);
 
+        // add dividers btwn msgs
+        RecyclerView.ItemDecoration dividerItemDecoration = new CustomItemDivider(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
+        rvUsers.addItemDecoration(dividerItemDecoration);
+
         // when search button clicked
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +76,6 @@ public class CommunityFragment extends Fragment {
                 queryUsers(searchPhrase);
             }
         });
-
     }
 
     // update users adapter given list of users
@@ -82,10 +88,9 @@ public class CommunityFragment extends Fragment {
 
 
     // retrieve users from parse database
-    private void queryUsers(String searchTerm) {
+    private void queryUsers(final String searchTerm) {
         allUsers.clear();
         ParseQuery<ParseUser> query = ParseUser.getQuery();
-        // add query parameter for search term
         query.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> users, ParseException e) {
                 if (e != null) {
@@ -93,9 +98,21 @@ public class CommunityFragment extends Fragment {
                     return;
                 }
 
-                allUsers.addAll(users);
+                allUsers.addAll(filterUsers(users, searchTerm));
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    // filters users based off search term
+    private List<ParseUser> filterUsers(List<ParseUser> pUsers, String searchTerm) {
+        List<ParseUser> filteredUsers = new ArrayList<>();
+        for (ParseUser pU : pUsers) {
+            User u = new User(pU);
+            if (u.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                filteredUsers.add(pU);
+            }
+        }
+        return filteredUsers;
     }
 }

@@ -2,6 +2,7 @@ package com.example.service.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
 import com.example.service.activities.UserDetailsActivity;
-import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseUser;
 
@@ -70,15 +70,16 @@ public class CommunityUsersAdapter extends RecyclerView.Adapter<CommunityUsersAd
             tvName.setText(user.getName());
         }
 
-        // view org
+        // view user
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 ParseUser pUser = users.get(position);
+                Log.i(TAG, pUser.getObjectId());
                 User user = new User(pUser);
                 Intent intent = new Intent(context, UserDetailsActivity.class);
-                intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(user));
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
                 context.startActivity(intent);
             }
         }
