@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.service.R;
 import com.example.service.activities.NewOrganizationActivity;
 import com.example.service.adapters.HomeOrgsAdapter;
-import com.example.service.functions.CustomItemDivider;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
 import com.parse.ParseUser;
@@ -61,10 +59,6 @@ public class HomeFragment extends Fragment {
         User user = new User(currentUser);
         orgs = user.getOrganizations();
         updateAdapter(orgs);
-
-        // add dividers btwn orgs
-        RecyclerView.ItemDecoration dividerItemDecoration = new CustomItemDivider(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
-        rvOrgs.addItemDecoration(dividerItemDecoration);
 
         // when new org button clicked
         btnNewOrg.setOnClickListener(new View.OnClickListener() {

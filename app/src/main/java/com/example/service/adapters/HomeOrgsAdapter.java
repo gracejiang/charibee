@@ -1,6 +1,7 @@
 package com.example.service.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
+import com.example.service.activities.OrganizationDetailsActivity;
 import com.example.service.models.Organization;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -73,10 +77,9 @@ public class HomeOrgsAdapter extends RecyclerView.Adapter<HomeOrgsAdapter.ViewHo
 
             if (position != RecyclerView.NO_POSITION) {
                 Organization org = orgs.get(position);
-                // TODO: open joined org adapter
-//                Intent intent = new Intent(context, OrganizationDetailsActivity.class);
-//                intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, OrganizationDetailsActivity.class);
+                intent.putExtra(Organization.class.getSimpleName(), Parcels.wrap(org));
+                context.startActivity(intent);
             }
         }
     }

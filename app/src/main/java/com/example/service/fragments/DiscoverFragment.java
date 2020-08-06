@@ -13,13 +13,11 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
-import com.example.service.functions.CustomItemDivider;
 import com.example.service.adapters.DiscoverOrgsAdapter;
 import com.example.service.models.Organization;
 import com.parse.FindCallback;
@@ -74,10 +72,6 @@ public class DiscoverFragment extends Fragment {
 
         // spinner adapter
         createCategoryAdapter();
-
-        // add dividers btwn orgs
-        RecyclerView.ItemDecoration dividerItemDecoration = new CustomItemDivider(ContextCompat.getDrawable(getContext(), R.drawable.recycler_view_divider));
-        rvOrgs.addItemDecoration(dividerItemDecoration);
 
         // when search button clicked
         btnSearch.setOnClickListener(new View.OnClickListener() {
