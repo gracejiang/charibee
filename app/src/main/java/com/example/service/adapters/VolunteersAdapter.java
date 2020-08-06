@@ -34,7 +34,7 @@ public class VolunteersAdapter extends RecyclerView.Adapter<VolunteersAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_user_pic, parent, false);
         return new ViewHolder(view);
     }
 

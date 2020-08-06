@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +17,7 @@ import com.example.service.activities.NewOrganizationActivity;
 import com.example.service.adapters.HomeOrgsAdapter;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
     private List<Organization> orgs;
 
     // ui views
-    private Button btnNewOrg;
+    private FloatingActionButton btnNewOrg;
     private RecyclerView rvOrgs;
 
     public HomeFragment() {

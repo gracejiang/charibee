@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/default_margin"
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
             android:text="Full Name"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-light"
             android:text="\@username"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/profile_avatar_container"

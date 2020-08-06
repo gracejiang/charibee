@@ -50,6 +50,9 @@ public class EditProfileActivity extends AppCompatActivity {
     private Button btnCancel;
     private Button btnSave;
 
+    // username variables
+    private boolean updatedUsername = false;
+
     // camera variables
     private boolean updatedPfp = false;
     private File photoFile;
@@ -319,6 +322,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     // resizes picture

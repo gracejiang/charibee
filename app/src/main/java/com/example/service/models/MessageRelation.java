@@ -60,17 +60,21 @@ public class MessageRelation extends ParseObject {
                     if (e != null) { Log.e(TAG, "Failed to save message", e); }
                 }
             });
+
+            Log.v("chatRshipBug", "rship saved");
         }
     }
 
     // checks if msg relation between 2 users already exists
     public static boolean relationExists(User user1, User user2) {
+        Log.v("chatRshipBug", "got to this function");
         for (MessageRelation msgRel : user1.getMsgRelations()) {
             if (msgRel.getUser2().getObjectId().equals(user2.getParseUser().getObjectId())) {
-                Log.i("chatRshipBug", "rship exists!");
+                Log.v("chatRshipBug", "rship exists!");
                 return true;
             }
         }
+        Log.v("chatRshipBug", "ended function with a false");
         return false;
     }
 }

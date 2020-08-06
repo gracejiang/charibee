@@ -6,14 +6,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.service.R;
 import com.example.service.activities.UserDetailsActivity;
 import com.example.service.models.User;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
@@ -54,12 +57,14 @@ public class CommunityUsersAdapter extends RecyclerView.Adapter<CommunityUsersAd
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvName;
+        private ImageView ivAvatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             // set views
-            tvName = itemView.findViewById(R.id.item_user_name);
+            tvName = itemView.findViewById(R.id.item_message_name);
+            ivAvatar = itemView.findViewById(R.id.item_message_iv_avatar);
 
             // set listener
             itemView.setOnClickListener(this);
@@ -68,6 +73,17 @@ public class CommunityUsersAdapter extends RecyclerView.Adapter<CommunityUsersAd
         public void bind(ParseUser pUser) {
             User user = new User(pUser);
             tvName.setText(user.getName());
+
+            // set profile pic
+            ParseFile profilePic = (ParseFile) user.getProfilePic();
+            if (profilePic != null) {
+                Glide.with(context)
+                        .load(httpToHttps(profilePic.getUrl()))
+                        .circleCrop()
+                        .into(ivAvatar);
+            } else {
+                Log.e(TAG, "couldn't load profile pic");
+            }
         }
 
         // view user
@@ -85,5 +101,20 @@ public class CommunityUsersAdapter extends RecyclerView.Adapter<CommunityUsersAd
         }
 
     }
+
+    // converts http link to https
+    private String httpToHttps(String url) {
+        if (url == null) {
+            return "";
+        }
+
+        if (url.contains("https")) {
+            return url;
+        }
+
+        String httpsUrl = "https" + url.substring(4);
+        return httpsUrl;
+    }
+
 
 }

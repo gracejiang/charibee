@@ -38,7 +38,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_message, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
         return new MessageAdapter.ViewHolder(view);
     }
 
@@ -70,7 +70,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         public void bind(ParseUser pUser) {
             User user = new User(pUser);
-            tvName.setText(user.getUsername());
+            tvName.setText(user.getName());
 
             // set profile pic
             ParseFile profilePic = (ParseFile) user.getProfilePic();

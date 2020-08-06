@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="@dimen/default_margin"
     android:orientation="vertical"
     tools:context=".activities.EditProfileActivity">
 
@@ -34,7 +34,7 @@
         android:id="@+id/edit_profile_update_avatar_btn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/button_color"
         android:text="Update Profile Picture"
         android:textColor="@color/button_text_color" />
@@ -43,6 +43,7 @@
         android:id="@+id/edit_profile_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Username"
         android:inputType="textPersonName" />
@@ -67,6 +68,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
             android:layout_weight="1"
+            android:layout_marginRight="6dp"
             android:text="Cancel" />
 
         <Button
@@ -76,6 +78,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/button_color"
             android:text="Save"
+            android:layout_marginLeft="6dp"
             android:textColor="@color/button_text_color" />
 
     </LinearLayout>

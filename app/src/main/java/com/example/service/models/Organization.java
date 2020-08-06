@@ -58,7 +58,12 @@ public class Organization extends ParseObject implements Comparable {
     }
 
     public String getCategory() {
-        return getString(KEY_CATEGORY);
+        try {
+            return fetchIfNeeded().getString(KEY_CATEGORY);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public void setCategory(String category) {
@@ -78,7 +83,12 @@ public class Organization extends ParseObject implements Comparable {
     }
 
     public String getTagline() {
-        return getString(KEY_TAGLINE);
+        try {
+            return fetchIfNeeded().getString(KEY_TAGLINE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public void setAddress(String address) {

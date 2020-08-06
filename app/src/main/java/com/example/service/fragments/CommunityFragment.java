@@ -58,8 +58,6 @@ public class CommunityFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.i(TAG, "this is being reached");
-
         // recycler view adapter
         updateAdapter(allUsers);
 
@@ -71,9 +69,10 @@ public class CommunityFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, "this is being clicked lol..");
                 String searchPhrase = etSearch.getText().toString();
-                queryUsers(searchPhrase);
+                if (searchPhrase != null & searchPhrase.length() > 0) {
+                    queryUsers(searchPhrase);
+                }
             }
         });
     }
