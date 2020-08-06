@@ -35,7 +35,8 @@
         <activity android:name=".activities.EditProfileActivity" />
         <activity android:name=".activities.OrganizationDetailsActivity" />
         <activity android:name=".activities.NewOrganizationActivity" />
-        <activity android:name=".activities.WelcomeActivity">
+        <activity android:name=".activities.WelcomeActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
