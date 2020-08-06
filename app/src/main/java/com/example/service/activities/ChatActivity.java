@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
-import com.example.service.data.Data;
 import com.example.service.adapters.ChatAdapter;
+import com.example.service.data.Data;
 import com.example.service.models.Message;
+import com.example.service.models.MessageRelation;
 import com.example.service.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -60,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
 
         pCurrentUser = ParseUser.getCurrentUser();
         currentUser = new User(pCurrentUser);
-        toUser = Data.getToUser();
+        toUser = new User(Data.getToUser().getParseUser());
 
         setupMessagePosting();
         refreshMessages();
@@ -112,9 +113,7 @@ public class ChatActivity extends AppCompatActivity {
                     etMessage.setText(null);
 
                     if (newMsg) {
-                        Log.i(TAG, "made it into new msg!");
-                        // toUser.addUserToMsgsWith(currentUser);
-                        currentUser.addUserToMsgsWith(toUser);
+                        MessageRelation.addMessageRelation(currentUser, toUser);
                         newMsg = false;
                     }
                 }

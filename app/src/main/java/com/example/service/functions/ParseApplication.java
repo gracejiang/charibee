@@ -3,6 +3,7 @@ package com.example.service.functions;
 import android.app.Application;
 
 import com.example.service.models.Message;
+import com.example.service.models.MessageRelation;
 import com.example.service.models.Organization;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -21,6 +22,7 @@ public class ParseApplication extends Application {
         // register models
         ParseObject.registerSubclass(Organization.class);
         ParseObject.registerSubclass(Message.class);
+        ParseObject.registerSubclass(MessageRelation.class);
 
         // chat feature
         OkHttpClient.Builder builder = new OkHttpClient.Builder();

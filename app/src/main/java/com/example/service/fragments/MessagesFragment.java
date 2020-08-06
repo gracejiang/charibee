@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.service.R;
 import com.example.service.adapters.MessageAdapter;
 import com.example.service.functions.CustomItemDivider;
-import com.example.service.models.User;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -52,7 +51,6 @@ public class MessagesFragment extends Fragment {
         rvMsgs.addItemDecoration(dividerItemDecoration);
 
         // populate data
-        queryMsgsWith();
     }
 
     // update org adapter given list of organizations
@@ -60,14 +58,6 @@ public class MessagesFragment extends Fragment {
         adapter = new MessageAdapter(getContext(), msgsWithVar); // (1) create adapter
         rvMsgs.setAdapter(adapter); // (2) set adapter on rv
         rvMsgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
-        adapter.notifyDataSetChanged();
-    }
-
-    // retrieve user list with exchanged msgs from parse database
-    private void queryMsgsWith() {
-        allMsgsWith.clear();
-        User user = new User(ParseUser.getCurrentUser());
-        allMsgsWith.addAll(user.getMessagesWith());
         adapter.notifyDataSetChanged();
     }
 

@@ -107,11 +107,11 @@ public class ProfileFragment extends Fragment {
         ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
         if (profilePic != null) {
             try {
-                if (profilePic.getData() != null) {
+                if (profilePic.getData() == null) {
+                    downloadAndShowImage(profilePic);
+                } else {
                     byte[] photoBytes = profilePic.getData();
                     ivAvatar.setImageBitmap(BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length));
-                } else {
-                    downloadAndShowImage(profilePic);
                 }
             } catch (ParseException e) {
                 downloadAndShowImage(profilePic);

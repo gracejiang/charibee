@@ -2,8 +2,10 @@ package com.example.service.models;
 
 import android.util.Log;
 
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.parceler.Parcel;
@@ -16,6 +18,8 @@ public class User {
 
     public static final String TAG = "User";
     ParseUser user;
+
+    List<MessageRelation> msgRelations = new ArrayList<>();
 
     public static final String KEY_FIRST_NAME = "firstName";
     public static final String KEY_LAST_NAME = "lastName";
@@ -35,6 +39,7 @@ public class User {
 
     public User(ParseUser user) {
         this.user = user;
+        loadAllMessages();
     }
 
     // get user id
@@ -178,36 +183,29 @@ public class User {
         return user;
     }
 
-    // get all msgs with users from a user
-    public List<ParseUser> getMessagesWith() {
-        List<ParseUser> users = (List<ParseUser>) user.get(KEY_MSGS_WITH);
-        return users;
-    }
+    // loads all messages
+    public void loadAllMessages() {
+        // query all relations where first user is the current user
+        ParseQuery<MessageRelation> query = ParseQuery.getQuery(MessageRelation.class);
+        query.whereEqualTo("user1", user);
 
-    // contains msg with user?
-    public boolean containsMsgWith(User user) {
-        List<ParseUser> users = getMessagesWith();
-        for (ParseUser u : users) {
-            if (u.getObjectId().equals(user.getId())) {
-                return true;
+        query.findInBackground(new FindCallback<MessageRelation>() {
+            public void done(List<MessageRelation> queriedRelations, ParseException e) {
+                if (e == null) {
+                    msgRelations = queriedRelations;
+                    Log.i("loadAllMessages", "# relations for user: " + msgRelations.size());
+                } else {
+                    Log.d(TAG, "Error retrieving relations for user: " + e.getMessage());
+                }
             }
-        }
-        return false;
+        });
     }
 
-    // add msg to user
-    public void addUserToMsgsWith(User addUser) {
-        if (!containsMsgWith(addUser)) {
-            Log.i(TAG, user.getUsername() + " doesnt have " + addUser.getUsername());
-            List<ParseUser> users = getMessagesWith();
-            Log.i(TAG, "msgs with size: " + users.size());
-            users.add(addUser.getParseUser());
-            user.put(KEY_MSGS_WITH, users);
-            user.saveInBackground();
-
-            Log.i(TAG, "new msgs with size: " + getMessagesWith().size());
-        }
+    public List<MessageRelation> getMsgRelations() {
+        return msgRelations;
     }
+
+
 
 
 }
