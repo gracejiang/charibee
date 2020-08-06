@@ -22,8 +22,8 @@
         android:title="Messages"/>
 
     <item
-        android:id="@+id/menu_profile"
+        android:id="@+id/menu_community"
         android:enabled="true"
-        android:icon="@drawable/ic_profile_24px"
-        android:title="Profile"/>
+        android:icon="@drawable/ic_baseline_group_24"
+        android:title="Community"/>
 </menu>

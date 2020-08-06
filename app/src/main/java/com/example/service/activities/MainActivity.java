@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.service.R;
+import com.example.service.fragments.CommunityFragment;
 import com.example.service.fragments.DiscoverFragment;
 import com.example.service.fragments.HomeFragment;
 import com.example.service.fragments.MessagesFragment;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     DiscoverFragment discoverFragment = new DiscoverFragment();
     MessagesFragment messagesFragment = new MessagesFragment();
     ProfileFragment profileFragment = new ProfileFragment();
+    CommunityFragment communityFragment = new CommunityFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_messages:
                 fragment = messagesFragment;
                 break;
-            case R.id.menu_profile:
-                fragment = profileFragment;
+            case R.id.menu_community:
+                fragment = communityFragment;
                 break;
             default:
                 Log.e(TAG, "default case should not be hit");
