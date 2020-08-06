@@ -2,6 +2,7 @@ package com.example.service.data;
 
 import com.example.service.models.Organization;
 import com.example.service.models.User;
+import com.parse.ParseUser;
 
 public class Data {
 
@@ -10,9 +11,17 @@ public class Data {
     public static double lat;
     public static double lng;
     public static User toUser;
+    public static User currUser = new User(ParseUser.getCurrentUser());
 
     Data() {
+    }
 
+    public static void updateCurrUser() {
+        currUser = new User(ParseUser.getCurrentUser());
+    }
+
+    public static User getCurrUser() {
+        return currUser;
     }
 
     public static void setOrg(Organization organization) {

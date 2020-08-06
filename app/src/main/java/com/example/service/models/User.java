@@ -20,6 +20,7 @@ public class User {
     ParseUser user;
 
     List<MessageRelation> msgRelations = new ArrayList<>();
+    List<ParseUser> msgUserRelations = new ArrayList<>();
 
     public static final String KEY_FIRST_NAME = "firstName";
     public static final String KEY_LAST_NAME = "lastName";
@@ -27,8 +28,6 @@ public class User {
     public static final String KEY_PROFILE_PIC = "profilePic";
     public static final String KEY_BIO = "bio";
     public static final String KEY_NUM_POINTS = "numPoints";
-
-
     public static final String KEY_ORGS_IDS = "orgsJoinedIds";
     public static final String KEY_ORGS = "orgsJoined";
     public static final String KEY_MSGS_WITH = "messagesWith";
@@ -193,7 +192,9 @@ public class User {
             public void done(List<MessageRelation> queriedRelations, ParseException e) {
                 if (e == null) {
                     msgRelations = queriedRelations;
-                    Log.i("loadAllMessages", "# relations for user: " + msgRelations.size());
+                    for (MessageRelation msgRel : msgRelations) {
+                        msgUserRelations.add(msgRel.getUser2());
+                    }
                 } else {
                     Log.d(TAG, "Error retrieving relations for user: " + e.getMessage());
                 }
@@ -203,6 +204,10 @@ public class User {
 
     public List<MessageRelation> getMsgRelations() {
         return msgRelations;
+    }
+
+    public List<ParseUser> getAllMessagesWith() {
+        return msgUserRelations;
     }
 
 

@@ -107,11 +107,13 @@ public class ProfileFragment extends Fragment {
         ParseFile profilePic = (ParseFile) currentUser.get("profilePic");
         if (profilePic != null) {
             try {
-                if (profilePic.getData() == null) {
+                if (profilePic.getUrl() != null) {
                     downloadAndShowImage(profilePic);
-                } else {
+                } else if (profilePic.getData() != null) {
                     byte[] photoBytes = profilePic.getData();
                     ivAvatar.setImageBitmap(BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length));
+                } else {
+                    Log.e(TAG, "couldnt load profile pic");
                 }
             } catch (ParseException e) {
                 downloadAndShowImage(profilePic);

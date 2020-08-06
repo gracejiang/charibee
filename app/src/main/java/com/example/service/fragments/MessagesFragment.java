@@ -1,6 +1,7 @@
 package com.example.service.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
 import com.example.service.adapters.MessageAdapter;
+import com.example.service.data.Data;
 import com.example.service.functions.CustomItemDivider;
 import com.parse.ParseUser;
 
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessagesFragment extends Fragment {
+
+    public static final String TAG = "MessagesFragment";
 
     // ui views
     RecyclerView rvMsgs;
@@ -51,6 +55,9 @@ public class MessagesFragment extends Fragment {
         rvMsgs.addItemDecoration(dividerItemDecoration);
 
         // populate data
+        allMsgsWith = Data.getCurrUser().getAllMessagesWith();
+        updateAdapter(allMsgsWith);
+        Log.i(TAG, "has _ messages with ppl: " + allMsgsWith.size());
     }
 
     // update org adapter given list of organizations

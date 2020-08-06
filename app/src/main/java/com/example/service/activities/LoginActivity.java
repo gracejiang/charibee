@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.service.R;
+import com.example.service.data.Data;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -69,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
+                    Data.updateCurrUser();
                     goMainActivity();
                 } else {
                     makeMessage("Invalid username or password. Please try again.");

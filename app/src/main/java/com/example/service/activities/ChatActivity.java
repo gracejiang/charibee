@@ -115,6 +115,7 @@ public class ChatActivity extends AppCompatActivity {
                     if (newMsg) {
                         MessageRelation.addMessageRelation(currentUser, toUser);
                         newMsg = false;
+                        Data.updateCurrUser();
                     }
                 }
             }
