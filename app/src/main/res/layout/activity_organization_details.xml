@@ -16,60 +16,71 @@
             android:id="@+id/org_details_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:text="Name"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Your Name"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/org_details_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="6dp"
             android:text="Category"
-            android:textSize="14sp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/org_details_organizer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Organizer" />
-
-        <TextView
-            android:id="@+id/org_details_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Address" />
+            android:letterSpacing="0.15"
+            android:textSize="10dp"
+            android:textAllCaps="true" />
 
         <TextView
             android:id="@+id/org_details_website"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:text="Website" />
 
         <TextView
             android:id="@+id/org_details_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Email" />
 
         <TextView
             android:id="@+id/org_details_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="Phone #" />
+
+        <TextView
+            android:id="@+id/org_details_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Address" />
 
         <TextView
             android:id="@+id/org_details_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="Description" />
+
+        <TextView
+            android:id="@+id/org_details_organizer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Organizer" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="All Members"
+            android:textStyle="bold" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/org_details_rv_volunteers"

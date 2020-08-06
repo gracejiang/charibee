@@ -67,6 +67,7 @@ public class MessageRelation extends ParseObject {
     public static boolean relationExists(User user1, User user2) {
         for (MessageRelation msgRel : user1.getMsgRelations()) {
             if (msgRel.getUser2().getObjectId().equals(user2.getParseUser().getObjectId())) {
+                Log.i("chatRshipBug", "rship exists!");
                 return true;
             }
         }

@@ -113,6 +113,7 @@ public class ChatActivity extends AppCompatActivity {
                     etMessage.setText(null);
 
                     if (newMsg) {
+                        Log.i("chatRshipBug", "here");
                         MessageRelation.addMessageRelation(currentUser, toUser);
                         newMsg = false;
                         Data.updateCurrUser();

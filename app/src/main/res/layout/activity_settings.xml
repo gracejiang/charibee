@@ -4,10 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_margin="16dp"
     android:orientation="vertical"
     tools:context=".activities.SettingsActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Settings"
+        android:textSize="30sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -45,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
             android:layout_weight="1"
+            android:layout_marginRight="6dp"
             android:text="Cancel" />
 
         <Button
@@ -54,6 +63,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/button_color"
             android:text="Update Password"
+            android:layout_marginLeft="6dp"
             android:textColor="@color/button_text_color" />
 
     </LinearLayout>

@@ -9,10 +9,9 @@
         android:id="@+id/item_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="monospace"
+        android:fontFamily="sans-serif-light"
         android:text="Name"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textSize="14sp" />
 
 
 </LinearLayout>
