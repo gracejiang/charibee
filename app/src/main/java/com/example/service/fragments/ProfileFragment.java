@@ -19,8 +19,6 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.service.R;
 import com.example.service.activities.EditProfileActivity;
-import com.example.service.activities.SettingsActivity;
-import com.example.service.activities.WelcomeActivity;
 import com.example.service.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -38,8 +36,6 @@ public class ProfileFragment extends Fragment {
     private TextView tvUsername;
     private TextView tvBio;
     private Button btnEditProfile;
-    private Button btnUpdateSettings;
-    private Button btnLogout;
 
     public ProfileFragment() {
     }
@@ -54,8 +50,6 @@ public class ProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.profile_username);
         tvBio = view.findViewById(R.id.profile_bio);
         btnEditProfile = view.findViewById(R.id.profile_edit_btn);
-        btnUpdateSettings = view.findViewById(R.id.profile_settings_btn);
-        btnLogout = view.findViewById(R.id.profile_logout_btn);
 
         return view;
     }
@@ -73,23 +67,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 goEditProfileActivity();
-            }
-        });
-
-        // settings button clicked
-        btnUpdateSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goSettingsActivity();
-            }
-        });
-
-        // logout button clicked
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                goWelcomeActivity();
             }
         });
     }
@@ -145,19 +122,6 @@ public class ProfileFragment extends Fragment {
     private void goEditProfileActivity() {
         Intent i = new Intent(getContext(), EditProfileActivity.class);
         startActivity(i);
-    }
-
-    // go to settings activity
-    private void goSettingsActivity() {
-        Intent i = new Intent(getContext(), SettingsActivity.class);
-        startActivity(i);
-    }
-
-    // go to welcome activity
-    private void goWelcomeActivity() {
-        Intent i = new Intent(getContext(), WelcomeActivity.class);
-        startActivity(i);
-        getActivity().finish();
     }
 
     // converts http link to https

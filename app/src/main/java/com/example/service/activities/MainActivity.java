@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
-    private TextView tvSidebarHeader;
+    private TextView tvToolbarTitle;
 
     HomeFragment homeFragment = new HomeFragment();
     DiscoverFragment discoverFragment = new DiscoverFragment();
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        tvSidebarHeader = findViewById(R.id.sidebar_header_tv);
+        tvToolbarTitle = findViewById(R.id.toolbar_title);
 
         setSupportActionBar(toolbar);
         setupDrawerContent(nvDrawer);
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         mDrawer.addDrawerListener(drawerToggle);
+        setTitle("");
 
         // fragment manager
         fragmentManager = getSupportFragmentManager();
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 setFragmentView(item.getItemId());
+                // setTitle(item.getTitle());
+                tvToolbarTitle.setText(item.getTitle());
                 return true;
             }
         });
@@ -97,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
     public void selectDrawerItem(MenuItem menuItem) {
         mDrawer.closeDrawers();
         switch (menuItem.getItemId()) {
+            case R.id.sidebar_profile_fragment:
+                fragmentManager.beginTransaction().replace(R.id.main_frame_layout, profileFragment).commit();
+                // toolbar.setTitle(menuItem.getTitle());
+                tvToolbarTitle.setText(menuItem.getTitle());
+                break;
+            case R.id.sidebar_settings_fragment:
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
+                break;
             case R.id.sidebar_logout_functionality:
                 ParseUser.logOut();
                 goWelcomeActivity();
@@ -105,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
     // items selected for sidebar
     @Override
@@ -142,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "default case should not be hit");
                 fragment = homeFragment;
         }
-
         fragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragment).commit();
     }
 

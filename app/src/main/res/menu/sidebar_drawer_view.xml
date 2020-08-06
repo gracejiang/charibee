@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="single">
 
-        <item android:title="User">
+        <item android:title="Your Account">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
@@ -13,7 +13,7 @@
                     <item
                         android:id="@+id/sidebar_settings_fragment"
                         android:icon="@drawable/ic_baseline_settings_24"
-                        android:title="Account Settings" />
+                        android:title="Settings" />
                     <item
                         android:id="@+id/sidebar_logout_functionality"
                         android:icon="@drawable/ic_baseline_logout_24"
