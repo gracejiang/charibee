@@ -15,11 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
-import com.example.service.data.Data;
 import com.example.service.adapters.VolunteersAdapter;
+import com.example.service.data.Data;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
-import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
@@ -37,6 +36,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private TextView tvName;
     private TextView tvCategory;
     private TextView tvDescription;
+    private TextView tvOrganizer;
     private TextView tvAddress;
     private TextView tvWebsite;
     private TextView tvEmail;
@@ -70,6 +70,17 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         // sets ui views
         setUiValues();
 
+        // allow users to click organizer profile
+        tvOrganizer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User organizer = new User(org.getOrganizer());
+                Intent intent = new Intent(OrganizationDetailsActivity.this, UserDetailsActivity.class);
+                intent.putExtra(User.class.getSimpleName(), Parcels.wrap(organizer));
+                OrganizationDetailsActivity.this.startActivity(intent);
+            }
+        });
+
         // volunteers recycler view
         updateAdapter(volunteersList);
         queryVolunteers();
@@ -89,7 +100,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         // set visibility for the edit button
         if (hasPermissionsToEdit()) {
@@ -122,6 +132,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvName = findViewById(R.id.org_details_name);
         tvCategory = findViewById(R.id.org_details_category);
         tvDescription = findViewById(R.id.org_details_description);
+        tvOrganizer = findViewById(R.id.org_details_organizer);
         tvAddress = findViewById(R.id.org_details_address);
         tvWebsite = findViewById(R.id.org_details_website);
         tvEmail = findViewById(R.id.org_details_email);
@@ -137,22 +148,16 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         String name = org.getName();
         String category = org.getCategory();
         String description = org.getDescription();
+        User organizer = new User(org.getOrganizer());
+        String organizerName = organizer.getName();
         String address = org.getAddress();
         String website = org.getWebsite();
         String email = org.getEmail();
         String phoneNumber = org.getPhoneNumber();
-        ParseUser organizer = org.getOrganizer();
-
-        String organizerText = "";
-        try {
-            organizerText = "Organized by " + organizer.fetchIfNeeded().getString("firstName") + " "
-                    + organizer.fetchIfNeeded().getString("lastName") + ".";
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
         // required fields
         tvName.setText(name);
+        tvOrganizer.setText("Organized by " + organizerName);
         tvCategory.setText(category);
         tvDescription.setText(description);
 

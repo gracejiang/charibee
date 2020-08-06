@@ -31,6 +31,12 @@
             android:textStyle="italic" />
 
         <TextView
+            android:id="@+id/org_details_organizer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Organizer" />
+
+        <TextView
             android:id="@+id/org_details_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
