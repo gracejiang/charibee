@@ -1,12 +1,15 @@
 package com.example.service.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,11 +35,19 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
     Organization org;
 
+    // popup dialog
+    Dialog popupDialog;
+
     // ui views
     private TextView tvName;
     private TextView tvCategory;
     private TextView tvDescription;
-    private TextView tvOrganizer;
+
+    private ImageButton btnWebsite;
+    private ImageButton btnPhone;
+    private ImageButton btnEmail;
+    private ImageButton btnAddress;
+
     private TextView tvAddress;
     private TextView tvWebsite;
     private TextView tvEmail;
@@ -44,6 +55,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private Button btnJoinOrg;
     private Button btnEditOrg;
     private Button btnDeleteOrg;
+    private TextView tvOrganizer;
     private RecyclerView rvVolunteers;
 
     // volunteer details
@@ -61,6 +73,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organization_details);
 
+        // current values
         currentParseUser = ParseUser.getCurrentUser();
         currentUser = new User(currentParseUser);
         org = (Organization) Parcels.unwrap(getIntent().getParcelableExtra(Organization.class.getSimpleName()));
@@ -128,11 +141,20 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         }
     }
 
+    // bind ui values
     private void bindUiViews() {
         // bind ui views
         tvName = findViewById(R.id.org_details_name);
         tvCategory = findViewById(R.id.org_details_category);
         tvDescription = findViewById(R.id.org_details_description);
+
+        // image btns
+        btnWebsite = findViewById(R.id.org_details_website_btn);
+        btnPhone = findViewById(R.id.org_details_phone_btn);
+        btnEmail = findViewById(R.id.org_details_email_btn);
+        btnAddress = findViewById(R.id.org_details_address_btn);
+
+        // other values
         tvOrganizer = findViewById(R.id.org_details_organizer);
         tvAddress = findViewById(R.id.org_details_address);
         tvWebsite = findViewById(R.id.org_details_website);
@@ -154,7 +176,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         String address = org.getAddress();
         String website = org.getWebsite();
         String email = org.getEmail();
-        String phoneNumber = org.getPhoneNumber();
+        final String phoneNumber = org.getPhoneNumber();
 
         // required fields
         tvName.setText(name);
@@ -163,6 +185,11 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvDescription.setText(description);
 
         // not required fields
+        setIntoView(btnWebsite, website);
+        setIntoView(btnPhone, phoneNumber);
+        setIntoView(btnEmail, email);
+        setIntoView(btnAddress, address);
+
         setIntoView(tvAddress, address);
         setIntoView(tvWebsite, website);
         setIntoView(tvEmail, email);
@@ -177,6 +204,49 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     // if current user has permissions to edit
     private boolean hasPermissionsToEdit() {
         return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
+    }
+
+
+    // set value into view if value is not null
+    private void setIntoView(final ImageButton ib, final String value) {
+        if (value != null && value.length() > 0) {
+            // bind url
+            ib.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPopup(value);
+                }
+            });
+        } else {
+            ib.setVisibility(View.GONE);
+        }
+    }
+
+    // show popup for user to see
+    private void showPopup(String value) {
+
+        // popup
+        View v = getLayoutInflater().inflate(R.layout.popup, null);
+        popupDialog = new Dialog(this);
+        popupDialog.setContentView(R.layout.popup);
+
+        // bind views
+        ImageView ivPopupIcon = v.findViewById(R.id.popup_icon_iv);
+        TextView tvPopupText = v.findViewById(R.id.popup_text_tv);
+        ImageView popupClose = v.findViewById(R.id.popup_close_iv);
+
+        tvPopupText.setText(value);
+
+        // when x button clicked
+        popupClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupDialog.dismiss();
+            }
+        });
+
+        popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupDialog.show();
     }
 
     // set value into view if value is not null
@@ -279,25 +349,4 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         finish();
     }
 
-    // animate button when swiping right
-    private void addAnimation() {
-        // Inflate animation from XML
-        Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.item_org);
-        animFadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                // Fires when animation starts
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                // ...
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                // ...
-            }
-        });
-    }
 }

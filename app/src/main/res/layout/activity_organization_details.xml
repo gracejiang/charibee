@@ -31,6 +31,50 @@
             android:textSize="10dp"
             android:textAllCaps="true" />
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/org_details_website_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_language_24" />
+
+            <ImageButton
+                android:id="@+id/org_details_phone_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/org_details_website_btn"
+                app:srcCompat="@drawable/ic_phone_24" />
+
+            <ImageButton
+                android:id="@+id/org_details_email_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/org_details_phone_btn"
+                app:srcCompat="@drawable/ic_email_24" />
+
+            <ImageButton
+                android:id="@+id/org_details_address_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/org_details_email_btn"
+                app:srcCompat="@drawable/ic_baseline_map_24" />
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/org_details_website"
             android:layout_width="match_parent"

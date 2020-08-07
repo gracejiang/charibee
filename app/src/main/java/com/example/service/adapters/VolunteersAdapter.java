@@ -50,7 +50,7 @@ public class VolunteersAdapter extends RecyclerView.Adapter<VolunteersAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return Math.min(10, users.size());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
