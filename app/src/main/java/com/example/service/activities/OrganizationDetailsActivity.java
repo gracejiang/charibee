@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.service.R;
@@ -54,6 +54,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private ParseUser currentParseUser;
     private User currentUser;
     private boolean userInOrg;
+    private int NUM_OF_COLUMNS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,7 +208,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private void updateAdapter(List<ParseUser> usersList) {
         adapter = new VolunteersAdapter(this, usersList); // (1) create adapter
         rvVolunteers.setAdapter(adapter); // (2) set adapter on rv
-        rvVolunteers.setLayoutManager(new LinearLayoutManager(this)); // (3) set layout manager on rv
+        rvVolunteers.setLayoutManager(new GridLayoutManager(this, NUM_OF_COLUMNS)); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();
     }
 

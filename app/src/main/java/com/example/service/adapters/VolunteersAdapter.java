@@ -2,17 +2,20 @@ package com.example.service.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.service.R;
 import com.example.service.activities.UserDetailsActivity;
 import com.example.service.models.User;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
@@ -53,19 +56,28 @@ public class VolunteersAdapter extends RecyclerView.Adapter<VolunteersAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // ui views
-        private TextView tvName;
+        private ImageView ivAvatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-
-            tvName = itemView.findViewById(R.id.item_user_name);
+            ivAvatar = itemView.findViewById(R.id.item_user_pic_avatar);
         }
 
         // bind user
         public void bind(ParseUser parseUser) {
             User user = new User(parseUser);
-            tvName.setText(user.getName());
+
+            // set profile pic
+            ParseFile profilePic = (ParseFile) user.getProfilePic();
+            if (profilePic != null) {
+                Glide.with(context)
+                        .load(httpToHttps(profilePic.getUrl()))
+                        .circleCrop()
+                        .into(ivAvatar);
+            } else {
+                Log.e(TAG, "couldn't load profile pic");
+            }
         }
 
 
@@ -81,6 +93,20 @@ public class VolunteersAdapter extends RecyclerView.Adapter<VolunteersAdapter.Vi
                 context.startActivity(intent);
             }
         }
+    }
+
+    // converts http link to https
+    private String httpToHttps(String url) {
+        if (url == null) {
+            return "";
+        }
+
+        if (url.contains("https")) {
+            return url;
+        }
+
+        String httpsUrl = "https" + url.substring(4);
+        return httpsUrl;
     }
 
 
