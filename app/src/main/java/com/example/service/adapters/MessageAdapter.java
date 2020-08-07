@@ -64,7 +64,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             // set on click listener
             itemView.setOnClickListener(this);
 
-            ivAvatar = itemView.findViewById(R.id.item_message_iv_avatar);
+            ivAvatar = itemView.findViewById(R.id.item_user_avatar);
             tvName = itemView.findViewById(R.id.item_message_name);
         }
 

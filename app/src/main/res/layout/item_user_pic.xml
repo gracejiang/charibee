@@ -8,20 +8,20 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/profile_avatar_container"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_centerHorizontal="true"
         android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
+        android:layout_marginVertical="6dp"
         app:cardCornerRadius="150dp">
 
         <ImageView
             android:id="@+id/item_user_pic_avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

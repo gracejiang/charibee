@@ -64,7 +64,7 @@ public class CommunityUsersAdapter extends RecyclerView.Adapter<CommunityUsersAd
 
             // set views
             tvName = itemView.findViewById(R.id.item_message_name);
-            ivAvatar = itemView.findViewById(R.id.item_message_iv_avatar);
+            ivAvatar = itemView.findViewById(R.id.item_user_avatar);
 
             // set listener
             itemView.setOnClickListener(this);
