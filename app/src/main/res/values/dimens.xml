@@ -3,5 +3,6 @@
 
     <dimen name="button_height">56dp</dimen>
     <dimen name="default_margin">16dp</dimen>
+    <dimen name="textfield_spacing">6dp</dimen>
 
 </resources>
