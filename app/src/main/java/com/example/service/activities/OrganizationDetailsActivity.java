@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,9 +36,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
     Organization org;
 
-    // popup dialog
-    Dialog popupDialog;
-
     // ui views
     private TextView tvName;
     private TextView tvCategory;
@@ -48,15 +46,18 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private ImageButton btnEmail;
     private ImageButton btnAddress;
 
-    private TextView tvAddress;
-    private TextView tvWebsite;
-    private TextView tvEmail;
-    private TextView tvPhoneNumber;
     private Button btnJoinOrg;
     private Button btnEditOrg;
     private Button btnDeleteOrg;
     private TextView tvOrganizer;
     private RecyclerView rvVolunteers;
+
+    // popup ui views
+    private Dialog popupDialog;
+    private ImageView ivPopupIcon;
+    private TextView tvPopupText;
+    private ImageView popupClose;
+
 
     // volunteer details
     private VolunteersAdapter adapter;
@@ -83,6 +84,9 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         // sets ui views
         setUiValues();
+
+        // popup views
+        popupDialog = new Dialog(this);
 
         // allow users to click organizer profile
         tvOrganizer.setOnClickListener(new View.OnClickListener() {
@@ -156,10 +160,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         // other values
         tvOrganizer = findViewById(R.id.org_details_organizer);
-        tvAddress = findViewById(R.id.org_details_address);
-        tvWebsite = findViewById(R.id.org_details_website);
-        tvEmail = findViewById(R.id.org_details_email);
-        tvPhoneNumber = findViewById(R.id.org_details_phone_number);
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
         btnEditOrg = findViewById(R.id.org_details_edit_btn);
         btnDeleteOrg = findViewById(R.id.org_details_delete_btn);
@@ -173,10 +173,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         String description = org.getDescription();
         User organizer = new User(org.getOrganizer());
         String organizerName = organizer.getName();
-        String address = org.getAddress();
-        String website = org.getWebsite();
-        String email = org.getEmail();
-        final String phoneNumber = org.getPhoneNumber();
 
         // required fields
         tvName.setText(name);
@@ -184,16 +180,8 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         tvCategory.setText(category);
         tvDescription.setText(description);
 
-        // not required fields
-        setIntoView(btnWebsite, website);
-        setIntoView(btnPhone, phoneNumber);
-        setIntoView(btnEmail, email);
-        setIntoView(btnAddress, address);
-
-        setIntoView(tvAddress, address);
-        setIntoView(tvWebsite, website);
-        setIntoView(tvEmail, email);
-        setIntoView(tvPhoneNumber, phoneNumber);
+        // contact values
+        setContactValues();
 
         // sets join or leave into button
         userInOrg = checkIfUserInOrg();
@@ -201,20 +189,29 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
     }
 
-    // if current user has permissions to edit
-    private boolean hasPermissionsToEdit() {
-        return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
+    // set contact values
+    private void setContactValues() {
+        String address = org.getAddress();
+        String website = org.getWebsite();
+        String email = org.getEmail();
+        final String phoneNumber = org.getPhoneNumber();
+
+        // not required fields
+        setIntoView(btnWebsite, R.drawable.ic_website_24, website);
+        setIntoView(btnPhone, R.drawable.ic_phone_24, phoneNumber);
+        setIntoView(btnEmail, R.drawable.ic_email_24, email);
+        setIntoView(btnAddress, R.drawable.ic_baseline_map_24, address);
     }
 
 
     // set value into view if value is not null
-    private void setIntoView(final ImageButton ib, final String value) {
+    private void setIntoView(final ImageButton ib, final int icon, final String value) {
         if (value != null && value.length() > 0) {
             // bind url
             ib.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showPopup(value);
+                    showPopup(icon, value);
                 }
             });
         } else {
@@ -223,19 +220,16 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     }
 
     // show popup for user to see
-    private void showPopup(String value) {
-
-        // popup
-        View v = getLayoutInflater().inflate(R.layout.popup, null);
-        popupDialog = new Dialog(this);
+    private void showPopup(int icon, String value) {
         popupDialog.setContentView(R.layout.popup);
 
         // bind views
-        ImageView ivPopupIcon = v.findViewById(R.id.popup_icon_iv);
-        TextView tvPopupText = v.findViewById(R.id.popup_text_tv);
-        ImageView popupClose = v.findViewById(R.id.popup_close_iv);
+        ivPopupIcon = popupDialog.findViewById(R.id.popup_icon_iv);
+        tvPopupText = popupDialog.findViewById(R.id.popup_text_tv);
+        popupClose = popupDialog.findViewById(R.id.popup_close_iv);
 
         tvPopupText.setText(value);
+        ivPopupIcon.setImageDrawable(ContextCompat.getDrawable(this, icon));
 
         // when x button clicked
         popupClose.setOnClickListener(new View.OnClickListener() {
@@ -247,15 +241,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         popupDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupDialog.show();
-    }
-
-    // set value into view if value is not null
-    private void setIntoView(TextView tv, String value) {
-        if (value != null && value.length() > 0) {
-            tv.setText(value);
-        } else {
-            tv.setVisibility(View.GONE);
-        }
     }
 
     // check if user in org
@@ -347,6 +332,11 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+
+    // if current user has permissions to edit
+    private boolean hasPermissionsToEdit() {
+        return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
     }
 
 }
