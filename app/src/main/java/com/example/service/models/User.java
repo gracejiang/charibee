@@ -189,7 +189,7 @@ public class User {
                 if (e == null) {
                     msgRelations = queriedRelations;
                     for (MessageRelation msgRel : msgRelations) {
-                        msgUserRelations.add(msgRel.getUser2());
+                        msgUserRelations.add(0, msgRel.getUser2());
                     }
                 } else {
                     Log.d(TAG, "Error retrieving relations for user: " + e.getMessage());

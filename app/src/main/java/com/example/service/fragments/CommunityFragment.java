@@ -34,7 +34,7 @@ public class CommunityFragment extends Fragment {
     private CommunityUsersAdapter adapter;
 
     // data source
-    List<ParseUser> allUsers = new ArrayList<>();
+    List<ParseUser> allUsers;
 
     // ui views
     private EditText etSearch;
@@ -59,6 +59,7 @@ public class CommunityFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // recycler view adapter
+        allUsers = new ArrayList<>();
         updateAdapter(allUsers);
 
         // add dividers btwn msgs

@@ -19,7 +19,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif-light"
             android:text="Create a New Organization"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <EditText
             android:id="@+id/new_org_name"
@@ -30,6 +30,8 @@
             android:inputType="textPersonName" />
 
         <Spinner
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
             android:id="@+id/new_org_spinner_categories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
