@@ -15,6 +15,7 @@ import com.example.service.R;
 import com.example.service.activities.OrganizationDetailsActivity;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
+import com.google.android.material.card.MaterialCardView;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
@@ -58,6 +59,7 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
+        private MaterialCardView cardView;
         private TextView tvName;
         private TextView tvCategory;
         private TextView tvTagline;
@@ -67,6 +69,7 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             super(itemView);
 
             // set views
+            cardView = itemView.findViewById(R.id.item_org_card_view);
             tvName = itemView.findViewById(R.id.item_org_name);
             tvCategory = itemView.findViewById(R.id.item_org_category);
             tvTagline = itemView.findViewById(R.id.item_org_tagline);
@@ -105,9 +108,25 @@ public class DiscoverOrgsAdapter extends RecyclerView.Adapter<DiscoverOrgsAdapte
             if (position != RecyclerView.NO_POSITION) {
                 Organization org = orgs.get(position);
                 if (!currentUser.containsOrg(org.getObjectId())) {
+                    cardView.setBackgroundResource(R.drawable.card_view_border_green);
                     joinOrg(org);
+                    new java.util.Timer().schedule(new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            cardView.setBackgroundResource(R.drawable.card_view_no_border);
+                        }},
+                            1500
+                    );
                 } else {
+                    cardView.setBackgroundResource(R.drawable.card_view_border_red);
                     leaveOrg(org);
+                    new java.util.Timer().schedule(new java.util.TimerTask() {
+                       @Override
+                       public void run() {
+                           cardView.setBackgroundResource(R.drawable.card_view_no_border);
+                       }},
+                            1500
+                    );
                 }
             }
             return true;

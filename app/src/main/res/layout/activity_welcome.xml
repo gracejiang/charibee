@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/pale_yellow"
     android:orientation="vertical"
     android:padding="8dp"
     tools:context=".activities.WelcomeActivity">
@@ -62,9 +62,9 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginRight="3dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/pale_yellow"
+            android:backgroundTint="@color/colorPrimary"
             android:text="Login"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             tools:layout_editor_absoluteX="44dp"
             tools:layout_editor_absoluteY="650dp" />
 
@@ -74,7 +74,7 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/dark_blue"
+            android:backgroundTint="@color/medium_blue"
             android:text="Register"
             android:textColor="@color/button_text_color"
             tools:layout_editor_absoluteX="286dp"
