@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.service.R;
-import com.example.service.location.MapTestActivity;
 import com.parse.ParseUser;
 
 /*
@@ -28,7 +27,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private Button btnRegister;
-    private Button btnMap;
     private ImageView ivIcon;
     private CardView cvIcon;
     private TextView tvTitle;
@@ -47,7 +45,6 @@ public class WelcomeActivity extends AppCompatActivity {
         // bind ui views
         btnLogin = findViewById(R.id.welcome_login_btn);
         btnRegister = findViewById(R.id.welcome_register_btn);
-        btnMap = findViewById(R.id.welcome_map_btn);
         ivIcon = findViewById(R.id.welcome_icon);
         cvIcon = findViewById(R.id.welcome_icon_cardview);
         tvTitle = findViewById(R.id.welcome_title);
@@ -74,17 +71,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 goToRegisterActivity();
             }
         });
-
-        // when map button clicked
-        btnMap.setVisibility(View.GONE);
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               goMapActivity();
-            }
-        });
-
-
     }
 
     private void animateScreen() {
@@ -115,12 +101,6 @@ public class WelcomeActivity extends AppCompatActivity {
         animatorSet.play(loginFadeAnim).with(titleFadeAnim);
         animatorSet.start();
 
-    }
-
-    // go map activity
-    private void goMapActivity() {
-        Intent i = new Intent(this, MapTestActivity.class);
-        startActivity(i);
     }
 
     // goes to main activity

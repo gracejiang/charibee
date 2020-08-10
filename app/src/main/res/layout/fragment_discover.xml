@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/default_margin"
     android:orientation="vertical"
     tools:context=".fragments.DiscoverFragment">
 
@@ -20,6 +20,7 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:hint="Search for an Organization"
+            android:layout_marginRight="8dp"
             android:inputType="textPersonName" />
 
         <Button
@@ -35,6 +36,7 @@
     </LinearLayout>
 
     <Spinner
+        android:layout_marginTop="10dp"
         android:id="@+id/discover_category_filter_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

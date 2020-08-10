@@ -35,6 +35,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="6dp"
             android:id="@+id/edit_org_category_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -70,6 +72,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp"
             android:id="@+id/edit_org_address_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

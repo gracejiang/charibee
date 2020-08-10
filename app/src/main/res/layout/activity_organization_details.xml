@@ -112,19 +112,27 @@
             android:text="Join Organization"
             android:textColor="@color/button_text_color" />
 
-        <Button
-            android:id="@+id/org_details_edit_btn"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:text="Edit Organization" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/org_details_delete_btn"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:backgroundTint="@color/red"
-            android:textColor="@color/white"
-            android:text="Delete Organization" />
+            <Button
+                android:id="@+id/org_details_edit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:text="Edit Organization" />
+
+            <Button
+                android:id="@+id/org_details_delete_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                android:text="Delete Organization" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

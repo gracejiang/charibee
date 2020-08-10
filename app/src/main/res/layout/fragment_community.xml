@@ -20,6 +20,7 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:hint="Search for a Volunteer"
+            android:layout_marginRight="8dp"
             android:inputType="textPersonName" />
 
         <Button

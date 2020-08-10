@@ -2,6 +2,7 @@ package com.example.service.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,8 +17,12 @@ import com.example.service.data.Data;
 import com.example.service.functions.CategorySpinnerClass;
 import com.example.service.location.MapActivity;
 import com.example.service.models.Organization;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 public class EditOrganizationActivity extends AppCompatActivity {
+
+    public static final String TAG = "EditOrganizationActivity";
 
     private Organization org;
 
@@ -64,7 +69,6 @@ public class EditOrganizationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (validFields()) {
                     saveChanges();
-                    goHomeFragment();
                 }
             }
         });
@@ -96,9 +100,6 @@ public class EditOrganizationActivity extends AppCompatActivity {
         setIntoView(etWebsite, org.getWebsite());
         setIntoView(etEmail, org.getEmail());
         setIntoView(etPhoneNumber, org.getPhoneNumber());
-
-        // set address
-
 
         // load in spinner view
         int spinnerPosition = adapter.getPosition(org.getCategory());
@@ -144,7 +145,19 @@ public class EditOrganizationActivity extends AppCompatActivity {
         org.setEmail(etEmail.getText().toString());
         org.setPhoneNumber(etPhoneNumber.getText().toString());
 
-        org.saveInBackground();
+        org.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    // error while posting pic
+                    Log.e(TAG, "error updating your profile", e);
+                    return;
+                } else {
+                    goHomeFragment();
+                }
+            }
+        });
+
     }
 
     // go to map activity

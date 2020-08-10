@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/comfortaa"
             android:text="Full Name"
             android:textAlignment="center"
             android:textSize="24sp"

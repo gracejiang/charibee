@@ -16,8 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="sans-serif-light"
-        android:text="Charibee"
+        android:fontFamily="@font/comfortaa"
+        android:text="charibee"
         android:textColor="@android:color/white"
         android:textSize="22dp" />
 

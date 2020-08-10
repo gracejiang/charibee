@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pale_yellow"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="8dp"
     tools:context=".activities.WelcomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="70dp">
+        android:layout_height="280dp"
+        android:layout_marginTop="60dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/welcome_icon_cardview"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/white"
             android:elevation="12dp"
             app:cardCornerRadius="30dp">
 
             <ImageView
                 android:id="@+id/welcome_icon"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 tools:srcCompat="@drawable/ic_app_icon" />
         </androidx.cardview.widget.CardView>
@@ -40,7 +42,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="11dp"
         android:layout_marginBottom="100dp"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textColor="#000000"
@@ -51,40 +53,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="6dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <Button
             android:id="@+id/welcome_login_btn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="@dimen/button_height"
-            android:backgroundTint="@color/button_color"
-            android:text="Login"
-            android:textColor="@color/white"
             android:layout_marginRight="3dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/pale_yellow"
+            android:text="Login"
+            android:textColor="@color/black"
             tools:layout_editor_absoluteX="44dp"
             tools:layout_editor_absoluteY="650dp" />
 
         <Button
             android:id="@+id/welcome_register_btn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="@dimen/button_height"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/dark_blue"
             android:text="Register"
             android:textColor="@color/button_text_color"
-            android:layout_marginLeft="3dp"
             tools:layout_editor_absoluteX="286dp"
             tools:layout_editor_absoluteY="650dp" />
 
 
-
     </LinearLayout>
 
-    <Button
-        android:id="@+id/welcome_map_btn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:text="Go to Map" />
 </LinearLayout>

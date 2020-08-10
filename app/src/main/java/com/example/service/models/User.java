@@ -118,10 +118,6 @@ public class User {
     // get all organizations from a user
     public List<Organization> getOrganizations() {
         List<Organization> organizations = (List<Organization>) user.get(KEY_ORGS);
-        // uncomment for debugging purposes
-//        for (Organization org : organizations) {
-//            Log.i(TAG, org.getName());
-//        }
         return organizations;
     }
 
@@ -149,8 +145,6 @@ public class User {
         String orgId = org.getObjectId();
         List<String> orgIds = getOrganizationIds();
 
-        Log.i("deleteOrg", "orgId: " + orgId);
-
         // check if org exists in db already
         if (orgIds.contains(orgId)) {
 
@@ -162,21 +156,13 @@ public class User {
                     organizations.remove(i);
 
                     user.put(KEY_ORGS_IDS, orgIds);
-
-                    Log.i("deleteOrg", "LOCAL org ids size: " + orgIds.size());
-
                     user.put(KEY_ORGS, organizations);
                     user.saveInBackground();
-
-                    Log.i("deleteOrg", "org found and deleted");
-                    User u = new User(user);
-                    Log.i("deleteOrg", "RETRIEVED org ids size for user " + u.getName() + ": " + u.getOrganizationIds().size());
 
                     return;
                 }
             }
 
-            Log.i("deleteOrg", "no org found");
         }
 
     }

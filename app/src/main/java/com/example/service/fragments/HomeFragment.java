@@ -71,12 +71,22 @@ public class HomeFragment extends Fragment {
 
     }
 
+
     // update org adapter given list of organizations
     private void updateAdapter(List<Organization> orgsList) {
         adapter = new HomeOrgsAdapter(getContext(), orgsList); // (1) create adapter
         rvOrgs.setAdapter(adapter); // (2) set adapter on rv
         rvOrgs.setLayoutManager(new LinearLayoutManager(getContext())); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        User user = new User(currentUser);
+        orgs = user.getOrganizations();
+        updateAdapter(orgs);
     }
 
 }

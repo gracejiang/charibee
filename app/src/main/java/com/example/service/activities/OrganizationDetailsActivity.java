@@ -23,6 +23,9 @@ import com.example.service.adapters.VolunteersAdapter;
 import com.example.service.data.Data;
 import com.example.service.models.Organization;
 import com.example.service.models.User;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
@@ -85,6 +88,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         // sets ui views
         setUiValues();
 
+        // sets join or leave into button
+        userInOrg = checkIfUserInOrg();
+        setButtonValue(userInOrg);
+
         // popup views
         popupDialog = new Dialog(this);
 
@@ -103,23 +110,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         updateAdapter(volunteersList);
         queryVolunteers();
 
-        // when join / leave org button pressed
-        btnJoinOrg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (userInOrg) {
-                    leaveOrganization();
-                    userInOrg = false;
-                    setButtonValue(userInOrg);
-                } else {
-                    joinOrganization();
-                    userInOrg = true;
-                    setButtonValue(userInOrg);
-                }
-            }
-        });
-
-        // set visibility for the edit button
+        // set visibility for edit, delete, and join/leave buttons based off if owner of org or not
         if (hasPermissionsToEdit()) {
             // when edit org button pressed
             btnEditOrg.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +130,27 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
                     makeMessage("Your organization " + name + " has been deleted.");
                 }
             });
+
+            // hide leave / join org button
+            btnJoinOrg.setVisibility(View.GONE);
         } else {
+            // when join / leave org button pressed
+            btnJoinOrg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (userInOrg) {
+                        leaveOrganization();
+                        userInOrg = false;
+                        setButtonValue(userInOrg);
+                    } else {
+                        joinOrganization();
+                        userInOrg = true;
+                        setButtonValue(userInOrg);
+                    }
+                }
+            });
+
+            // hide edit / delete org buttons
             btnEditOrg.setVisibility(View.GONE);
             btnDeleteOrg.setVisibility(View.GONE);
         }
@@ -182,11 +193,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         // contact values
         setContactValues();
-
-        // sets join or leave into button
-        userInOrg = checkIfUserInOrg();
-        setButtonValue(userInOrg);
-
     }
 
     // set contact values
@@ -337,6 +343,28 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     // if current user has permissions to edit
     private boolean hasPermissionsToEdit() {
         return currentParseUser.getObjectId().equals(org.getOrganizer().getObjectId());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getOrgFromParse();
+    }
+
+    // when resuming func, redownload org from parse
+    private void getOrgFromParse() {
+        ParseQuery<Organization> query = ParseQuery.getQuery(Organization.class);
+        query.getInBackground(org.getObjectId(), new GetCallback<Organization>() {
+            public void done(Organization foundOrg, ParseException e) {
+                if (e == null) {
+                    Data.setOrg(foundOrg);
+                    org = foundOrg;
+                    setUiValues();
+                } else {
+                    Log.e(TAG, "error retriving org from parse");
+                }
+            }
+        });
     }
 
 }

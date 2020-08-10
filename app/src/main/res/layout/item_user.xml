@@ -40,7 +40,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="26dp"
         android:layout_toEndOf="@+id/item_user_avatar_container"
-        android:fontFamily="sans-serif-light"
+        android:fontFamily="@font/comfortaa"
         android:text="Name"
         android:textSize="18sp" />
 
