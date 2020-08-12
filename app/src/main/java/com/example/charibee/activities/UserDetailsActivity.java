@@ -59,6 +59,11 @@ public class UserDetailsActivity extends AppCompatActivity {
         // load values into views
         setValues();
 
+        // admin
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnMsg.setBackgroundColor(getResources().getColor(R.color.dark_red));
+        }
+
         if (user.getId().equals(ParseUser.getCurrentUser().getObjectId())) {
             btnMsg.setVisibility(View.GONE);
         }

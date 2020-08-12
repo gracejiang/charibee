@@ -46,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            getTheme().applyStyle(R.style.AdminTheme, true);
+        }
+
         setContentView(R.layout.activity_main);
 
         // top/side nav bar

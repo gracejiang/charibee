@@ -1,10 +1,10 @@
 package com.example.charibee.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.charibee.data.Data;
-import com.example.service.R;
 import com.example.charibee.adapters.MessageAdapter;
+import com.example.charibee.data.Data;
 import com.example.charibee.functions.CustomItemDivider;
+import com.example.service.R;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -27,6 +27,7 @@ public class MessagesFragment extends Fragment {
     public static final String TAG = "MessagesFragment";
 
     // ui views
+    TextView tvNoMsgs;
     RecyclerView rvMsgs;
 
     // data
@@ -40,6 +41,7 @@ public class MessagesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_messages, container, false);
 
         // bind views
+        tvNoMsgs = view.findViewById(R.id.messages_no_msgs_tv);
         rvMsgs = view.findViewById(R.id.messages_msgs_rv);
         return view;
     }
@@ -57,7 +59,10 @@ public class MessagesFragment extends Fragment {
         // populate data
         allMsgsWith = Data.getCurrUser().getAllMessagesWith();
         updateAdapter(allMsgsWith);
-        Log.i(TAG, "has _ messages with ppl: " + allMsgsWith.size());
+
+        if (allMsgsWith.size() > 0) {
+            tvNoMsgs.setVisibility(View.GONE);
+        }
     }
 
     // update org adapter given list of organizations

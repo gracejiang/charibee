@@ -28,7 +28,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="88dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -36,8 +36,9 @@
                 android:id="@+id/update_interests_cancel_btn"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
-                android:layout_weight="1"
                 android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/medium_gray"
                 android:text="Cancel" />
 
             <Button

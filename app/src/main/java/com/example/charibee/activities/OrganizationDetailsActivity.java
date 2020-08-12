@@ -88,6 +88,10 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         // sets ui views
         setUiValues();
 
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnEditOrg.setBackgroundColor(getResources().getColor(R.color.dark_red));
+        }
+
         // sets join or leave into button
         userInOrg = checkIfUserInOrg();
         setButtonValue(userInOrg);

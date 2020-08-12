@@ -69,6 +69,11 @@ public class ProfileFragment extends Fragment {
         // set values
         setValues();
 
+        // admin
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnEditProfile.setBackgroundColor(getResources().getColor(R.color.dark_red));
+        }
+
         // edit profile button clicked
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override

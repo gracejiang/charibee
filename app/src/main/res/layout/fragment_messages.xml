@@ -7,6 +7,14 @@
     android:layout_margin="@dimen/default_margin"
     tools:context="com.example.charibee.fragments.MessagesFragment">
 
+    <TextView
+        android:id="@+id/messages_no_msgs_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/comfortaa"
+        android:text="You have no current messages."
+        android:textSize="18sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messages_msgs_rv"
         android:layout_width="match_parent"

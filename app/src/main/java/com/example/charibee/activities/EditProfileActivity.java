@@ -87,6 +87,12 @@ public class EditProfileActivity extends AppCompatActivity {
         // load in views
         loadInViews();
 
+        // admin view
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnEditAvatar.setBackgroundColor(getResources().getColor(R.color.red));
+            btnSave.setBackgroundColor(getResources().getColor(R.color.dark_red));
+        }
+
         // upload new profile pic clicked
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override

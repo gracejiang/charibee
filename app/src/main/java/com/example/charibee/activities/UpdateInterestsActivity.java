@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.charibee.adapters.InterestsAdapter;
@@ -42,6 +42,11 @@ public class UpdateInterestsActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.update_interests_cancel_btn);
         btnSave = findViewById(R.id.update_interests_save_btn);
 
+        // admin
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnSave.setBackgroundColor(getResources().getColor(R.color.dark_red));
+        }
+
         // update adapter
         updateAdapter(user.getInterests());
 
@@ -68,7 +73,7 @@ public class UpdateInterestsActivity extends AppCompatActivity {
     private void updateAdapter(List<Boolean> boolList) {
         adapter = new InterestsAdapter(this, interests, boolList); // (1) create adapter
         rvInterests.setAdapter(adapter); // (2) set adapter on rv
-        rvInterests.setLayoutManager(new LinearLayoutManager(this)); // (3) set layout manager on rv
+        rvInterests.setLayoutManager(new GridLayoutManager(this, 2)); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();
     }
 

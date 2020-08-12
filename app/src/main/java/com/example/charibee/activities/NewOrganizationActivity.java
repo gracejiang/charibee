@@ -58,6 +58,11 @@ public class NewOrganizationActivity extends AppCompatActivity {
         // reset address data
         clearData();
 
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnSetAddress.setBackgroundColor(getResources().getColor(R.color.dark_red));
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.dark_red));
+        }
+
         // when set address button clicked
         btnSetAddress.setOnClickListener(new View.OnClickListener() {
             @Override
