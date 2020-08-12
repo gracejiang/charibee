@@ -160,7 +160,7 @@ public class User {
     }
 
     // get string interests
-    public List<String> getInterestsList() {
+    public List<String> getStringInterests() {
         List<String> interests = new ArrayList<>();
         List<Boolean> interestBools = getInterests();
 

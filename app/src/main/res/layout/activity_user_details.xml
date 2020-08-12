@@ -72,6 +72,23 @@
             app:layout_constraintTop_toBottomOf="@+id/user_details_username" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:letterSpacing="0.15"
+        android:text="Interests"
+        android:textAlignment="textEnd"
+        android:textAllCaps="true"
+        android:textSize="12dp" />
+
+    <ListView
+        android:id="@+id/user_details_interests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+    </ListView>
+
     <Button
         android:id="@+id/user_details_msg_btn"
         android:text="Send Message"

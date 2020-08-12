@@ -8,8 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +37,11 @@ public class ProfileFragment extends Fragment {
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
+    private ListView lvInterests;
     private Button btnEditProfile;
+
+    // adapter for interests
+    ArrayAdapter<String> interestsAdapter;
 
     public ProfileFragment() {
     }
@@ -49,6 +55,7 @@ public class ProfileFragment extends Fragment {
         tvFullName = view.findViewById(R.id.profile_fullname);
         tvUsername = view.findViewById(R.id.profile_username);
         tvBio = view.findViewById(R.id.profile_bio);
+        lvInterests = view.findViewById(R.id.profile_interests);
         btnEditProfile = view.findViewById(R.id.profile_edit_btn);
 
         return view;
@@ -103,6 +110,10 @@ public class ProfileFragment extends Fragment {
         tvFullName.setText(firstName + " " + lastName);
         tvUsername.setText("@" + username);
         tvBio.setText(bio);
+
+        // set interests
+        interestsAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, user.getStringInterests());
+        lvInterests.setAdapter(interestsAdapter);
     }
 
     private void downloadAndShowImage(ParseFile profilePic) {

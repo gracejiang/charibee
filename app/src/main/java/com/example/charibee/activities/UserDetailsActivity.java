@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +29,16 @@ public class UserDetailsActivity extends AppCompatActivity {
     User user;
 
     // ui views
-    ImageView ivAvatar;
-    TextView tvFullName;
-    TextView tvUsername;
-    TextView tvBio;
-    Button btnMsg;
+    private ImageView ivAvatar;
+    private TextView tvFullName;
+    private TextView tvUsername;
+    private TextView tvBio;
+    private ListView lvInterests;
+    private Button btnMsg;
+
+    // adapter for interests
+    ArrayAdapter<String> interestsAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvFullName = findViewById(R.id.user_details_fullname);
         tvUsername = findViewById(R.id.user_details_username);
         tvBio = findViewById(R.id.user_details_bio);
+        lvInterests = findViewById(R.id.user_details_interests);
         btnMsg = findViewById(R.id.user_details_msg_btn);
 
         // load values into views
@@ -90,6 +98,10 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvFullName.setText(fullname);
         tvUsername.setText("@" + username);
         tvBio.setText(bio);
+
+        // set interests
+        interestsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, user.getStringInterests());
+        lvInterests.setAdapter(interestsAdapter);
     }
 
     // converts http link to https
