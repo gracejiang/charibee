@@ -20,6 +20,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -92,13 +93,20 @@ public class RegisterActivity extends AppCompatActivity {
         user.setPassword(password);
         user.setEmail(email);
 
+
+        // update interests
+        List<Boolean> interests = new ArrayList<>();
+        for (int i = 0; i < getResources().getStringArray(R.array.categories).length; i++) {
+            interests.add(false);
+        }
+
         user.put("firstName", firstName);
         user.put("lastName", lastName);
         user.put("numPoints", 0);
         user.put("orgsJoined", new ArrayList<Organization>());
         user.put("orgsJoinedIds", new ArrayList<String>());
-        user.put("interests", new ArrayList<String>());
         user.put("role", spinnerRole.getSelectedItem().toString());
+        user.put("interests", interests);
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

@@ -22,4 +22,7 @@
     <color name="button_color">#689F38</color>
     <color name="button_text_color">#ffffff</color>
 
+    <color name="medium_green">#689F38</color>
+    <color name="light_grey">#b3b3b3</color>
+
 </resources>

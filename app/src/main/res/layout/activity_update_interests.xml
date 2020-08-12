@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/default_margin"
     tools:context="com.example.charibee.activities.UpdateInterestsActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Update Your Interests"
-        android:textSize="30sp" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/update_interests_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/default_margin">
 
-        <Button
-            android:id="@+id/update_interests_cancel_btn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_weight="1"
-            android:layout_marginRight="6dp"
-            android:text="Cancel" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Update Your Interests"
+            android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/update_interests_save_btn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_weight="1"
-            android:backgroundTint="@color/button_color"
-            android:text="Save"
-            android:layout_marginLeft="6dp"
-            android:textColor="@color/button_text_color" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/update_interests_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/update_interests_cancel_btn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:layout_marginRight="6dp"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/update_interests_save_btn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight="1"
+                android:backgroundTint="@color/button_color"
+                android:text="Save"
+                android:layout_marginLeft="6dp"
+                android:textColor="@color/button_text_color" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

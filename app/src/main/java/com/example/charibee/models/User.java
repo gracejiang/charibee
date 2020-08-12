@@ -2,6 +2,7 @@ package com.example.charibee.models;
 
 import android.util.Log;
 
+import com.example.service.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -12,6 +13,8 @@ import org.parceler.Parcel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.parse.Parse.getApplicationContext;
 
 @Parcel
 public class User {
@@ -30,7 +33,7 @@ public class User {
     public static final String KEY_NUM_POINTS = "numPoints";
     public static final String KEY_ORGS_IDS = "orgsJoinedIds";
     public static final String KEY_ORGS = "orgsJoined";
-    public static final String KEY_INTERSTS = "interests";
+    public static final String KEY_INTERESTS = "interests";
 
     // TODO: eventually abstract all the ParseUser.getXYZ() into User.getXYZ();
 
@@ -140,9 +143,35 @@ public class User {
     }
 
     // update interests
-    public void updateInterests(List<String> interests) {
-        user.put(KEY_ORGS, interests);
+    public void updateInterests(List<Boolean> interests) {
+        user.put(KEY_INTERESTS, interests);
         user.saveInBackground();
+    }
+
+    // get interests
+    public List<Boolean> getInterests() {
+        List<Boolean> interests = new ArrayList<>();
+        try {
+            interests = (List<Boolean>) user.fetchIfNeeded().get(KEY_INTERESTS);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return interests;
+    }
+
+    // get string interests
+    public List<String> getInterestsList() {
+        List<String> interests = new ArrayList<>();
+        List<Boolean> interestBools = getInterests();
+
+        String[] interestStrings = getApplicationContext().getResources().getStringArray(R.array.categories);
+        for (int i = 0; i < interestBools.size(); i++) {
+            if (interestBools.get(i)) {
+                interests.add(interestStrings[i]);
+            }
+        }
+
+        return interests;
     }
 
     // remove organization from user
