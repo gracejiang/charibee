@@ -7,7 +7,7 @@
     android:background="@color/pale_yellow"
     android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".activities.WelcomeActivity">
+    tools:context="com.example.charibee.activities.WelcomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

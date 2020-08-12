@@ -9,19 +9,20 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name=".functions.ParseApplication"
+        android:name="com.example.charibee.functions.ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ChatActivity"></activity>
-        <activity android:name=".activities.UserDetailsActivity" />
-        <activity android:name=".activities.EditOrganizationActivity" />
-        <activity android:name=".location.MapActivity" />
-        <activity android:name=".location.MapTestActivity" />
-        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name="com.example.charibee.activities.UpdateInterestsActivity"></activity>
+        <activity android:name="com.example.charibee.activities.ChatActivity" />
+        <activity android:name="com.example.charibee.activities.UserDetailsActivity" />
+        <activity android:name="com.example.charibee.activities.EditOrganizationActivity" />
+        <activity android:name="com.example.charibee.location.MapActivity" />
+        <activity android:name="com.example.charibee.location.MapTestActivity" />
+        <activity android:name="com.example.charibee.activities.SettingsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -33,10 +34,11 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".activities.EditProfileActivity" />
-        <activity android:name=".activities.OrganizationDetailsActivity" />
-        <activity android:name=".activities.NewOrganizationActivity" />
-        <activity android:name=".activities.WelcomeActivity"
+        <activity android:name="com.example.charibee.activities.EditProfileActivity" />
+        <activity android:name="com.example.charibee.activities.OrganizationDetailsActivity" />
+        <activity android:name="com.example.charibee.activities.NewOrganizationActivity" />
+        <activity
+            android:name="com.example.charibee.activities.WelcomeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,9 +46,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.MainActivity" /> <!-- Google Maps -->
+        <activity android:name="com.example.charibee.activities.LoginActivity" />
+        <activity android:name="com.example.charibee.activities.RegisterActivity" />
+        <activity android:name="com.example.charibee.activities.MainActivity" /> <!-- Google Maps -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

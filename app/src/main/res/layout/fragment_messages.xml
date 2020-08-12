@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="@dimen/default_margin"
-    tools:context=".fragments.MessagesFragment">
+    tools:context="com.example.charibee.fragments.MessagesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/messages_msgs_rv"

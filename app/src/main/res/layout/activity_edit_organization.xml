@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/default_margin"
-    tools:context=".activities.EditOrganizationActivity">
+    tools:context="com.example.charibee.activities.EditOrganizationActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"

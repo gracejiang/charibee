@@ -21,8 +21,7 @@ android:layout_height="match_parent">
         android:layout_margin="24dp"
         android:backgroundTint="@color/colorPrimary"
         app:borderWidth="0dp"
-        android:tint="@color/white"
-        android:iconTint="@android:color/white"
+        app:tint="@color/white"
         android:src="@drawable/ic_baseline_add_white_24"
         app:layout_anchorGravity="bottom|right|end" />
 
@@ -32,7 +31,7 @@ android:layout_height="match_parent">
         android:layout_height="match_parent"
         android:layout_margin="12dp"
         android:orientation="vertical"
-        tools:context=".fragments.HomeFragment">
+        tools:context="com.example.charibee.fragments.HomeFragment">
 
         <TextView
             android:id="@+id/home_title_tv"
