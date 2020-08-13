@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,9 @@ public class UserDetailsActivity extends AppCompatActivity {
     public static final String TAG = "UserDetailsActivity";
 
     User user;
+
+    // top toolbar
+    Toolbar toolbar;
 
     // ui views
     private ImageView ivAvatar;
@@ -60,6 +64,16 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvBio = findViewById(R.id.user_details_bio);
         rvInterests = findViewById(R.id.user_details_interests);
         btnMsg = findViewById(R.id.user_details_msg_btn);
+
+        // top nav bar
+        toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            setTitle("");
+        } else {
+            Log.i(TAG, "toolbar is null ://");
+        }
 
         // load values into views
         setValues();

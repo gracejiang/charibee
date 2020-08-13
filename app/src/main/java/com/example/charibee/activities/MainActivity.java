@@ -61,6 +61,18 @@ public class MainActivity extends AppCompatActivity {
         mDrawer = findViewById(R.id.drawer_layout);
         tvToolbarTitle = findViewById(R.id.toolbar_title);
 
+        // top nav bar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("");
+
+        // side nav bar
+        setupDrawerContent(nvDrawer);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        mDrawer.addDrawerListener(drawerToggle);
+
         // fragment manager
         fragmentManager = getSupportFragmentManager();
 
@@ -70,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 setFragmentView(item.getItemId());
-                // setTitle(item.getTitle());
                 tvToolbarTitle.setText(item.getTitle());
                 return true;
             }
@@ -83,18 +94,6 @@ public class MainActivity extends AppCompatActivity {
         if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
             setAdminView();
         }
-
-        // top nav bar
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("");
-
-        // side nav bar
-        setupDrawerContent(nvDrawer);
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerToggle.syncState();
-        mDrawer.addDrawerListener(drawerToggle);
     }
 
     // listener for when side/top toolbar is clicked
