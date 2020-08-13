@@ -62,7 +62,7 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginRight="3dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="Login"
             android:textColor="@color/white"
             tools:layout_editor_absoluteX="44dp"

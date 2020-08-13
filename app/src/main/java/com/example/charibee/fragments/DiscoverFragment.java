@@ -157,33 +157,7 @@ public class DiscoverFragment extends Fragment {
     // filter spinner
     class CategoryFilterSpinner implements AdapterView.OnItemSelectedListener {
 
-        private String[] categories = {
-                "All",
-                "Advocacy & Human Rights",
-                "Animals",
-                "Arts & Culture",
-                "Children & Youth",
-                "Community",
-                "Crisis Support",
-                "Disaster Relief",
-                "Education & Literacy",
-                "Emergency & Safety",
-                "Faith-Based",
-                "Health",
-                "Homeless & Housing",
-                "Hunger",
-                "Immigrant & Refugees",
-                "International",
-                "Justice & Legal",
-                "LGBTQ+",
-                "Misc & Other",
-                "People with Disabilities",
-                "Politics",
-                "Race & Ethnicity",
-                "Seniors",
-                "Special Needs",
-                "Technology",
-                "Women"};
+        private String[] categories = getContext().getResources().getStringArray(R.array.categories_with_all);
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {

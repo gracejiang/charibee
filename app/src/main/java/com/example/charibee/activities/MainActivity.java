@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
             getTheme().applyStyle(R.style.AdminTheme, true);
+        } else {
+            getTheme().applyStyle(R.style.VolunteerTheme, true);
         }
 
         setContentView(R.layout.activity_main);
