@@ -29,12 +29,11 @@ public class UserDetailsActivity extends AppCompatActivity {
     User user;
 
     // ui views
-    private ImageView ivAdmin;
     private ImageView ivAvatar;
+    private ImageView ivAdmin;
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
-    private TextView tvInterests;
     private ListView lvInterests;
     private Button btnMsg;
 
@@ -51,12 +50,11 @@ public class UserDetailsActivity extends AppCompatActivity {
         user = (User) Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
 
         // bind views
-        ivAdmin = findViewById(R.id.user_details_admin_iv);
         ivAvatar = findViewById(R.id.user_details_avatar_iv);
+        ivAdmin = findViewById(R.id.user_details_admin_iv);
         tvFullName = findViewById(R.id.user_details_fullname);
         tvUsername = findViewById(R.id.user_details_username);
         tvBio = findViewById(R.id.user_details_bio);
-        tvInterests = findViewById(R.id.user_details_interets_tv);
         lvInterests = findViewById(R.id.user_details_interests);
         btnMsg = findViewById(R.id.user_details_msg_btn);
 
@@ -94,6 +92,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         // set admin
         if (user.getRole().equals("Organizer")) {
+            TextView tvInterests = findViewById(R.id.user_details_interets_tv);
             ivAdmin.setImageResource(R.drawable.ic_admin);
             tvInterests.setVisibility(View.GONE);
             lvInterests.setVisibility(View.GONE);

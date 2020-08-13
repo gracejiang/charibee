@@ -34,6 +34,7 @@ public class ProfileFragment extends Fragment {
 
     // ui views
     public ImageView ivAvatar;
+    private ImageView ivAdmin;
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
@@ -52,6 +53,7 @@ public class ProfileFragment extends Fragment {
 
         // find views
         ivAvatar = view.findViewById(R.id.profile_avatar_iv);
+        ivAdmin = view.findViewById(R.id.profile_admin_iv);
         tvFullName = view.findViewById(R.id.profile_fullname);
         tvUsername = view.findViewById(R.id.profile_username);
         tvBio = view.findViewById(R.id.profile_bio);
@@ -72,8 +74,12 @@ public class ProfileFragment extends Fragment {
         // admin
         if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
             btnEditProfile.setBackgroundColor(getResources().getColor(R.color.dark_red));
+            ivAdmin.setImageResource(R.drawable.ic_admin);
             TextView tvInterests = view.findViewById(R.id.profile_interests_tv);
             tvInterests.setVisibility(View.GONE);
+            lvInterests.setVisibility(View.GONE);
+        } else {
+            ivAdmin.setVisibility(View.GONE);
         }
 
         // edit profile button clicked

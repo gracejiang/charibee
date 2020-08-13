@@ -48,21 +48,21 @@
 
         <TextView
             android:id="@+id/user_details_fullname"
-            android:layout_width="196dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/comfortaa"
             android:text="Full Name"
             android:textAlignment="viewStart"
-            android:textSize="24sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/user_details_avatar_container"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/user_details_username"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
