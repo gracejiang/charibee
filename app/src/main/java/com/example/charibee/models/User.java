@@ -34,6 +34,7 @@ public class User {
     public static final String KEY_ORGS_IDS = "orgsJoinedIds";
     public static final String KEY_ORGS = "orgsJoined";
     public static final String KEY_INTERESTS = "interests";
+    public static final String KEY_ROLE = "role";
 
     // TODO: eventually abstract all the ParseUser.getXYZ() into User.getXYZ();
 
@@ -239,6 +240,16 @@ public class User {
 
     public List<ParseUser> getAllMessagesWith() {
         return msgUserRelations;
+    }
+
+    // get role
+    public String getRole() {
+        try {
+            return user.fetchIfNeeded().getString(KEY_ROLE);
+        } catch (ParseException e) {
+            Log.e(TAG, "ParseError", e);
+            return "error";
+        }
     }
 
 

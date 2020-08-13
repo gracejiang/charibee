@@ -29,10 +29,12 @@ public class UserDetailsActivity extends AppCompatActivity {
     User user;
 
     // ui views
+    private ImageView ivAdmin;
     private ImageView ivAvatar;
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
+    private TextView tvInterests;
     private ListView lvInterests;
     private Button btnMsg;
 
@@ -49,10 +51,12 @@ public class UserDetailsActivity extends AppCompatActivity {
         user = (User) Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
 
         // bind views
+        ivAdmin = findViewById(R.id.user_details_admin_iv);
         ivAvatar = findViewById(R.id.user_details_avatar_iv);
         tvFullName = findViewById(R.id.user_details_fullname);
         tvUsername = findViewById(R.id.user_details_username);
         tvBio = findViewById(R.id.user_details_bio);
+        tvInterests = findViewById(R.id.user_details_interets_tv);
         lvInterests = findViewById(R.id.user_details_interests);
         btnMsg = findViewById(R.id.user_details_msg_btn);
 
@@ -87,6 +91,15 @@ public class UserDetailsActivity extends AppCompatActivity {
         String fullname = (String) user.getName();
         String username = user.getUsername();
         String bio = user.getBio();
+
+        // set admin
+        if (user.getRole().equals("Organizer")) {
+            ivAdmin.setImageResource(R.drawable.ic_admin);
+            tvInterests.setVisibility(View.GONE);
+            lvInterests.setVisibility(View.GONE);
+        } else {
+            ivAdmin.setVisibility(View.GONE);
+        }
 
         // set profile pic
         ParseFile profilePic = (ParseFile) user.getProfilePic();

@@ -13,6 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
 
+        <ImageView
+            android:id="@+id/user_details_admin_iv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="13dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/user_details_avatar_container"
             android:layout_width="150dp"
@@ -37,13 +48,13 @@
 
         <TextView
             android:id="@+id/user_details_fullname"
-            android:layout_width="wrap_content"
+            android:layout_width="196dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/comfortaa"
             android:text="Full Name"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/user_details_avatar_container"
@@ -70,9 +81,11 @@
             android:text="Bio"
             app:layout_constraintStart_toEndOf="@+id/user_details_avatar_container"
             app:layout_constraintTop_toBottomOf="@+id/user_details_username" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/user_details_interets_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
