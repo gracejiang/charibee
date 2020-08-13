@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.charibee.models.User;
 import com.example.service.R;
+import com.google.android.material.card.MaterialCardView;
 import com.parse.ParseUser;
 
 import java.util.HashMap;
@@ -93,6 +94,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private MaterialCardView cardView;
         private TextView tvName;
         private ImageView ivIcon;
 
@@ -102,6 +104,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.View
             // set views
             tvName = itemView.findViewById(R.id.item_interest_tv);
             ivIcon = itemView.findViewById(R.id.item_interest_icon);
+            cardView = itemView.findViewById(R.id.item_interest_cardview);
 
             // set current user values
             currentParseUser = ParseUser.getCurrentUser();
@@ -113,12 +116,21 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.View
 
         public void bind(String interest) {
             tvName.setText(interest);
-            // Log.i(TAG, interest + " : " + interestIcons.get(interest));
             ivIcon.setBackgroundResource(interestIcons.get(interest));
 
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION) {
                 setColor(tvName, checkedInterests.get(position));
+                setBackground(cardView, checkedInterests.get(position));
+            }
+        }
+
+
+        private void setBackground(MaterialCardView cardView, boolean isChecked) {
+            if (isChecked) {
+                cardView.setBackgroundResource(R.drawable.card_view_border_green);
+            } else {
+                cardView.setBackgroundResource(R.drawable.card_view_no_border);
             }
         }
 
@@ -139,6 +151,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.View
                 boolean newCheck = !checkedInterests.get(position);
                 checkedInterests.set(position, newCheck);
                 setColor(tvName, newCheck);
+                setBackground(cardView, newCheck);
             }
         }
 
