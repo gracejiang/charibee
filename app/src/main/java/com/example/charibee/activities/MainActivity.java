@@ -84,15 +84,17 @@ public class MainActivity extends AppCompatActivity {
             setAdminView();
         }
 
-        // top/side nav bar
+        // top nav bar
         setSupportActionBar(toolbar);
-        setupDrawerContent(nvDrawer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("");
+
+        // side nav bar
+        setupDrawerContent(nvDrawer);
         drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         mDrawer.addDrawerListener(drawerToggle);
-        setTitle("");
     }
 
     // listener for when side/top toolbar is clicked
@@ -113,10 +115,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sidebar_profile_fragment:
                 fragmentManager.beginTransaction().replace(R.id.main_frame_layout, profileFragment).commit();
                 tvToolbarTitle.setText(menuItem.getTitle());
-                break;
-            case R.id.sidebar_interests_fragment:
-                Intent updateInterestsIntent = new Intent(MainActivity.this, UpdateInterestsActivity.class);
-                startActivity(updateInterestsIntent);
                 break;
             case R.id.sidebar_settings_fragment:
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -146,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
     // sets view for admin account
     private void setAdminView() {
         bottomNavigationView.getMenu().removeItem(R.id.menu_discover);
-        nvDrawer.getMenu().findItem(R.id.sidebar_interests_fragment).setVisible(false);
     }
 
     // updates fragment view

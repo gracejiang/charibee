@@ -11,10 +11,6 @@
                         android:icon="@drawable/ic_profile_24px"
                         android:title="Profile" />
                     <item
-                        android:id="@+id/sidebar_interests_fragment"
-                        android:icon="@drawable/ic_happy_24"
-                        android:title="Interests" />
-                    <item
                         android:id="@+id/sidebar_settings_fragment"
                         android:icon="@drawable/ic_baseline_settings_24"
                         android:title="Settings" />

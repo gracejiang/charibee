@@ -89,6 +89,12 @@ public class ProfileFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.profile_edit_menu, menu);
+
+        // if admin, hide interests setting
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            menu.findItem(R.id.pf_update_interests).setVisible(false);
+        }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
