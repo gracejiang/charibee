@@ -5,15 +5,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.charibee.adapters.InterestsIconAdapter;
 import com.example.charibee.data.Data;
 import com.example.charibee.models.User;
 import com.example.service.R;
@@ -21,6 +22,8 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
+
+import java.util.List;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
@@ -34,11 +37,11 @@ public class UserDetailsActivity extends AppCompatActivity {
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
-    private ListView lvInterests;
+    private RecyclerView rvInterests;
     private Button btnMsg;
 
     // adapter for interests
-    ArrayAdapter<String> interestsAdapter;
+    private InterestsIconAdapter adapter;
 
 
     @Override
@@ -55,7 +58,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvFullName = findViewById(R.id.user_details_fullname);
         tvUsername = findViewById(R.id.user_details_username);
         tvBio = findViewById(R.id.user_details_bio);
-        lvInterests = findViewById(R.id.user_details_interests);
+        rvInterests = findViewById(R.id.user_details_interests);
         btnMsg = findViewById(R.id.user_details_msg_btn);
 
         // load values into views
@@ -95,7 +98,7 @@ public class UserDetailsActivity extends AppCompatActivity {
             TextView tvInterests = findViewById(R.id.user_details_interets_tv);
             ivAdmin.setImageResource(R.drawable.ic_admin);
             tvInterests.setVisibility(View.GONE);
-            lvInterests.setVisibility(View.GONE);
+            rvInterests.setVisibility(View.GONE);
         } else {
             ivAdmin.setVisibility(View.GONE);
         }
@@ -117,8 +120,14 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvBio.setText(bio);
 
         // set interests
-        interestsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, user.getStringInterests());
-        lvInterests.setAdapter(interestsAdapter);
+        updateAdapter(user.getStringInterests());
+    }
+
+    private void updateAdapter(List<String> interestsList) {
+        adapter = new InterestsIconAdapter(this, interestsList); // (1) create adapter
+        rvInterests.setAdapter(adapter); // (2) set adapter on rv
+        rvInterests.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)); // (3) set layout manager on rv
+        adapter.notifyDataSetChanged();
     }
 
     // converts http link to https

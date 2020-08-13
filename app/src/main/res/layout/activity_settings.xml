@@ -54,7 +54,7 @@
             android:layout_height="@dimen/button_height"
             android:layout_marginRight="6dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/medium_gray"
+            android:backgroundTint="@color/light_grey"
             android:text="Cancel" />
 
         <Button

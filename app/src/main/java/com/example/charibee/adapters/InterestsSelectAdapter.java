@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.ViewHolder> {
+public class InterestsSelectAdapter extends RecyclerView.Adapter<InterestsSelectAdapter.ViewHolder> {
 
     public static final String TAG = "InterestsAdapter";
 
@@ -33,7 +33,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.View
     ParseUser currentParseUser = ParseUser.getCurrentUser();
     User currentUser = new User(currentParseUser);
 
-    public InterestsAdapter(Context context, String[] interests, List<Boolean> checkedInterests) {
+    public InterestsSelectAdapter(Context context, String[] interests, List<Boolean> checkedInterests) {
         this.context = context;
         this.interests = interests;
         this.checkedInterests = checkedInterests;
@@ -77,7 +77,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_interest, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_select_interest, parent, false);
         return new ViewHolder(view);
     }
 

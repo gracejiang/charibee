@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.charibee.adapters.InterestsAdapter;
+import com.example.charibee.adapters.InterestsSelectAdapter;
 import com.example.charibee.models.User;
 import com.example.service.R;
 import com.parse.ParseUser;
@@ -25,7 +25,7 @@ public class UpdateInterestsActivity extends AppCompatActivity {
     private Button btnSave;
 
     // interests adapter
-    private InterestsAdapter adapter;
+    private InterestsSelectAdapter adapter;
     private String[] interests;
 
     @Override
@@ -71,7 +71,7 @@ public class UpdateInterestsActivity extends AppCompatActivity {
 
     // update adapter
     private void updateAdapter(List<Boolean> boolList) {
-        adapter = new InterestsAdapter(this, interests, boolList); // (1) create adapter
+        adapter = new InterestsSelectAdapter(this, interests, boolList); // (1) create adapter
         rvInterests.setAdapter(adapter); // (2) set adapter on rv
         rvInterests.setLayoutManager(new GridLayoutManager(this, 2)); // (3) set layout manager on rv
         adapter.notifyDataSetChanged();

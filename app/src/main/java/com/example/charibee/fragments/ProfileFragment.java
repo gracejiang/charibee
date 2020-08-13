@@ -8,23 +8,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.charibee.activities.EditProfileActivity;
+import com.example.charibee.adapters.InterestsIconAdapter;
 import com.example.charibee.models.User;
 import com.example.service.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -33,16 +36,17 @@ public class ProfileFragment extends Fragment {
     User user;
 
     // ui views
+    private TextView tvInterests;
     public ImageView ivAvatar;
     private ImageView ivAdmin;
     private TextView tvFullName;
     private TextView tvUsername;
     private TextView tvBio;
-    private ListView lvInterests;
+    private RecyclerView rvInterests;
     private Button btnEditProfile;
 
     // adapter for interests
-    ArrayAdapter<String> interestsAdapter;
+    private InterestsIconAdapter adapter;
 
     public ProfileFragment() {
     }
@@ -52,12 +56,13 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         // find views
+        tvInterests = view.findViewById(R.id.profile_interests_tv);
         ivAvatar = view.findViewById(R.id.profile_avatar_iv);
         ivAdmin = view.findViewById(R.id.profile_admin_iv);
         tvFullName = view.findViewById(R.id.profile_fullname);
         tvUsername = view.findViewById(R.id.profile_username);
         tvBio = view.findViewById(R.id.profile_bio);
-        lvInterests = view.findViewById(R.id.profile_interests);
+        rvInterests = view.findViewById(R.id.profile_interests_rv);
         btnEditProfile = view.findViewById(R.id.profile_edit_btn);
 
         return view;
@@ -71,16 +76,8 @@ public class ProfileFragment extends Fragment {
         // set values
         setValues();
 
-        // admin
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnEditProfile.setBackgroundColor(getResources().getColor(R.color.dark_red));
-            ivAdmin.setImageResource(R.drawable.ic_admin);
-            TextView tvInterests = view.findViewById(R.id.profile_interests_tv);
-            tvInterests.setVisibility(View.GONE);
-            lvInterests.setVisibility(View.GONE);
-        } else {
-            ivAdmin.setVisibility(View.GONE);
-        }
+        // set admin/volunteer views
+        setAdminViews();
 
         // edit profile button clicked
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +86,17 @@ public class ProfileFragment extends Fragment {
                 goEditProfileActivity();
             }
         });
+    }
+
+    private void setAdminViews() {
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            btnEditProfile.setBackgroundColor(getResources().getColor(R.color.dark_red));
+            ivAdmin.setImageResource(R.drawable.ic_admin);
+            tvInterests.setVisibility(View.GONE);
+            rvInterests.setVisibility(View.GONE);
+        } else {
+            ivAdmin.setVisibility(View.GONE);
+        }
     }
 
     private void setValues() {
@@ -125,8 +133,14 @@ public class ProfileFragment extends Fragment {
         tvBio.setText(bio);
 
         // set interests
-        interestsAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, user.getStringInterests());
-        lvInterests.setAdapter(interestsAdapter);
+        updateAdapter(user.getStringInterests());
+    }
+
+    private void updateAdapter(List<String> interestsList) {
+        adapter = new InterestsIconAdapter(getContext(), interestsList); // (1) create adapter
+        rvInterests.setAdapter(adapter); // (2) set adapter on rv
+        rvInterests.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)); // (3) set layout manager on rv
+        adapter.notifyDataSetChanged();
     }
 
     private void downloadAndShowImage(ParseFile profilePic) {

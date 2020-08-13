@@ -95,12 +95,12 @@
         android:textAllCaps="true"
         android:textSize="12dp" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_details_interests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" >
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
         android:id="@+id/user_details_msg_btn"
