@@ -13,7 +13,17 @@ public class Data {
     public static User toUser;
     public static User currUser = new User(ParseUser.getCurrentUser());
 
+
     Data() {
+        initializeCategoryIcons();
+    }
+
+    public static void initializeCategoryIcons() {
+
+    }
+
+    public static void getIconForCategory(String category) {
+
     }
 
     public static void updateCurrUser() {
