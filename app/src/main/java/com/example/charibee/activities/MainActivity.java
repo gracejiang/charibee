@@ -55,20 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        // top/side nav bar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // bind views
+        toolbar = findViewById(R.id.toolbar);
+        nvDrawer = findViewById(R.id.nvView);
+        mDrawer = findViewById(R.id.drawer_layout);
         tvToolbarTitle = findViewById(R.id.toolbar_title);
-
-        setSupportActionBar(toolbar);
-        setupDrawerContent(nvDrawer);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerToggle.syncState();
-        mDrawer.addDrawerListener(drawerToggle);
-        setTitle("");
 
         // fragment manager
         fragmentManager = getSupportFragmentManager();
@@ -92,6 +83,16 @@ public class MainActivity extends AppCompatActivity {
         if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
             setAdminView();
         }
+
+        // top/side nav bar
+        setSupportActionBar(toolbar);
+        setupDrawerContent(nvDrawer);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        drawerToggle.setDrawerIndicatorEnabled(true);
+        drawerToggle.syncState();
+        mDrawer.addDrawerListener(drawerToggle);
+        setTitle("");
     }
 
     // listener for when side/top toolbar is clicked
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     // sets view for admin account
     private void setAdminView() {
         bottomNavigationView.getMenu().removeItem(R.id.menu_discover);
+        nvDrawer.getMenu().findItem(R.id.sidebar_interests_fragment).setVisible(false);
     }
 
     // updates fragment view

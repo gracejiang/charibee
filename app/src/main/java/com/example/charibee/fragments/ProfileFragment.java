@@ -72,6 +72,8 @@ public class ProfileFragment extends Fragment {
         // admin
         if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
             btnEditProfile.setBackgroundColor(getResources().getColor(R.color.dark_red));
+            TextView tvInterests = view.findViewById(R.id.profile_interests_tv);
+            tvInterests.setVisibility(View.GONE);
         }
 
         // edit profile button clicked
