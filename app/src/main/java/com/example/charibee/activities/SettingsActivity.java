@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.charibee.data.RoleTheme;
 import com.example.service.R;
 import com.parse.ParseUser;
 
@@ -28,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_settings);
 
         // current user

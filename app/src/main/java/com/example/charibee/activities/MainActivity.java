@@ -15,11 +15,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.charibee.data.RoleTheme;
 import com.example.charibee.fragments.CommunityFragment;
 import com.example.charibee.fragments.DiscoverFragment;
 import com.example.charibee.fragments.HomeFragment;
 import com.example.charibee.fragments.MessagesFragment;
 import com.example.charibee.fragments.ProfileFragment;
+import com.example.charibee.models.User;
 import com.example.service.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -47,11 +49,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            getTheme().applyStyle(R.style.AdminTheme, true);
-        } else {
-            getTheme().applyStyle(R.style.VolunteerTheme, true);
-        }
+        // set theme based off if current user is admin or not
+        User user = new User(ParseUser.getCurrentUser());
+        RoleTheme.setIsAdmin(user.getRole().equals("Organizer"));
+        RoleTheme.applyTheme(this);
 
         setContentView(R.layout.activity_main);
 

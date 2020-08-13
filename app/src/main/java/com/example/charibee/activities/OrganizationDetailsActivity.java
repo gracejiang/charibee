@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.charibee.data.RoleTheme;
 import com.example.service.R;
 import com.example.charibee.adapters.VolunteersAdapter;
 import com.example.charibee.data.Data;
@@ -75,6 +76,7 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_organization_details);
 
         // current values

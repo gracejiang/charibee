@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.charibee.adapters.InterestsIconAdapter;
 import com.example.charibee.data.Data;
+import com.example.charibee.data.RoleTheme;
 import com.example.charibee.models.User;
 import com.example.service.R;
 import com.parse.ParseFile;
@@ -31,9 +32,6 @@ public class UserDetailsActivity extends AppCompatActivity {
     public static final String TAG = "UserDetailsActivity";
 
     User user;
-
-    // top toolbar
-    Toolbar toolbar;
 
     // ui views
     private ImageView ivAvatar;
@@ -51,6 +49,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_user_details);
 
         // unwrap
@@ -66,14 +65,12 @@ public class UserDetailsActivity extends AppCompatActivity {
         btnMsg = findViewById(R.id.user_details_msg_btn);
 
         // top nav bar
-        toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            setTitle("");
-        } else {
-            Log.i(TAG, "toolbar is null ://");
-        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        tvToolbarTitle.setText(user.getName());
+        setTitle("");
+
 
         // load values into views
         setValues();

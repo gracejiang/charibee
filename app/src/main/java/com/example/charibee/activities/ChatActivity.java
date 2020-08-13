@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.charibee.data.Data;
+import com.example.charibee.data.RoleTheme;
 import com.example.service.R;
 import com.example.charibee.adapters.ChatAdapter;
 import com.example.charibee.models.Message;
@@ -57,6 +58,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_chat);
 
         pCurrentUser = ParseUser.getCurrentUser();

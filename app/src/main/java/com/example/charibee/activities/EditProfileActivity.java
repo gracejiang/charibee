@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.charibee.data.RoleTheme;
 import com.example.service.R;
 import com.example.charibee.functions.BitmapScaler;
 import com.example.charibee.models.User;
@@ -70,6 +71,7 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_edit_profile);
 
         currentUser = ParseUser.getCurrentUser();

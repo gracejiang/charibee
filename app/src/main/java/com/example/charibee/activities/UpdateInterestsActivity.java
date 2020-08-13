@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.charibee.adapters.InterestsSelectAdapter;
+import com.example.charibee.data.RoleTheme;
 import com.example.charibee.models.User;
 import com.example.service.R;
 import com.parse.ParseUser;
@@ -31,6 +32,7 @@ public class UpdateInterestsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_update_interests);
 
         // set current data
