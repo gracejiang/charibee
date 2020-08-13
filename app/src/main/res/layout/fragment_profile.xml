@@ -102,13 +102,4 @@
         android:layout_marginTop="10dp" >
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/profile_edit_btn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/button_color"
-        android:text="Edit Profile"
-        android:textColor="@color/button_text_color" />
-
 </LinearLayout>

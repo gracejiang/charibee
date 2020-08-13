@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.charibee.activities.EditProfileActivity;
+import com.example.charibee.activities.UpdateInterestsActivity;
 import com.example.charibee.adapters.InterestsIconAdapter;
 import com.example.charibee.models.User;
 import com.example.service.R;
@@ -43,7 +46,6 @@ public class ProfileFragment extends Fragment {
     private TextView tvUsername;
     private TextView tvBio;
     private RecyclerView rvInterests;
-    private Button btnEditProfile;
 
     // adapter for interests
     private InterestsIconAdapter adapter;
@@ -63,7 +65,9 @@ public class ProfileFragment extends Fragment {
         tvUsername = view.findViewById(R.id.profile_username);
         tvBio = view.findViewById(R.id.profile_bio);
         rvInterests = view.findViewById(R.id.profile_interests_rv);
-        btnEditProfile = view.findViewById(R.id.profile_edit_btn);
+
+        // change toolbar layout
+        setHasOptionsMenu(true);
 
         return view;
     }
@@ -78,27 +82,30 @@ public class ProfileFragment extends Fragment {
 
         // set admin/volunteer views
         setAdminViews();
+    }
 
-        // edit profile button clicked
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    // options menu for editing profile & updating interests
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.profile_edit_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.pf_edit_pfp:
                 goEditProfileActivity();
-            }
-        });
-    }
-
-    private void setAdminViews() {
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnEditProfile.setBackgroundColor(getResources().getColor(R.color.dark_red));
-            ivAdmin.setImageResource(R.drawable.ic_admin);
-            tvInterests.setVisibility(View.GONE);
-            rvInterests.setVisibility(View.GONE);
-        } else {
-            ivAdmin.setVisibility(View.GONE);
+                return true;
+            case R.id.pf_update_interests:
+                goUpdateInterestsActivity();
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
+    // set values of all the ui fields
     private void setValues() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         user = new User(currentUser);
@@ -136,6 +143,18 @@ public class ProfileFragment extends Fragment {
         updateAdapter(user.getStringInterests());
     }
 
+    // if current user is an admin, change some views
+    private void setAdminViews() {
+        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+            ivAdmin.setImageResource(R.drawable.ic_admin);
+            tvInterests.setVisibility(View.GONE);
+            rvInterests.setVisibility(View.GONE);
+        } else {
+            ivAdmin.setVisibility(View.GONE);
+        }
+    }
+
+    // update the adapter for interests
     private void updateAdapter(List<String> interestsList) {
         adapter = new InterestsIconAdapter(getContext(), interestsList); // (1) create adapter
         rvInterests.setAdapter(adapter); // (2) set adapter on rv
@@ -143,13 +162,7 @@ public class ProfileFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void downloadAndShowImage(ParseFile profilePic) {
-        Glide.with(getContext())
-                .load(httpToHttps(profilePic.getUrl()))
-                .circleCrop()
-                .into(ivAvatar);
-    }
-
+    // updating values when profile edited
     @Override
     public void onResume() {
         super.onResume();
@@ -160,6 +173,20 @@ public class ProfileFragment extends Fragment {
     private void goEditProfileActivity() {
         Intent i = new Intent(getContext(), EditProfileActivity.class);
         startActivity(i);
+    }
+
+    // go to update interests activity
+    private void goUpdateInterestsActivity() {
+        Intent i = new Intent(getContext(), UpdateInterestsActivity.class);
+        startActivity(i);
+    }
+
+    // shows an image
+    private void downloadAndShowImage(ParseFile profilePic) {
+        Glide.with(getContext())
+                .load(httpToHttps(profilePic.getUrl()))
+                .circleCrop()
+                .into(ivAvatar);
     }
 
     // converts http link to https

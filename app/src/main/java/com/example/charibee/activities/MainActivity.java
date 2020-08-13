@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.sidebar_profile_fragment:
                 fragmentManager.beginTransaction().replace(R.id.main_frame_layout, profileFragment).commit();
-                // toolbar.setTitle(menuItem.getTitle());
                 tvToolbarTitle.setText(menuItem.getTitle());
                 break;
             case R.id.sidebar_interests_fragment:

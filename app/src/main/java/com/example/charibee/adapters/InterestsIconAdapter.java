@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,8 +83,9 @@ public class InterestsIconAdapter extends RecyclerView.Adapter<InterestsIconAdap
         return interests.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private String interest;
         private ImageView ivIcon;
 
         public ViewHolder(@NonNull View itemView) {
@@ -95,12 +97,20 @@ public class InterestsIconAdapter extends RecyclerView.Adapter<InterestsIconAdap
             // set current user values
             currentParseUser = ParseUser.getCurrentUser();
             currentUser = new User(currentParseUser);
+
+            // set on click listener to self
+            itemView.setOnClickListener(this);
         }
 
-        public void bind(String interest) {
-            ivIcon.setBackgroundResource(interestIcons.get(interest));
+        public void bind(String interestString) {
+            interest = interestString;
+            ivIcon.setBackgroundResource(interestIcons.get(interestString));
         }
 
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(context, interest, Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
