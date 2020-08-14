@@ -117,9 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="@color/button_color"
-                android:text="Join Organization"
-                android:textColor="@color/button_text_color" />
+                android:text="Join Organization" />
 
             <LinearLayout
                 android:layout_width="match_parent"

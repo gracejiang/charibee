@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.setDrawerIndicatorEnabled(true);
         drawerToggle.syncState();
         mDrawer.addDrawerListener(drawerToggle);
+        View headerView = nvDrawer.getHeaderView(0);
+        TextView tvSidebarWelcomeMsg = (TextView) headerView.findViewById(R.id.sidebar_header_tv);
+        tvSidebarWelcomeMsg.setText("Welcome back, " + user.getFirstName() + "!");
 
         // fragment manager
         fragmentManager = getSupportFragmentManager();
