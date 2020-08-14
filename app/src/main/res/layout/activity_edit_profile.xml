@@ -45,8 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:layout_marginTop="16dp"
-            android:text="Update Profile Picture"
-            android:textColor="@color/button_text_color" />
+            android:text="Update Profile Picture" />
 
         <EditText
             android:id="@+id/edit_profile_username"
@@ -87,8 +86,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_weight="1"
                 android:text="Save"
-                android:layout_marginLeft="6dp"
-                android:textColor="@color/button_text_color" />
+                android:layout_marginLeft="6dp" />
 
         </LinearLayout>
 

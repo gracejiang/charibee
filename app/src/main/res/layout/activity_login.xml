@@ -51,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/colorPrimaryDark"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
         android:text="Login"

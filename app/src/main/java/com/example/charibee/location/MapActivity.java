@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.charibee.data.RoleTheme;
 import com.example.service.R;
 import com.example.charibee.data.Data;
 import com.google.android.gms.common.ConnectionResult;
@@ -71,6 +72,7 @@ public class MapActivity extends AppCompatActivity implements OnConnectionFailed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_map);
 
         // set up places API client

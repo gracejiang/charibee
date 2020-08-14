@@ -2,32 +2,31 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">#212121</item>
-        <item name="buttonStyle">@color/button_color</item>
+        <item name="colorPrimary">@color/medium_cyan</item>
+        <item name="colorPrimaryDark">@color/dark_cyan</item>
+        <item name="colorAccent">@color/gold_yellow</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="PrimaryButton" parent="android:style/Widget.Button">
-        <item name="colorPrimary">?attr/colorPrimaryDark</item>
+        <item name="colorPrimary">?attr/colorPrimary</item>
     </style>
 
     <style name="AdminTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/medium_purple</item>
-        <item name="colorPrimaryDark">@color/dark_purple</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">#212121</item>
-        <item name="buttonStyle">@color/medium_purple</item>
+        <item name="colorPrimary">@color/medium_pink</item>
+        <item name="colorPrimaryDark">@color/dark_pink</item>
+        <item name="colorAccent">@color/gold_yellow</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="buttonStyle">@color/medium_pink</item>
     </style>
 
     <style name="VolunteerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/medium_green</item>
         <item name="colorPrimaryDark">@color/dark_green</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">#212121</item>
+        <item name="colorAccent">@color/gold_yellow</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="buttonStyle">@color/dark_green</item>
     </style>
 

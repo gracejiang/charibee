@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.example.service.R;
 import com.parse.ParseUser;
@@ -28,7 +27,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnLogin;
     private Button btnRegister;
     private ImageView ivIcon;
-    private CardView cvIcon;
     private TextView tvTitle;
 
     @Override
@@ -46,7 +44,6 @@ public class WelcomeActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.welcome_login_btn);
         btnRegister = findViewById(R.id.welcome_register_btn);
         ivIcon = findViewById(R.id.welcome_icon);
-        cvIcon = findViewById(R.id.welcome_icon_cardview);
         tvTitle = findViewById(R.id.welcome_title);
 
         // animate screen
@@ -80,7 +77,7 @@ public class WelcomeActivity extends AppCompatActivity {
         btnRegister.setAlpha(0);
 
         // animate icon
-        ObjectAnimator iconBounceAnim = ObjectAnimator.ofFloat(cvIcon, "y", 250);
+        ObjectAnimator iconBounceAnim = ObjectAnimator.ofFloat(ivIcon, "y", 250);
         iconBounceAnim.setDuration(1000);
         iconBounceAnim.setInterpolator(new BounceInterpolator());
 

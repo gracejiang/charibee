@@ -56,6 +56,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
+        android:tint="?attr/colorPrimary"
         android:src="@drawable/ic_gps_24" />
 
     <Button

@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFC107</color>
-    <color name="colorPrimaryDark">#ebb513</color>
-    <color name="colorAccent">#2196F3</color>
+    <color name="colorPrimary">@color/medium_cyan</color>
+    <color name="colorPrimaryDark">@color/dark_cyan</color>
+    <color name="colorAccent">@color/gold_yellow</color>
+    <color name="textColor">#212121</color>
+
+    <!-- random colors -->
+    <color name="medium_cyan">#00bcd4</color>
+    <color name="dark_cyan">#008394</color>
+    <color name="gold_yellow">#ffc107</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="medium_gray">#969696</color>
-
-    <!--old color scheme-->
-    <color name="pale_yellow">#f5ec89</color>
-    <color name="blue_1">#2196F3</color>
-    <color name="pale_blue">#42d1f5</color>
-    <color name="medium_blue">#06a6cf</color>
-    <color name="dark_blue">#005b73</color>
-    <color name="red">#d63131</color>
-    <color name="dark_red">#bf2c2c</color>
-    <color name="medium_pink">#d665d4</color>
-
     <color name="medium_purple">#9c27b0</color>
     <color name="dark_purple">#6d1b7b</color>
 
-    <color name="button_color">#689F38</color>
-    <color name="button_text_color">#ffffff</color>
+    <!-- admin -->
+    <color name="medium_pink">#e91eaf</color>
+    <color name="dark_pink">#a3157d</color>
 
+    <!-- volunteer -->
     <color name="medium_green">#8BC34A</color>
     <color name="dark_green">#689F38</color>
-    <color name="light_grey">#b3b3b3</color>
+
+    <!-- widgets -->
+    <color name="green">#8BC34A</color> <!-- card border -->
+    <color name="red">#d63131</color> <!-- card border -->
+    <color name="light_grey">#cfcfcf</color> <!-- cancel button -->
+    <color name="medium_gray">#969696</color> <!-- recycler view divider -->
 
 </resources>
