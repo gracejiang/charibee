@@ -87,7 +87,6 @@
                 android:id="@+id/edit_org_address_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/PrimaryButton"
                 android:text="Button" />
 
 
@@ -156,8 +155,7 @@
                     android:layout_marginLeft="6dp"
                     android:layout_weight="1"
                     android:text="Save"
-                    android:textColor="@color/button_text_color"
-                    android:theme="@style/PrimaryButton" />
+                    android:textColor="@color/button_text_color"/>
 
             </LinearLayout>
 

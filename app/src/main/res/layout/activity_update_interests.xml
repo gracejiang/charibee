@@ -46,10 +46,8 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_height"
                 android:layout_weight="1"
-                android:backgroundTint="@color/button_color"
                 android:text="Save"
-                android:layout_marginLeft="6dp"
-                android:textColor="@color/button_text_color" />
+                android:layout_marginLeft="6dp"/>
 
         </LinearLayout>
 

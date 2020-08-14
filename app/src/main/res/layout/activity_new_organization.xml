@@ -88,10 +88,9 @@
             android:id="@+id/new_org_submit_btn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
+            android:theme="@style/PrimaryButton"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/button_color"
-            android:text="Register Organization"
-            android:textColor="@color/button_text_color" />
+            android:text="Register Organization" />
 
     </LinearLayout>
 

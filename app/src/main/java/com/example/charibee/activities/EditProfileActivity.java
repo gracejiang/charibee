@@ -16,10 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
@@ -74,6 +76,7 @@ public class EditProfileActivity extends AppCompatActivity {
         RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_edit_profile);
 
+        // user details
         currentUser = ParseUser.getCurrentUser();
         user = new User(currentUser);
         photoFileName = currentUser.getUsername() + "_avatar.jpg";
@@ -88,6 +91,13 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // load in views
         loadInViews();
+
+        // top nav bar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        tvToolbarTitle.setText("Edit Profile");
+        setTitle("");
 
         // upload new profile pic clicked
         btnEditAvatar.setOnClickListener(new View.OnClickListener() {

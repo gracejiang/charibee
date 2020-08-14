@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +25,6 @@ public class SettingsActivity extends AppCompatActivity {
     private Button btnCancel;
     private Button btnSave;
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +39,13 @@ public class SettingsActivity extends AppCompatActivity {
         etConfirmNewPassword = findViewById(R.id.settings_confirm_new_password);
         btnCancel = findViewById(R.id.settings_cancel_btn);
         btnSave = findViewById(R.id.settings_save_btn);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        // set toolbar
+        // top nav bar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        setTitle("Settings");
+        tvToolbarTitle.setText("Settings");
+        setTitle("");
 
         // when cancel buton clicked
         btnCancel.setOnClickListener(new View.OnClickListener() {

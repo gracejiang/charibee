@@ -15,11 +15,11 @@
 
     <style name="AdminTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorPrimary">@color/medium_purple</item>
+        <item name="colorPrimaryDark">@color/dark_purple</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">#212121</item>
-        <item name="buttonStyle">@color/red</item>
+        <item name="buttonStyle">@color/medium_purple</item>
     </style>
 
     <style name="VolunteerTheme" parent="Theme.MaterialComponents.Light.NoActionBar">

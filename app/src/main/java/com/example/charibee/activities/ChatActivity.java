@@ -11,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.charibee.adapters.ChatAdapter;
 import com.example.charibee.data.Data;
 import com.example.charibee.data.RoleTheme;
-import com.example.service.R;
-import com.example.charibee.adapters.ChatAdapter;
 import com.example.charibee.models.Message;
 import com.example.charibee.models.MessageRelation;
 import com.example.charibee.models.User;
+import com.example.service.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -61,10 +61,12 @@ public class ChatActivity extends AppCompatActivity {
         RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_chat);
 
+        // set user info
         pCurrentUser = ParseUser.getCurrentUser();
         currentUser = new User(pCurrentUser);
         toUser = new User(Data.getToUser().getParseUser());
 
+        // set up message posting
         setupMessagePosting();
         refreshMessages();
     }

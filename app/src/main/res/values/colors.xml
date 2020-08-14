@@ -17,6 +17,9 @@
     <color name="dark_red">#bf2c2c</color>
     <color name="medium_pink">#d665d4</color>
 
+    <color name="medium_purple">#9c27b0</color>
+    <color name="dark_purple">#6d1b7b</color>
+
     <color name="button_color">#689F38</color>
     <color name="button_text_color">#ffffff</color>
 

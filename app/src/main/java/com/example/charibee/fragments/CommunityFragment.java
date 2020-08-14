@@ -51,10 +51,6 @@ public class CommunityFragment extends Fragment {
         btnSearch = v.findViewById(R.id.community_search_btn);
         rvUsers = v.findViewById(R.id.community_users_rv);
 
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnSearch.setBackgroundColor(getContext().getResources().getColor(R.color.dark_red));
-        }
-
         return v;
     }
 
