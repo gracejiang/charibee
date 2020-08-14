@@ -71,10 +71,8 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvToolbarTitle.setText(user.getName());
         setTitle("");
 
-
         // load values into views
         setValues();
-
 
         // when btn message clicked
         btnMsg.setOnClickListener(new OnClickListener() {

@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.charibee.activities.EditProfileActivity;
 import com.example.charibee.activities.UpdateInterestsActivity;
 import com.example.charibee.adapters.InterestsIconAdapter;
+import com.example.charibee.data.RoleTheme;
 import com.example.charibee.models.User;
 import com.example.service.R;
 import com.parse.ParseException;
@@ -88,10 +89,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.profile_edit_menu, menu);
+        inflater.inflate(R.menu.profile_frag_top_menu, menu);
 
         // if admin, hide interests setting
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
+        if (RoleTheme.isAdmin()) {
             menu.findItem(R.id.pf_update_interests).setVisible(false);
         }
 

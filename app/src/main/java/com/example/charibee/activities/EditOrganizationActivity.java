@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.charibee.data.Data;
 import com.example.charibee.data.RoleTheme;
@@ -36,6 +38,7 @@ public class EditOrganizationActivity extends AppCompatActivity {
     private EditText etWebsite;
     private EditText etEmail;
     private EditText etPhoneNumber;
+    private Button btnCancel;
     private Button btnSave;
 
     // spinner adapter
@@ -59,11 +62,27 @@ public class EditOrganizationActivity extends AppCompatActivity {
         etWebsite = findViewById(R.id.edit_org_website);
         etEmail = findViewById(R.id.edit_org_email);
         etPhoneNumber = findViewById(R.id.edit_org_phone_number);
+        btnCancel = findViewById(R.id.edit_org_cancel_btn);
         btnSave = findViewById(R.id.edit_org_save_btn);
 
         // load in views
         createCategoryAdapter();
         loadInViews();
+
+        // top nav bar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        tvToolbarTitle.setText("Edit " + org.getName());
+        setTitle("");
+
+        // when cancel button clicked
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // when save button clicked
         btnSave.setOnClickListener(new View.OnClickListener() {

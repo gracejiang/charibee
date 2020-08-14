@@ -96,7 +96,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 // launchCamera();
 
                 PopupMenu popup = new PopupMenu(EditProfileActivity.this, btnEditAvatar);
-                popup.getMenuInflater().inflate(R.menu.profile_pic_menu, popup.getMenu());
+                popup.getMenuInflater().inflate(R.menu.edit_profile_pic_menu, popup.getMenu());
 
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override

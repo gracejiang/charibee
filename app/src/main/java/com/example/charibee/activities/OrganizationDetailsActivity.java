@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -13,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,17 +55,17 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     private ImageButton btnAddress;
 
     private Button btnJoinOrg;
-    private Button btnEditOrg;
-    private Button btnDeleteOrg;
     private TextView tvOrganizer;
     private RecyclerView rvVolunteers;
+
+    // top menu
+    private Menu topMenu;
 
     // popup ui views
     private Dialog popupDialog;
     private ImageView ivPopupIcon;
     private TextView tvPopupText;
     private ImageView popupClose;
-
 
     // volunteer details
     private VolunteersAdapter adapter;
@@ -90,6 +94,13 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         // sets ui views
         setUiValues();
 
+        // top nav bar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        tvToolbarTitle.setText(org.getName());
+        setTitle("");
+
         // sets join or leave into button
         userInOrg = checkIfUserInOrg();
         setButtonValue(userInOrg);
@@ -114,25 +125,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
 
         // set visibility for edit, delete, and join/leave buttons based off if owner of org or not
         if (hasPermissionsToEdit()) {
-            // when edit org button pressed
-            btnEditOrg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    goEditOrganizationActivity();
-                }
-            });
-
-            // when delete button pressed
-            btnDeleteOrg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String name = org.getName();
-                    deleteOrg();
-                    goDiscoverFragment();
-                    makeMessage("Your organization " + name + " has been deleted.");
-                }
-            });
-
             // hide leave / join org button
             btnJoinOrg.setVisibility(View.GONE);
         } else {
@@ -151,11 +143,43 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
                     }
                 }
             });
-
-            // hide edit / delete org buttons
-            btnEditOrg.setVisibility(View.GONE);
-            btnDeleteOrg.setVisibility(View.GONE);
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        topMenu = menu;
+        getMenuInflater().inflate(R.menu.org_details_top_menu, menu);
+
+        // hide edit buttons depending on user
+        menu.findItem(R.id.org_details_toggle_mbtn).setVisible(false);
+        if (!hasPermissionsToEdit()) {
+            menu.findItem(R.id.org_details_edit_mbtn).setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.org_details_edit_mbtn:
+                goEditOrganizationActivity();
+                return true;
+            case R.id.org_details_toggle_mbtn:
+                if (userInOrg) {
+                    leaveOrganization();
+                    userInOrg = false;
+                    setButtonValue(userInOrg);
+                } else {
+                    joinOrganization();
+                    userInOrg = true;
+                    setButtonValue(userInOrg);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // bind ui values
@@ -174,8 +198,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         // other values
         tvOrganizer = findViewById(R.id.org_details_organizer);
         btnJoinOrg = findViewById(R.id.org_details_join_btn);
-        btnEditOrg = findViewById(R.id.org_details_edit_btn);
-        btnDeleteOrg = findViewById(R.id.org_details_delete_btn);
         rvVolunteers = findViewById(R.id.org_details_rv_volunteers);
     }
 
@@ -210,7 +232,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
         setIntoView(btnEmail, R.drawable.ic_email_24, email);
         setIntoView(btnAddress, R.drawable.ic_baseline_map_24, address);
     }
-
 
     // set value into view if value is not null
     private void setIntoView(final ImageButton ib, final int icon, final String value) {
@@ -320,26 +341,6 @@ public class OrganizationDetailsActivity extends AppCompatActivity {
     // display message to user
     private void makeMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    // delete an org
-    private void deleteOrg() {
-        List<ParseUser> parseUsers = org.getVolunteers();
-
-        for (ParseUser parseUser : parseUsers) {
-            User user = new User(parseUser);
-            user.removeOrg(org);
-            Log.i(TAG, user.getName()  + " deleteOrg: " + user.getOrganizations().size());
-        }
-
-        // org.deleteInBackground();
-    }
-
-    // go back to discover fragment
-    private void goDiscoverFragment() {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
     }
 
     // if current user has permissions to edit

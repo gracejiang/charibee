@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/default_margin"
     tools:context="com.example.charibee.activities.OrganizationDetailsActivity">
 
     <LinearLayout
@@ -12,125 +11,122 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/org_details_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/comfortaa"
-            android:text="Organization Name"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/org_details_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Category"
-            android:letterSpacing="0.15"
-            android:textSize="10dp"
-            android:textAllCaps="true" />
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-            <ImageButton
-                android:id="@+id/org_details_website_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_baseline_language_24" />
-
-            <ImageButton
-                android:id="@+id/org_details_phone_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="0dp"
-                android:layout_toEndOf="@+id/org_details_website_btn"
-                app:srcCompat="@drawable/ic_phone_24" />
-
-            <ImageButton
-                android:id="@+id/org_details_email_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="0dp"
-                android:layout_toEndOf="@+id/org_details_phone_btn"
-                app:srcCompat="@drawable/ic_email_24" />
-
-            <ImageButton
-                android:id="@+id/org_details_address_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="0dp"
-                android:layout_toEndOf="@+id/org_details_email_btn"
-                app:srcCompat="@drawable/ic_baseline_map_24" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/org_details_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Description" />
-
-        <TextView
-            android:id="@+id/org_details_organizer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="Organizer" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="All Members"
-            android:textStyle="bold" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/org_details_rv_volunteers"
+        <include
+            layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/org_details_join_btn"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/button_color"
-            android:text="Join Organization"
-            android:textColor="@color/button_text_color" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/default_margin">
+
+            <TextView
+                android:id="@+id/org_details_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa"
+                android:text="Organization Name"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/org_details_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Category"
+                android:letterSpacing="0.15"
+                android:textSize="10dp"
+                android:textAllCaps="true" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp">
+
+                <ImageButton
+                    android:id="@+id/org_details_website_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_language_24" />
+
+                <ImageButton
+                    android:id="@+id/org_details_phone_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toEndOf="@+id/org_details_website_btn"
+                    app:srcCompat="@drawable/ic_phone_24" />
+
+                <ImageButton
+                    android:id="@+id/org_details_email_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toEndOf="@+id/org_details_phone_btn"
+                    app:srcCompat="@drawable/ic_email_24" />
+
+                <ImageButton
+                    android:id="@+id/org_details_address_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toEndOf="@+id/org_details_email_btn"
+                    app:srcCompat="@drawable/ic_baseline_map_24" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/org_details_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description" />
+
+            <TextView
+                android:id="@+id/org_details_organizer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-light"
+                android:text="Organizer" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="All Members"
+                android:textStyle="bold" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/org_details_rv_volunteers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <Button
-                android:id="@+id/org_details_edit_btn"
+                android:id="@+id/org_details_join_btn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_height"
-                android:text="Edit Organization" />
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@color/button_color"
+                android:text="Join Organization"
+                android:textColor="@color/button_text_color" />
 
-            <Button
-                android:id="@+id/org_details_delete_btn"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height"
-                android:backgroundTint="@color/red"
-                android:textColor="@color/white"
-                android:text="Delete Organization" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"/>
+
 
         </LinearLayout>
 
