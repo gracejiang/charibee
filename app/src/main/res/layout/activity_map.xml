@@ -65,8 +65,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="18dp"
-        android:background="@color/button_color"
-        android:textColor="@color/button_text_color"
+        android:theme="@style/PrimaryButton"
         android:text="Set Location" />
 
 </RelativeLayout>

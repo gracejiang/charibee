@@ -72,9 +72,9 @@ public class ChatActivity extends AppCompatActivity {
     // Setup button event handler which posts the entered message to Parse
     void setupMessagePosting() {
         // bind ui views
-        etMessage = (EditText) findViewById(R.id.chat_message_et);
-        btnSend = (ImageButton) findViewById(R.id.chat_send_et);
-        rvChat = (RecyclerView) findViewById(R.id.chat_msg_rv);
+        etMessage = findViewById(R.id.chat_message_et);
+        btnSend = findViewById(R.id.chat_send_et);
+        rvChat = findViewById(R.id.chat_msg_rv);
 
         // set data values
         mMessages = new ArrayList<>();

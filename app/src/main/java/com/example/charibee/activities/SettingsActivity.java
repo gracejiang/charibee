@@ -42,12 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.settings_save_btn);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        // admin
-        // admin view
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnSave.setBackgroundColor(getResources().getColor(R.color.dark_red));
-        }
-
         // set toolbar
         setSupportActionBar(toolbar);
         setTitle("Settings");

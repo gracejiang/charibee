@@ -44,11 +44,6 @@ public class UpdateInterestsActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.update_interests_cancel_btn);
         btnSave = findViewById(R.id.update_interests_save_btn);
 
-        // admin
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnSave.setBackgroundColor(getResources().getColor(R.color.dark_red));
-        }
-
         // update adapter
         updateAdapter(user.getInterests());
 

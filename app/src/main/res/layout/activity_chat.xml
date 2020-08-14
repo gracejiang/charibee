@@ -49,7 +49,7 @@
             android:paddingRight="10dp"
             android:src="@drawable/ic_baseline_send_24"
             android:tint="@color/white"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             android:textSize="18sp" />
     </RelativeLayout>
 

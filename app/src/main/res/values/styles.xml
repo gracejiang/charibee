@@ -9,6 +9,10 @@
         <item name="buttonStyle">@color/button_color</item>
     </style>
 
+    <style name="PrimaryButton" parent="android:style/Widget.Button">
+        <item name="colorPrimary">?attr/colorPrimaryDark</item>
+    </style>
+
     <style name="AdminTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/red</item>

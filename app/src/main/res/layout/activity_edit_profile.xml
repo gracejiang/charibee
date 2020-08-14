@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/button_color"
+        android:theme="@style/PrimaryButton"
         android:text="Update Profile Picture"
         android:textColor="@color/button_text_color" />
 
@@ -77,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
             android:layout_weight="1"
-            android:backgroundTint="@color/button_color"
+            android:theme="@style/PrimaryButton"
             android:text="Save"
             android:layout_marginLeft="6dp"
             android:textColor="@color/button_text_color" />

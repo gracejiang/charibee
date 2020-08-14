@@ -12,13 +12,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.service.R;
 import com.example.charibee.data.Data;
+import com.example.charibee.data.RoleTheme;
 import com.example.charibee.functions.CategorySpinnerClass;
 import com.example.charibee.location.MapActivity;
 import com.example.charibee.models.Organization;
+import com.example.service.R;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class EditOrganizationActivity extends AppCompatActivity {
@@ -44,6 +44,7 @@ public class EditOrganizationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RoleTheme.applyTheme(this);
         setContentView(R.layout.activity_edit_organization);
 
         org = Data.getOrg();
@@ -59,12 +60,6 @@ public class EditOrganizationActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.edit_org_email);
         etPhoneNumber = findViewById(R.id.edit_org_phone_number);
         btnSave = findViewById(R.id.edit_org_save_btn);
-
-        // admin view
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnAddress.setBackgroundColor(getResources().getColor(R.color.dark_red));
-            btnSave.setBackgroundColor(getResources().getColor(R.color.dark_red));
-        }
 
         // load in views
         createCategoryAdapter();

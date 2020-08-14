@@ -11,6 +11,10 @@ public class RoleTheme {
     RoleTheme() {
     }
 
+    public static boolean isAdmin() {
+        return isAdmin;
+    }
+
     public static void setIsAdmin(Boolean bool) {
         isAdmin = bool;
     }

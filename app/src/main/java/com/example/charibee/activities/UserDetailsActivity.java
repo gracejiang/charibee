@@ -75,14 +75,8 @@ public class UserDetailsActivity extends AppCompatActivity {
         // load values into views
         setValues();
 
-        // admin
-        if (ParseUser.getCurrentUser().get("role").equals("Organizer")) {
-            btnMsg.setBackgroundColor(getResources().getColor(R.color.dark_red));
-        }
 
-        if (user.getId().equals(ParseUser.getCurrentUser().getObjectId())) {
-            btnMsg.setVisibility(View.GONE);
-        }
+        // when btn message clicked
         btnMsg.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +84,10 @@ public class UserDetailsActivity extends AppCompatActivity {
                 goChatActivity();
             }
         });
+
+        if (user.getId().equals(ParseUser.getCurrentUser().getObjectId())) {
+            btnMsg.setVisibility(View.GONE);
+        }
     }
 
     // go to chat activity
@@ -106,11 +104,18 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         // set admin
         if (user.getRole().equals("Organizer")) {
+            // hide interests
             TextView tvInterests = findViewById(R.id.user_details_interets_tv);
-            ivAdmin.setImageResource(R.drawable.ic_admin);
             tvInterests.setVisibility(View.GONE);
             rvInterests.setVisibility(View.GONE);
+
+            // show admin badge
+            ivAdmin.setImageResource(R.drawable.ic_admin);
         } else {
+            // show interests
+            updateAdapter(user.getStringInterests());
+
+            // hide admin badge
             ivAdmin.setVisibility(View.GONE);
         }
 
@@ -129,9 +134,6 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvFullName.setText(fullname);
         tvUsername.setText("@" + username);
         tvBio.setText(bio);
-
-        // set interests
-        updateAdapter(user.getStringInterests());
     }
 
     private void updateAdapter(List<String> interestsList) {
