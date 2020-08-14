@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/medium_cyan</item>
-        <item name="colorPrimaryDark">@color/dark_cyan</item>
+        <item name="colorPrimaryDark">@color/medium_gray</item>
         <item name="colorAccent">@color/gold_yellow</item>
         <item name="android:textColor">@color/textColor</item>
     </style>

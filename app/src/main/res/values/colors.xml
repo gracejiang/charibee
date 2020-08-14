@@ -13,6 +13,11 @@
     <color name="black">#000000</color>
     <color name="medium_purple">#9c27b0</color>
     <color name="dark_purple">#6d1b7b</color>
+    <color name="pale_yellow">#ffeb94</color>
+
+    <!-- login/register -->
+    <color name="login_color">@color/medium_green</color>
+    <color name="register_color">@color/medium_purple</color>
 
     <!-- admin -->
     <color name="medium_pink">#e91eaf</color>

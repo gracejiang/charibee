@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/dark_cyan"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context="com.example.charibee.activities.WelcomeActivity">
+
+    <TextView
+        android:id="@+id/welcome_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="@font/comfortaa"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="280dp"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="130dp">
 
         <ImageView
             android:id="@+id/welcome_icon"
@@ -25,48 +40,36 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/welcome_title"
+
+    <Button
+        android:id="@+id/welcome_login_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="100dp"
-        android:fontFamily="@font/comfortaa"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:layout_height="100dp"
+        android:layout_above="@+id/welcome_register_btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="-6dp"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginBottom="-12dp"
+        android:backgroundTint="@color/login_color"
+        android:fontFamily="sans-serif-light"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
-    <LinearLayout
+    <Button
+        android:id="@+id/welcome_register_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:padding="6dp">
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-6dp"
+        android:layout_marginEnd="-6dp"
+        android:layout_marginBottom="-6dp"
+        android:backgroundTint="@color/register_color"
+        android:fontFamily="sans-serif-light"
+        android:text="Register"
+        android:textAllCaps="false"
+        android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/welcome_login_btn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginRight="3dp"
-            android:layout_weight="1"
-            android:text="Login"
-            android:textColor="@color/white"
-            tools:layout_editor_absoluteX="44dp"
-            tools:layout_editor_absoluteY="650dp" />
-
-        <Button
-            android:id="@+id/welcome_register_btn"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginLeft="3dp"
-            android:layout_weight="1"
-            android:text="Register"
-            tools:layout_editor_absoluteX="286dp"
-            tools:layout_editor_absoluteY="650dp" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

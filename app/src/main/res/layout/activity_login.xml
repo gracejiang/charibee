@@ -53,6 +53,7 @@
         android:layout_marginTop="20dp"
         android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
+        android:backgroundTint="@color/login_color"
         android:text="Login"
         android:textColor="@color/white"
         android:topLeftRadius="10dp"
