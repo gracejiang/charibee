@@ -3,12 +3,13 @@ package com.example.charibee.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,7 +41,6 @@ public class UserDetailsActivity extends AppCompatActivity {
     private TextView tvUsername;
     private TextView tvBio;
     private RecyclerView rvInterests;
-    private Button btnMsg;
 
     // adapter for interests
     private InterestsIconAdapter adapter;
@@ -62,7 +62,6 @@ public class UserDetailsActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.user_details_username);
         tvBio = findViewById(R.id.user_details_bio);
         rvInterests = findViewById(R.id.user_details_interests);
-        btnMsg = findViewById(R.id.user_details_msg_btn);
 
         // top nav bar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -73,19 +72,32 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         // load values into views
         setValues();
+    }
 
-        // when btn message clicked
-        btnMsg.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    // options menu for messaging someone
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        getMenuInflater().inflate(R.menu.user_details_top_menu, menu);
+
+        // if viewing own profile, don't show message option
+        if (user.getId().equals(ParseUser.getCurrentUser().getObjectId())) {
+            menu.findItem(R.id.user_details_msg_mbtn).setVisible(false);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // when message button clicked
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_details_msg_mbtn:
                 Data.setToUser(user);
                 goChatActivity();
-            }
-        });
-
-        if (user.getId().equals(ParseUser.getCurrentUser().getObjectId())) {
-            btnMsg.setVisibility(View.GONE);
+                return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     // go to chat activity

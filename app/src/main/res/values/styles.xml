@@ -2,20 +2,21 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/medium_cyan</item>
+        <item name="colorPrimary">@color/medium_gray</item>
         <item name="colorPrimaryDark">@color/medium_gray</item>
         <item name="colorAccent">@color/gold_yellow</item>
         <item name="android:textColor">@color/textColor</item>
+
+        <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="android:contextPopupMenuStyle">@style/Widget.MaterialComponents.PopupMenu.ContextMenu</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
     </style>
 
-    <style name="PrimaryButton" parent="android:style/Widget.Button">
-        <item name="colorPrimary">?attr/colorPrimary</item>
-    </style>
 
     <style name="AdminTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/medium_pink</item>
-        <item name="colorPrimaryDark">@color/dark_pink</item>
+        <item name="colorPrimary">@color/medium_purple</item>
+        <item name="colorPrimaryDark">@color/dark_purple</item>
         <item name="colorAccent">@color/gold_yellow</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="buttonStyle">@color/medium_pink</item>
@@ -29,5 +30,10 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="buttonStyle">@color/dark_green</item>
     </style>
+
+    <style name="PrimaryButton" parent="android:style/Widget.Button">
+        <item name="colorPrimary">?attr/colorPrimary</item>
+    </style>
+
 
 </resources>

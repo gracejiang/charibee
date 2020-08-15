@@ -3,9 +3,11 @@ package com.example.charibee.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +45,13 @@ public class UpdateInterestsActivity extends AppCompatActivity {
         rvInterests = findViewById(R.id.update_interests_rv);
         btnCancel = findViewById(R.id.update_interests_cancel_btn);
         btnSave = findViewById(R.id.update_interests_save_btn);
+
+        // top nav bar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TextView tvToolbarTitle = findViewById(R.id.toolbar_title);
+        setSupportActionBar(toolbar);
+        tvToolbarTitle.setText("Update Your Interests");
+        setTitle("");
 
         // update adapter
         updateAdapter(user.getInterests());
