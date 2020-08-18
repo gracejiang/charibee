@@ -58,6 +58,9 @@ public class CommunityFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // resetting search
+        etSearch.setText("");
+
         // recycler view adapter
         allUsers = new ArrayList<>();
         updateAdapter(allUsers);

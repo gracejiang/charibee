@@ -191,10 +191,13 @@ public class MapActivity extends AppCompatActivity implements OnConnectionFailed
                         if (task.isSuccessful()) {
                             // Log.i(TAG, "onComplete: found location");
                             Location currLocation = (Location) task.getResult();
-                            LatLng currLocationLatLng = new LatLng(currLocation.getLatitude(), currLocation.getLongitude());
 
-                            // display current location
-                            moveCamera(currLocationLatLng, DEFAULT_ZOOM, "My Location");
+                            if (currLocation != null) {
+                                LatLng currLocationLatLng = new LatLng(currLocation.getLatitude(), currLocation.getLongitude());
+
+                                // display current location
+                                moveCamera(currLocationLatLng, DEFAULT_ZOOM, "My Location");
+                            }
 
                             // checks permissions (required for setMyLocationEnabled function)
                             if (ActivityCompat.checkSelfPermission(MapActivity.this, FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

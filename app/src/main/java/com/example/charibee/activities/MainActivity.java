@@ -40,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private TextView tvToolbarTitle;
 
-    HomeFragment homeFragment = new HomeFragment();
-    DiscoverFragment discoverFragment = new DiscoverFragment();
-    MessagesFragment messagesFragment = new MessagesFragment();
-    ProfileFragment profileFragment = new ProfileFragment();
-    CommunityFragment communityFragment = new CommunityFragment();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
         switch (menuItem.getItemId()) {
             case R.id.sidebar_profile_fragment:
-                fragmentManager.beginTransaction().replace(R.id.main_frame_layout, profileFragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.main_frame_layout, new ProfileFragment()).commit();
                 tvToolbarTitle.setText(menuItem.getTitle());
                 break;
             case R.id.sidebar_settings_fragment:
@@ -155,20 +149,20 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment;
         switch (fragmentId) {
             case R.id.menu_home:
-                fragment = homeFragment;
+                fragment = new HomeFragment();
                 break;
             case R.id.menu_discover:
-                fragment = discoverFragment;
+                fragment = new DiscoverFragment();
                 break;
             case R.id.menu_messages:
-                fragment = messagesFragment;
+                fragment = new MessagesFragment();
                 break;
             case R.id.menu_community:
-                fragment = communityFragment;
+                fragment = new CommunityFragment();
                 break;
             default:
                 Log.e(TAG, "default case should not be hit");
-                fragment = homeFragment;
+                fragment = new HomeFragment();
         }
         fragmentManager.beginTransaction().replace(R.id.main_frame_layout, fragment).commit();
     }

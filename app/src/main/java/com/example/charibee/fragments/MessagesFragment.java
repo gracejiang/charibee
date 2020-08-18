@@ -46,6 +46,14 @@ public class MessagesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        // populate data
+        allMsgsWith = Data.getCurrUser().getAllMessagesWith();
+        updateAdapter(allMsgsWith);
+        super.onResume();
+    }
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
